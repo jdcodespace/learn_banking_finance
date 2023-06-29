@@ -86,4 +86,8 @@ class DetailScreen extends StatelessWidget {
       ),
     );
   }
+
+  _detailText(){
+    return Container();
+  }
 }
