@@ -1,17 +1,22 @@
 import 'package:get/get.dart';
 
+import '../../../datamodel/bank_data.dart';
+
 class ListOfTaskController extends GetxController {
 
-  String title = "What to do?";
-  dynamic arguments = Get.arguments;
+  String title = "";
+  List<Accounting> blogData = [];
+  int mainIndex = 0;
 
   @override
   void onInit() {
-    /*if(arguments != null){
-      if(arguments[0] != null){
-        title = arguments[0];
+    if(Get.arguments != null){
+      if(Get.arguments[0] != null){
+        blogData = Get.arguments[0];
+        title = Get.arguments[1];
+        mainIndex = Get.arguments[2];
       }
-    }*/
+    }
     super.onInit();
   }
 

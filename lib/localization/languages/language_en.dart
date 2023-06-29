@@ -25,4 +25,10 @@ final Map<String, String> enUS = {
   'txtFinanceGuide': "Finance guide",
   'txtSavingAccount': "Saving account",
   'txtPersonalLoan': "Personal loan",
+
+  'txtTips': "Tips",
+  'txtTipsDesc': "Trading Tips and Tricks",
+
+  'txtFaq': "FAQ's",
+  'txtFaqDesc': "Banking, Finance & Accounting FAQ's",
 };

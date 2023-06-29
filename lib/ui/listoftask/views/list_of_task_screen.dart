@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
+import '../../../routes/app_routes.dart';
 import '../controllers/list_of_task_controller.dart';
 
 class ListOfTaskScreen extends StatelessWidget {
@@ -55,12 +56,14 @@ class ListOfTaskScreen extends StatelessWidget {
               margin: EdgeInsets.only(
                 left: Sizes.width_4,
               ),
-              child: Text(
-                logic.title,
-                style: TextStyle(
-                  color: CColor.black,
-                  fontSize: FontSize.size_12,
-                  fontWeight: FontWeight.w800,
+              child: Center(
+                child: Text(
+                  logic.title,
+                  style: TextStyle(
+                    color: CColor.black,
+                    fontSize: FontSize.size_12,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
@@ -77,43 +80,57 @@ class ListOfTaskScreen extends StatelessWidget {
             horizontal: Sizes.width_3, vertical: Sizes.height_2),
         child: ListView.builder(
           itemBuilder: (context, index) {
-            return _listItemViewAll(index);
+            return _listItemViewAll(index, logic);
           },
           shrinkWrap: true,
           physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: 10,
+          itemCount:
+              logic.blogData[0].detail![logic.mainIndex].dataList!.length,
           scrollDirection: Axis.vertical,
         ),
       ),
     );
   }
 
-  _listItemViewAll(int index) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: CColor.backgroundColor,
-          borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            child: Image.asset(
-              "assets/images/ic_bank.png",
-              height: Sizes.height_5,
-              width: Sizes.height_5,
+  _listItemViewAll(int index, ListOfTaskController logic) {
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.detail, arguments: [
+          logic.blogData,
+          logic.mainIndex,
+          index
+        ]);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: CColor.backgroundColor,
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Image.asset(
+                "assets/images/ic_bank.png",
+                height: Sizes.height_5,
+                width: Sizes.height_5,
+              ),
             ),
-          ),
-          Text(
-            "Saving account basic",
-            style: TextStyle(
-              color: CColor.black,
-              fontSize: FontSize.size_12,
-              fontWeight: FontWeight.w500,
-            ),
-          )
-        ],
+            Expanded(
+              child: Text(
+                logic
+                    .blogData[0].detail![logic.mainIndex].dataList![index].title
+                    .toString(),
+                style: TextStyle(
+                  color: CColor.black,
+                  fontSize: FontSize.size_12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

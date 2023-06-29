@@ -47,6 +47,7 @@ class HomeController extends GetxController {
         ),
         "txtRateApp".tr));
     listData.add(ItemMenuClass(
+
         Icon(
           Icons.email_rounded,
           color: CColor.borderColor,
@@ -64,9 +65,9 @@ class HomeController extends GetxController {
 
   void getCategoryListData() {
     categoryListData.add(CategoryFinanceClass("","txtCategoryBanking".tr,"/banking"));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryAccounting".tr,""));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryBookmarks".tr,""));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryTips".tr,""));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryFAQ".tr,""));
+    categoryListData.add(CategoryFinanceClass("","txtCategoryAccounting".tr,"/banking"));
+    categoryListData.add(CategoryFinanceClass("","txtCategoryBookmarks".tr,"/bookMarks"));
+    categoryListData.add(CategoryFinanceClass("","txtCategoryTips".tr,"/tips"));
+    categoryListData.add(CategoryFinanceClass("","txtCategoryFAQ".tr,"/faq"));
   }
 }

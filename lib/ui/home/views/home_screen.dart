@@ -177,10 +177,10 @@ class HomeScreen extends StatelessWidget {
   _itemOfCategory(int index, CategoryFinanceClass categoryListData) {
     return InkWell(
       onTap: () {
-        /*if(categoryListData.screenName != ""){
-          Get.toNamed(categoryListData.screenName.toString(),arguments: [categoryListData]);
-        }*/
-        Get.toNamed(AppRoutes.detail);
+        if (categoryListData.screenName != "") {
+          Get.toNamed(categoryListData.screenName.toString(),
+              arguments: [categoryListData]);
+        }
       },
       child: Container(
         width: Sizes.width_40,
@@ -216,7 +216,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
 
   /*Drawer section*/
   _widgetDrawer(HomeController logic) {
@@ -272,16 +271,14 @@ class HomeScreen extends StatelessWidget {
 
   _itemMenu(int index, ItemMenuClass listData) {
     return InkWell(
-      onTap: () {
-
-      },
+      onTap: () {},
       child: Container(
         margin: EdgeInsets.only(top: Sizes.height_3),
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(
-                  left: Sizes.width_4, right: Sizes.width_2),
+              margin:
+                  EdgeInsets.only(left: Sizes.width_4, right: Sizes.width_2),
               child: listData.icon,
             ),
             Container(
@@ -318,5 +315,5 @@ class CategoryFinanceClass {
   String? title;
   String? screenName;
 
-  CategoryFinanceClass(this.image, this.title,this.screenName);
+  CategoryFinanceClass(this.image, this.title, this.screenName);
 }

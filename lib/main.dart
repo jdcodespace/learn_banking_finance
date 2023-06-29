@@ -1,7 +1,8 @@
-import 'dart:io';
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:learn_banking_finance/connectivitymanager/connectivitymanager.dart';
+import 'package:learn_banking_finance/datamodel/bank_data.dart';
 import 'package:learn_banking_finance/localization/locale_constant.dart';
 import 'package:learn_banking_finance/routes/app_pages.dart';
 import 'package:learn_banking_finance/routes/app_routes.dart';
@@ -10,27 +11,40 @@ import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
-import 'package:learn_banking_finance/utils/utils.dart';
 import 'localization/localizations_delegate.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:get/get.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+
 
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await Preference().instance();
   await InternetConnectivity().instance();
 
-  _configureLocalTimeZone();
+  await getFirebaseData();
+
+  await Future.delayed(const Duration(milliseconds: 3000));
   runApp(const MyApp());
 }
 
-Future<void> _configureLocalTimeZone() async {
+/*Future<void> _configureLocalTimeZone() async {
   tz.initializeTimeZones();
   final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
+}*/
+
+Future<void> getFirebaseData() async {
+  FirebaseDatabase.instance.reference().once().then((value) {
+    var categoriesData = value.snapshot.value as Map;
+    if (categoriesData["data"] != null) {
+      Constant.firebaseBankData = BankData.fromJson(categoriesData);
+      Debug.printLog("Constant.firebaseBankData....................${Constant.firebaseBankData.data!.accounting!.length}   ${Constant.firebaseBankData.data!.accounting!.length}  ");
+
+    }
+  });
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

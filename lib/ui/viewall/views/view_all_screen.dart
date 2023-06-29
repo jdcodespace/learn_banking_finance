@@ -55,12 +55,14 @@ class ViewAllScreen extends StatelessWidget {
               margin: EdgeInsets.only(
                 left: Sizes.width_4,
               ),
-              child: Text(
-                logic.title,
-                style: TextStyle(
-                  color: CColor.black,
-                  fontSize: FontSize.size_12,
-                  fontWeight: FontWeight.w800,
+              child: Center(
+                child: Text(
+                  logic.title,
+                  style: TextStyle(
+                    color: CColor.black,
+                    fontSize: FontSize.size_12,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
@@ -77,20 +79,20 @@ class ViewAllScreen extends StatelessWidget {
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return _listItemViewAll(index);
+          return _listItemViewAll(index,logic);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 5,
+        itemCount: logic.blogData[0].detail!.length,
         scrollDirection: Axis.vertical,
       ),
     );
   }
 
-  _listItemViewAll(int index) {
+  _listItemViewAll(int index,ViewAllController logic) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask);
+        Get.toNamed(AppRoutes.listOfTask,arguments: [logic.blogData, logic.blogData[0].detail![index].title.toString(),index]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -110,7 +112,7 @@ class ViewAllScreen extends StatelessWidget {
               ),
             ),
             Text(
-              "Saving account basic",
+              logic.blogData[0].detail![index].title.toString(),
               style: TextStyle(
                 color: CColor.black,
                 fontSize: FontSize.size_12,

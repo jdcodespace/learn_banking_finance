@@ -1,3 +1,5 @@
+import 'package:learn_banking_finance/datamodel/bank_data.dart';
+
 import 'debug.dart';
 
 class Constant {
@@ -84,6 +86,8 @@ class Constant {
   static const campaignFileTypeGiftQrLogo = "gift_qr_logo";
   static const campaignFileTypeLogo = "logo";
 
+
+  static BankData firebaseBankData = BankData();
   static getMainURL() {
     if (Debug.sandboxApiUrl) {
       return developingURL;

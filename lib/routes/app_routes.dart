@@ -4,4 +4,7 @@ class AppRoutes {
   static const String viewAll = '/viewAll';
   static const String listOfTask = '/listOfTask';
   static const String detail = '/detail';
+  static const String bookMarks = '/bookMarks';
+  static const String faq = '/faq';
+  static const String tips = '/tips';
 }

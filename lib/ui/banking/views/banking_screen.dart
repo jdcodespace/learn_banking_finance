@@ -25,11 +25,11 @@ class BankingScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _firstViewHeader(),
-                      _widgetBlogNews(),
-                      _widgetLearnBanking(),
-                      _widgetFinanceLearn(),
-                      _widgetSavingAccount(),
-                      _widgetPersonalLoan(),
+                      _widgetBlogNews(logic),
+                      _widgetLearnBanking(logic),
+                      _widgetFinanceLearn(logic),
+                      _widgetSavingAccount(logic),
+                      _widgetPersonalLoan(logic),
                     ],
                   ),
                 ),
@@ -66,15 +66,22 @@ class BankingScreen extends StatelessWidget {
               margin: EdgeInsets.only(
                 left: Sizes.width_4,
               ),
-              child: Text(
-                logic.categoryFinanceClass!.title.toString(),
-                style: TextStyle(
-                  color: CColor.black,
-                  fontSize: FontSize.size_12,
-                  fontWeight: FontWeight.w800,
+              child: Center(
+                child: Text(
+                  logic.categoryFinanceClass!.title.toString(),
+                  style: TextStyle(
+                    color: CColor.black,
+                    fontSize: FontSize.size_12,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
+          ),
+          Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: Sizes.height_2,
+            color: Colors.transparent,
           ),
         ],
       ),
@@ -133,10 +140,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-
-
   /// ****************************Blog and news section*****************************
-  _widgetBlogNews() {
+  _widgetBlogNews(BankingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -160,7 +165,7 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll,arguments: ["txtBlogNews".tr]);
+                Get.toNamed(AppRoutes.viewAll, arguments: ["txtBlogNews".tr]);
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -182,6 +187,7 @@ class BankingScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
+            Get.toNamed(AppRoutes.listOfTask,arguments: [logic.blogData,logic.title,0]);
           },
           child: Container(
             width: double.infinity,
@@ -204,8 +210,8 @@ class BankingScreen extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(top: Sizes.height_2),
                   child: Text(
+                    logic.title,
                     overflow: TextOverflow.ellipsis,
-                    "Banking",
                     style: TextStyle(
                       color: CColor.black,
                       fontWeight: FontWeight.w500,
@@ -222,10 +228,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-
-
   /// ****************************Learn banking section*****************************
-  _widgetLearnBanking() {
+  _widgetLearnBanking(BankingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -254,7 +258,7 @@ class BankingScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: 4,
+            itemCount: logic.learnBankingData[0].detail!.length,
             itemBuilder: (context, index) {
               return _listItemLearnBanking(index);
             },
@@ -303,10 +307,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-
-
   /// ****************************Finance guide*****************************
-  _widgetFinanceLearn() {
+  _widgetFinanceLearn(BankingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -384,10 +386,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-
-
   /// ****************************Saving account*****************************
-  _widgetSavingAccount() {
+  _widgetSavingAccount(BankingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -448,9 +448,8 @@ class BankingScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: CColor.backgroundColor,
-        borderRadius: BorderRadius.circular(10)
-      ),
+          color: CColor.backgroundColor,
+          borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           Container(
@@ -474,10 +473,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-
-
   /// ****************************Personal load guide*****************************
-  _widgetPersonalLoan() {
+  _widgetPersonalLoan(BankingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -575,5 +572,4 @@ class BankingScreen extends StatelessWidget {
       ),
     );
   }
-
 }

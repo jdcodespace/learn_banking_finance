@@ -20,6 +20,8 @@ class DetailScreen extends StatelessWidget {
               return Column(
                 children: [
                   _appBar(logic, context),
+                  _centerView(logic),
+                  _nextPreviousButton(logic),
                 ],
               );
             },
@@ -74,20 +76,109 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  _centerView() {
+  _centerView(DetailController logic) {
     return Expanded(
       child: PageView.builder(
+        controller: logic.pageController,
+
         itemBuilder: (context, index) {
-          return Container();
+          return _descriptionItem(logic, index);
         },
-        itemCount: 5,
-        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: logic
+            .blogData[0].detail![logic.mainIndex].dataList!.length,
+        physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
       ),
     );
   }
 
-  _detailText(){
-    return Container();
+  _descriptionItem(DetailController logic, int index) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: Get.height * 0.21,
+            color: CColor.backgroundColor,
+            child: Center(
+              child: Text(
+                logic.blogData[0].detail![logic.mainIndex]
+                    .dataList![index].title
+                    .toString(),
+                style: TextStyle(
+                  fontSize: FontSize.size_20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: Get.height * 0.25,
+              decoration: BoxDecoration(
+                color: CColor.backgroundColor.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.black),
+              ),
+              child: const Center(child: Text("Small native ad")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              logic.blogData[0].detail![logic.mainIndex]
+                  .dataList![index].desc
+                  .toString(),
+              style: TextStyle(
+                fontSize: FontSize.size_12,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _nextPreviousButton(DetailController logic) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () {
+              logic.pageController.previousPage(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeIn);
+            },
+            child: const CircleAvatar(
+              maxRadius: 30,
+              backgroundColor: CColor.backgroundColor,
+              child: Icon(
+                Icons.arrow_back_ios_new_outlined,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          const Spacer(),
+          InkWell(
+            onTap: () {
+              logic.pageController.nextPage(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeIn);
+            },
+            child: const CircleAvatar(
+              maxRadius: 30,
+              backgroundColor: CColor.backgroundColor,
+              child: Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
