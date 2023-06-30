@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/ui/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
-import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
+import '../../../facebook_ads/native/facebook_native_small.dart';
+import '../../../google_ads/native/native_small_page.dart';
+import '../../../utils/debug.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -50,13 +51,17 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(bottom: 1),
                     decoration: BoxDecoration(
-                        color: CColor.opacityBlack10,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: CColor.black, width: 2)),
+                      color: CColor.opacityBlack10,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     height: 200,
                     width: double.infinity,
                     alignment: Alignment.center,
-                    child: const Text("Small native ad"),
+                    child: (Debug.adType == Debug.adGoogleType &&
+                            Debug.isShowAd &&
+                            Debug.isNativeAd)
+                        ? NativeInlinePageSmall(context: context)
+                        : smallNativeAdFacebook(context),
                   )
                 ],
               );
@@ -163,7 +168,8 @@ class HomeScreen extends StatelessWidget {
             right: Sizes.width_2,
           ),
           itemBuilder: (context, index) {
-            return _itemOfCategory(index, logic.categoryListData[index]);
+            return _itemOfCategory(
+                index, logic.categoryListData[index], logic, context);
           },
           physics: const AlwaysScrollableScrollPhysics(),
           shrinkWrap: false,
@@ -174,13 +180,16 @@ class HomeScreen extends StatelessWidget {
     });
   }
 
-  _itemOfCategory(int index, CategoryFinanceClass categoryListData) {
+  _itemOfCategory(int index, CategoryFinanceClass categoryListData,
+      HomeController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        if (categoryListData.screenName != "") {
-          Get.toNamed(categoryListData.screenName.toString(),
-              arguments: [categoryListData]);
-        }
+        logic.showInterAdOutCat(context, () {
+          if (categoryListData.screenName != "") {
+            Get.toNamed(categoryListData.screenName.toString(),
+                arguments: [categoryListData]);
+          }
+        });
       },
       child: Container(
         width: Sizes.width_40,

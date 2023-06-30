@@ -6,6 +6,7 @@ class CColor {
   static const opacityWhite = Color(0x50FFFFFF);
   static const black = Color(0xff000000);
   static const opacityBlack80 = Color(0x80000000);
+  static const black12 = Color(0xff1c1c1c);
   static const opacityBlack10 = Color(0x10000000);
   static const borderColor = Color(0xffB2B2B2);
   static const dotGrayColor = Color(0xffCCCCCC);

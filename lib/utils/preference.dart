@@ -28,6 +28,11 @@ class Preference {
   static const String adImage = "AD_IMAGE";
   static const String adLogo = "AD_LOGO";
 
+  static int currentAdCount = 1;
+  static int totalAttemptCount = 2;
+  static int totalAttemptCountNative = 2;
+  static int totalAttemptCountRewarded = 2;
+
   // ------------------ SINGLETON -----------------------
   static final Preference _preference = Preference._internal();
 

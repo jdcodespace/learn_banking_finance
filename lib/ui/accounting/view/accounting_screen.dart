@@ -39,6 +39,7 @@ class AccountingScreen extends StatelessWidget {
       );
     });
   }
+
   Widget _appBar(AccountingController logic, BuildContext context) {
     return Container(
       color: CColor.white,
@@ -163,7 +164,8 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtLearnBlogNews".tr,logic.blogData]);
+                Get.toNamed(AppRoutes.viewAll,
+                    arguments: ["txtLearnBlogNews".tr, logic.blogData]);
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -257,7 +259,7 @@ class AccountingScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: logic.advancedTopicData[0].detail!.length,
+            itemCount: logic.introductionData[0].detail!.length,
             itemBuilder: (context, index) {
               return _listItemLearnBanking(index, logic);
             },
@@ -271,8 +273,8 @@ class AccountingScreen extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.advancedTopicData,
-          logic.advancedTopicData[0].detail![index].title.toString(),
+          logic.introductionData,
+          logic.introductionData[0].detail![index].title.toString(),
           index
         ]);
       },
@@ -297,7 +299,7 @@ class AccountingScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: Sizes.height_2),
               child: Text(
                 overflow: TextOverflow.ellipsis,
-                logic.advancedTopicData[0].detail![index].title.toString(),
+                logic.introductionData[0].detail![index].title.toString(),
                 style: TextStyle(
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
@@ -342,9 +344,9 @@ class AccountingScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: 2,
+            itemCount: logic.accountingData[0].detail!.length,
             itemBuilder: (context, index) {
-              return _listItemLearnFinance(index);
+              return _listItemLearnFinance(index, logic);
             },
           ),
         )
@@ -352,9 +354,15 @@ class AccountingScreen extends StatelessWidget {
     );
   }
 
-  _listItemLearnFinance(int index) {
+  _listItemLearnFinance(int index, AccountingController logic) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoutes.listOfTask, arguments: [
+          logic.accountingData,
+          logic.accountingData[0].detail![index].title.toString(),
+          index
+        ]);
+      },
       child: Container(
         width: Sizes.width_40,
         height: 150,
@@ -376,7 +384,7 @@ class AccountingScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: Sizes.height_2),
               child: Text(
                 overflow: TextOverflow.ellipsis,
-                "title",
+                logic.accountingData[0].detail![index].title.toString(),
                 style: TextStyle(
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
@@ -416,7 +424,8 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtLearnEvolution".tr,logic.evolutionData]);
+                Get.toNamed(AppRoutes.viewAll,
+                    arguments: ["txtLearnEvolution".tr, logic.evolutionData]);
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -441,7 +450,7 @@ class AccountingScreen extends StatelessWidget {
               horizontal: Sizes.width_3, vertical: Sizes.height_2),
           child: ListView.builder(
             itemBuilder: (context, index) {
-              return _listItemSavingAccount(index);
+              return _listItemSavingAccount(index, logic);
             },
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -453,32 +462,41 @@ class AccountingScreen extends StatelessWidget {
     );
   }
 
-  _listItemSavingAccount(int index) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: CColor.backgroundColor,
-          borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            child: Image.asset(
-              "assets/images/ic_bank.png",
-              height: Sizes.height_5,
-              width: Sizes.height_5,
+  _listItemSavingAccount(int index, AccountingController logic) {
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.listOfTask, arguments: [
+          logic.evolutionData,
+          logic.evolutionData[0].detail![index].title.toString(),
+          index
+        ]);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: CColor.backgroundColor,
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Image.asset(
+                "assets/images/ic_bank.png",
+                height: Sizes.height_5,
+                width: Sizes.height_5,
+              ),
             ),
-          ),
-          Text(
-            "Saving account basic",
-            style: TextStyle(
-              color: CColor.black,
-              fontSize: FontSize.size_12,
-              fontWeight: FontWeight.w500,
-            ),
-          )
-        ],
+            Text(
+              logic.evolutionData[0].detail![index].title.toString(),
+              style: TextStyle(
+                color: CColor.black,
+                fontSize: FontSize.size_12,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -508,7 +526,8 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtLearnTopics".tr,logic.advancedTopicData]);
+                Get.toNamed(AppRoutes.viewAll,
+                    arguments: ["txtLearnTopics".tr, logic.advancedTopicData]);
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -541,7 +560,7 @@ class AccountingScreen extends StatelessWidget {
             ),
             itemCount: 2,
             itemBuilder: (context, index) {
-              return _listItemPersonalLoan(index);
+              return _listItemPersonalLoan(index, logic);
             },
           ),
         )
@@ -549,9 +568,15 @@ class AccountingScreen extends StatelessWidget {
     );
   }
 
-  _listItemPersonalLoan(int index) {
+  _listItemPersonalLoan(int index, AccountingController logic) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoutes.listOfTask, arguments: [
+          logic.advancedTopicData,
+          logic.advancedTopicData[0].detail![index].title.toString(),
+          index
+        ]);
+      },
       child: Container(
         width: Sizes.width_40,
         height: 150,
@@ -573,7 +598,7 @@ class AccountingScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: Sizes.height_2),
               child: Text(
                 overflow: TextOverflow.ellipsis,
-                "title",
+                logic.advancedTopicData[0].detail![index].title.toString(),
                 style: TextStyle(
                   color: CColor.black,
                   fontWeight: FontWeight.w500,

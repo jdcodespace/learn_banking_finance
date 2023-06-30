@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../facebook_ads/inter/facebook_inter_ad.dart';
+import '../../../google_ads/ad_helper.dart';
+import '../../../google_ads/inter/interAd.dart';
+import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
+import '../../../utils/debug.dart';
+import '../../../utils/preference.dart';
 import '../../../utils/sizer_utils.dart';
 import '../views/home_screen.dart';
 
@@ -9,6 +15,7 @@ class HomeController extends GetxController {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   List<ItemMenuClass> listData = [];
   List<CategoryFinanceClass> categoryListData = [];
+  String string = '';
 
   @override
   void onInit() {
@@ -70,4 +77,30 @@ class HomeController extends GetxController {
     categoryListData.add(CategoryFinanceClass("","txtCategoryTips".tr,"/tips"));
     categoryListData.add(CategoryFinanceClass("","txtCategoryFAQ".tr,"/faq"));
   }
+
+  showInterAdOutCat(BuildContext context,
+      Function callback ) {
+    if (Debug.isShowAd &&
+        Debug.isShowInter &&
+        AdHelper.interstitialAdUnitId != "" &&
+        Debug.adType == Debug.adGoogleType) {
+      loadAd(
+            () {
+             callback.call();
+        },
+        context,
+      );
+    } else if (Debug.isShowAd &&
+        Debug.isShowInter &&
+        AdHelper.interstitialAdUnitIdFacebook != "" &&
+        Debug.adType == Debug.adFacebookType) {
+      loadInterFacebookOutCat(context, () {
+        callback.call();
+      });
+    } else {
+      Preference.currentAdCount++;
+      callback.call();
+    }
+  }
+
 }

@@ -42,10 +42,13 @@ dependencies:
   connectivity_plus: ^2.2.0
   intl:
   fluttertoast: ^8.0.7
+  google_mobile_ads: ^3.0.0
   rxdart: ^0.27.2
   timezone: ^0.8.0
   firebase_core: ^2.9.0
+  facebook_audience_network: ^1.0.1
   firebase_database: ^10.2.1
+  flutter_svg: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +66,39 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+    - family: inter
+      fonts:
+        - asset: font/inter_regular.ttf
+          weight: 200
+    - family: Delicious Handrawn
+      fonts:
+        - asset: font/delicious_handrawn_regular.ttf
+          weight: 400
+    - family: Rubik Pixels
+      fonts:
+        - asset: font/rubik_pixels_regular.ttf
+          weight: 400
+    - family: Amatic SC
+      fonts:
+        - asset: font/amaticsc_regular.ttf
+          weight: 400
+        - asset: font/amaticsc_bold.ttf
+          weight: 700
+    - family: Poppins
+      fonts:
+        - asset: font/poppins-regular.ttf
+          weight: 400
+        - asset: font/poppins-bold.ttf
+          weight: 700
+        - asset: font/poppins-extrabold.ttf
+          weight: 800
+        - asset: font/poppins-extralight.ttf
+          weight: 200
+        - asset: font/poppins-light.ttf
+          weight: 300
+        - asset: font/poppins-medium.ttf
+          weight: 500
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
