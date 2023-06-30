@@ -83,7 +83,7 @@ class ViewAllScreen extends StatelessWidget {
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: logic.blogData[0].detail!.length,
+        itemCount: logic.bankData[0].detail!.length,
         scrollDirection: Axis.vertical,
       ),
     );
@@ -92,7 +92,7 @@ class ViewAllScreen extends StatelessWidget {
   _listItemViewAll(int index,ViewAllController logic) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask,arguments: [logic.blogData, logic.blogData[0].detail![index].title.toString(),index]);
+        Get.toNamed(AppRoutes.listOfTask,arguments: [logic.bankData, logic.bankData[0].detail![index].title.toString(),index]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -112,7 +112,7 @@ class ViewAllScreen extends StatelessWidget {
               ),
             ),
             Text(
-              logic.blogData[0].detail![index].title.toString(),
+              logic.bankData[0].detail![index].title.toString(),
               style: TextStyle(
                 color: CColor.black,
                 fontSize: FontSize.size_12,

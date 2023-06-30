@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:learn_banking_finance/ui/accounting/bindings/accounting_binding.dart';
+import 'package:learn_banking_finance/ui/accounting/view/accounting_screen.dart';
 import 'package:learn_banking_finance/ui/banking/bindings/banking_binding.dart';
 import 'package:learn_banking_finance/ui/banking/views/banking_screen.dart';
 import 'package:learn_banking_finance/ui/bookmarks/bindings/bookmarks_binding.dart';
@@ -172,6 +174,25 @@ class AppPages {
         },
       ),
       binding: BookMarksBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+    ),
+
+    GetPage(
+      name: AppRoutes.accounting,
+      page: () => Sizer(
+        builder: (context, orientation, deviceType) {
+          return  const AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: CColor.transparent,
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarIconBrightness: Brightness.light,
+            ),
+            child: AccountingScreen(),
+          );
+        },
+      ),
+      binding: AccountingBinding(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),

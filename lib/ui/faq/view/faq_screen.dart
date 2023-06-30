@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/faq/controller/faq_controller.dart';
 
-import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
 import '../../../utils/sizer_utils.dart';
 
@@ -138,7 +137,7 @@ class FaqScreen extends StatelessWidget {
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 5,
+        itemCount: logic.faqData.length,
         scrollDirection: Axis.vertical,
       ),
     );
@@ -170,7 +169,7 @@ class FaqScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "Saving account basic",
+                    logic.faqData[index].title.toString(),
                     style: TextStyle(
                       color: CColor.black,
                       fontSize: FontSize.size_12,
@@ -194,7 +193,7 @@ class FaqScreen extends StatelessWidget {
             Visibility(
               visible: (index == logic.selectedIndex) ? logic.isVisible : false,
               child: Text(
-                "Bridging finance refers to a short-term loan or financial arrangement that is typically used to 'bridge' a gap between the need for immediate funds and the availability of more permanent financing. It is often used in real estate transactions when there is a delay in the completion of a sale or the availability of long-term financing.Bridging finance is commonly used when a property purchase is involved, but the buyer needs immediate funds to secure the property or cover other costs. It allows the buyer to proceed with the purchase before selling an existing property or finalizing long-term financing. Once the sale or long-term financing is complete, the bridging loan is repaid.",
+                logic.faqData[index].desc.toString(),
                 style: TextStyle(
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w400,

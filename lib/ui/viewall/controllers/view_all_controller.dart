@@ -7,7 +7,7 @@ class ViewAllController extends GetxController {
 
   String title = "";
   dynamic arguments = Get.arguments;
-  List<Accounting> blogData = [];
+  List<Accounting> bankData = [];
 
   @override
   void onInit() {
@@ -15,8 +15,10 @@ class ViewAllController extends GetxController {
       if(arguments[0] != null){
         title = arguments[0];
       }
+      if(arguments[1] != null){
+        bankData = arguments[1];
+      }
     }
-    blogData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Blogs").toList();
     super.onInit();
   }
 

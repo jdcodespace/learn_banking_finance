@@ -80,12 +80,12 @@ class DetailScreen extends StatelessWidget {
     return Expanded(
       child: PageView.builder(
         controller: logic.pageController,
-
         itemBuilder: (context, index) {
           return _descriptionItem(logic, index);
         },
-        itemCount: logic
-            .blogData[0].detail![logic.mainIndex].dataList!.length,
+        itemCount: (logic.isTips == true)
+            ? logic.tipsData.length
+            : logic.bankData[0].detail![logic.mainIndex].dataList!.length,
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
       ),
@@ -98,16 +98,22 @@ class DetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            alignment: Alignment.center,
             height: Get.height * 0.21,
             color: CColor.backgroundColor,
             child: Center(
-              child: Text(
-                logic.blogData[0].detail![logic.mainIndex]
-                    .dataList![index].title
-                    .toString(),
-                style: TextStyle(
-                  fontSize: FontSize.size_20,
-                  fontWeight: FontWeight.w600,
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  (logic.isTips == true)
+                      ? logic.tipsData[index].title.toString()
+                      : logic.bankData[0].detail![logic.mainIndex]
+                          .dataList![index].title
+                          .toString(),
+                  style: TextStyle(
+                    fontSize: FontSize.size_20,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -127,9 +133,11 @@ class DetailScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              logic.blogData[0].detail![logic.mainIndex]
-                  .dataList![index].desc
-                  .toString(),
+              (logic.isTips == true)
+                  ? logic.tipsData[index].desc.toString()
+                  : logic.bankData[0].detail![logic.mainIndex].dataList![index]
+                      .desc
+                      .toString(),
               style: TextStyle(
                 fontSize: FontSize.size_12,
                 fontWeight: FontWeight.w400,

@@ -5,12 +5,15 @@ import '../../../datamodel/bank_data.dart';
 import '../../home/views/home_screen.dart';
 
 class BankingController extends GetxController {
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic argument = Get.arguments;
   CategoryFinanceClass? categoryFinanceClass;
-  String title = "";
+  String blogTitle = "";
   List<Accounting> blogData = [];
   List<Accounting> learnBankingData = [];
+  List<Accounting> financeData = [];
+  List<Accounting> savingAccountData = [];
+  List<Accounting> loanGuideData = [];
+
 
   @override
   void onInit() {
@@ -23,10 +26,14 @@ class BankingController extends GetxController {
     }
     blogData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Blogs").toList();
     learnBankingData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "LearnBanking").toList();
-    for(var i = 0 ; i <  blogData[0].detail!.length ; i++ ){
-      title = blogData[0].detail![i].title.toString();
+    financeData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Finance Guide").toList();
+    savingAccountData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Saving Accounts").toList();
+    loanGuideData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Personal Loan Guide").toList();
+    for(var i = 0 ; i <  blogData[0].detail!.length ; i++){
+      blogTitle = blogData[0].detail![i].title.toString();
       break;
     }
+
     super.onInit();
   }
 }

@@ -26,6 +26,16 @@ final Map<String, String> enUS = {
   'txtSavingAccount': "Saving account",
   'txtPersonalLoan': "Personal loan",
 
+
+
+  'txtLearnBankingFinance': "Learn Accounting",
+  'txtLearnBankingFinanceDesc': "Become a Complete",
+  'txtLearnBlogNews': "Blog/News",
+  'txtLearnIntroduction': "Introduction",
+  'txtLearnAccountingBasics': "Accounting Basics",
+  'txtLearnEvolution': "Evolution of Accounting",
+  'txtLearnTopics': "Advanced Topics",
+
   'txtTips': "Tips",
   'txtTipsDesc': "Trading Tips and Tricks",
 

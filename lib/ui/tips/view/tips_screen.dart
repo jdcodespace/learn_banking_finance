@@ -134,20 +134,20 @@ class TipsScreen extends StatelessWidget {
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return _listItemViewAll(index);
+          return _listItemViewAll(index,logic);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 5,
+        itemCount:  logic.tipsData.length,
         scrollDirection: Axis.vertical,
       ),
     );
   }
 
-  _listItemViewAll(int index) {
+  _listItemViewAll(int index,TipsController logic) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail);
+        Get.toNamed(AppRoutes.detail,arguments: [true,logic.tipsData,index]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -167,7 +167,7 @@ class TipsScreen extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                "Saving account basic",
+                logic.tipsData[index].title.toString(),
                 style: TextStyle(
                   color: CColor.black,
                   fontSize: FontSize.size_12,
@@ -175,7 +175,7 @@ class TipsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(Icons.arrow_forward_ios_outlined, size: 17)
+            const Icon(Icons.arrow_forward_ios_outlined, size: 17)
           ],
         ),
       ),

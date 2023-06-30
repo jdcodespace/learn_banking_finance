@@ -15,16 +15,21 @@ class ListOfTaskScreen extends StatelessWidget {
       return Scaffold(
         backgroundColor: CColor.white,
         body: SafeArea(
-          child: GetBuilder<ListOfTaskController>(
-            builder: (logic) {
-              return Column(
-                children: [
-                  _appBar(logic, context),
-                  _header(),
-                  _widgetViewAll(logic),
-                ],
-              );
-            },
+          child: Column(
+            children: [
+              _appBar(logic, context),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _header(),
+                      _widgetViewAll(logic),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -74,20 +79,17 @@ class ListOfTaskScreen extends StatelessWidget {
   }
 
   _widgetViewAll(ListOfTaskController logic) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: Sizes.width_3, vertical: Sizes.height_2),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return _listItemViewAll(index, logic);
-          },
-          shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount:
-              logic.blogData[0].detail![logic.mainIndex].dataList!.length,
-          scrollDirection: Axis.vertical,
-        ),
+    return Container(
+      margin: EdgeInsets.symmetric(
+          horizontal: Sizes.width_3, vertical: Sizes.height_2),
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return _listItemViewAll(index, logic);
+        },
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: logic.dataList[0].detail![logic.mainIndex].dataList!.length,
+        scrollDirection: Axis.vertical,
       ),
     );
   }
@@ -95,18 +97,16 @@ class ListOfTaskScreen extends StatelessWidget {
   _listItemViewAll(int index, ListOfTaskController logic) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail, arguments: [
-          logic.blogData,
-          logic.mainIndex,
-          index
-        ]);
+        Get.toNamed(AppRoutes.detail,
+            arguments: [false,logic.dataList, logic.mainIndex]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: CColor.backgroundColor,
-            borderRadius: BorderRadius.circular(10)),
+          color: CColor.backgroundColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Row(
           children: [
             Container(
@@ -120,7 +120,7 @@ class ListOfTaskScreen extends StatelessWidget {
             Expanded(
               child: Text(
                 logic
-                    .blogData[0].detail![logic.mainIndex].dataList![index].title
+                    .dataList[0].detail![logic.mainIndex].dataList![index].title
                     .toString(),
                 style: TextStyle(
                   color: CColor.black,

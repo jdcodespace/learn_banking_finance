@@ -65,7 +65,7 @@ class HomeController extends GetxController {
 
   void getCategoryListData() {
     categoryListData.add(CategoryFinanceClass("","txtCategoryBanking".tr,"/banking"));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryAccounting".tr,"/banking"));
+    categoryListData.add(CategoryFinanceClass("","txtCategoryAccounting".tr,"/accounting"));
     categoryListData.add(CategoryFinanceClass("","txtCategoryBookmarks".tr,"/bookMarks"));
     categoryListData.add(CategoryFinanceClass("","txtCategoryTips".tr,"/tips"));
     categoryListData.add(CategoryFinanceClass("","txtCategoryFAQ".tr,"/faq"));

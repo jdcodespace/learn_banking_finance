@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:learn_banking_finance/routes/app_routes.dart';
-import 'package:learn_banking_finance/ui/banking/controllers/banking_controller.dart';
 import 'package:get/get.dart';
-import 'package:learn_banking_finance/utils/color.dart';
-import 'package:learn_banking_finance/utils/sizer_utils.dart';
+import 'package:learn_banking_finance/ui/accounting/controller/accounting_controller.dart';
 
-class BankingScreen extends StatelessWidget {
-  const BankingScreen({Key? key}) : super(key: key);
+import '../../../routes/app_routes.dart';
+import '../../../utils/color.dart';
+import '../../../utils/sizer_utils.dart';
+
+class AccountingScreen extends StatelessWidget {
+  const AccountingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BankingController>(builder: (logic) {
+    return GetBuilder<AccountingController>(builder: (logic) {
       return Scaffold(
         backgroundColor: CColor.white,
         body: SafeArea(
@@ -38,8 +39,7 @@ class BankingScreen extends StatelessWidget {
       );
     });
   }
-
-  Widget _appBar(BankingController logic, BuildContext context) {
+  Widget _appBar(AccountingController logic, BuildContext context) {
     return Container(
       color: CColor.white,
       padding: EdgeInsets.only(
@@ -108,7 +108,7 @@ class BankingScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "txtBankingFinance".tr,
+                    "txtLearnBankingFinance".tr,
                     style: TextStyle(
                       color: CColor.black,
                       fontSize: FontSize.size_12,
@@ -119,7 +119,7 @@ class BankingScreen extends StatelessWidget {
                     margin: EdgeInsets.only(
                         top: Sizes.height_1, right: Sizes.width_2),
                     child: Text(
-                      "txtBankingFinanceDesc".tr,
+                      "txtLearnBankingFinanceDesc".tr,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -138,8 +138,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  /// **************************** Blog and news section *****************************
-  _widgetBlogNews(BankingController logic) {
+  /// ****************************Blog and news section*****************************
+  _widgetBlogNews(AccountingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -163,7 +163,7 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtBlogNews".tr,logic.blogData]);
+                Get.toNamed(AppRoutes.viewAll, arguments: ["txtLearnBlogNews".tr,logic.blogData]);
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -227,8 +227,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  /// **************************** Learn banking section *****************************
-  _widgetLearnBanking(BankingController logic) {
+  /// **************************** Introduction *****************************
+  _widgetLearnBanking(AccountingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -238,7 +238,7 @@ class BankingScreen extends StatelessWidget {
             top: Sizes.height_2,
           ),
           child: Text(
-            "txtLearnBanking".tr,
+            "txtLearnIntroduction".tr,
             style: TextStyle(
               color: CColor.black,
               fontSize: FontSize.size_12,
@@ -257,7 +257,7 @@ class BankingScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: logic.learnBankingData[0].detail!.length,
+            itemCount: logic.advancedTopicData[0].detail!.length,
             itemBuilder: (context, index) {
               return _listItemLearnBanking(index, logic);
             },
@@ -267,18 +267,19 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemLearnBanking(int index, BankingController logic) {
+  _listItemLearnBanking(int index, AccountingController logic) {
     return InkWell(
       onTap: () {
         Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.learnBankingData,
-          logic.learnBankingData[0].detail![index].title.toString(),
+          logic.advancedTopicData,
+          logic.advancedTopicData[0].detail![index].title.toString(),
           index
         ]);
       },
       child: Container(
         width: Sizes.width_40,
         height: 150,
+        // margin: EdgeInsets.symmetric(horizontal: Sizes.width_1),
         padding: EdgeInsets.all(Sizes.width_5),
         decoration: BoxDecoration(
             color: CColor.backgroundColor,
@@ -296,7 +297,7 @@ class BankingScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: Sizes.height_2),
               child: Text(
                 overflow: TextOverflow.ellipsis,
-                logic.learnBankingData[0].detail![index].title.toString(),
+                logic.advancedTopicData[0].detail![index].title.toString(),
                 style: TextStyle(
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
@@ -311,8 +312,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  /// **************************** Finance guide *****************************
-  _widgetFinanceLearn(BankingController logic) {
+  /// **************************** Accounting Basics *****************************
+  _widgetFinanceLearn(AccountingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -322,7 +323,7 @@ class BankingScreen extends StatelessWidget {
             top: Sizes.height_2,
           ),
           child: Text(
-            "txtFinanceGuide".tr,
+            "txtLearnAccountingBasics".tr,
             style: TextStyle(
               color: CColor.black,
               fontSize: FontSize.size_12,
@@ -341,9 +342,9 @@ class BankingScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: logic.financeData[0].detail!.length,
+            itemCount: 2,
             itemBuilder: (context, index) {
-              return _listItemLearnFinance(index, logic);
+              return _listItemLearnFinance(index);
             },
           ),
         )
@@ -351,18 +352,13 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemLearnFinance(int index, BankingController logic) {
+  _listItemLearnFinance(int index) {
     return InkWell(
-      onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.financeData,
-          logic.financeData[0].detail![index].title.toString(),
-          index
-        ]);
-      },
+      onTap: () {},
       child: Container(
         width: Sizes.width_40,
         height: 150,
+        // margin: EdgeInsets.symmetric(horizontal: Sizes.width_1),
         padding: EdgeInsets.all(Sizes.width_5),
         decoration: BoxDecoration(
             color: CColor.backgroundColor,
@@ -380,7 +376,7 @@ class BankingScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: Sizes.height_2),
               child: Text(
                 overflow: TextOverflow.ellipsis,
-                logic.financeData[0].detail![index].title.toString(),
+                "title",
                 style: TextStyle(
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
@@ -395,8 +391,8 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  /// **************************** Saving account *****************************
-  _widgetSavingAccount(BankingController logic) {
+  /// **************************** Evolution of Accounting *****************************
+  _widgetSavingAccount(AccountingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -409,7 +405,7 @@ class BankingScreen extends StatelessWidget {
                   top: Sizes.height_2,
                 ),
                 child: Text(
-                  "txtSavingAccount".tr,
+                  "txtLearnEvolution".tr,
                   style: TextStyle(
                     color: CColor.black,
                     fontSize: FontSize.size_12,
@@ -420,7 +416,7 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtSavingAccount".tr,logic.savingAccountData]);
+                Get.toNamed(AppRoutes.viewAll, arguments: ["txtLearnEvolution".tr,logic.evolutionData]);
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -445,11 +441,11 @@ class BankingScreen extends StatelessWidget {
               horizontal: Sizes.width_3, vertical: Sizes.height_2),
           child: ListView.builder(
             itemBuilder: (context, index) {
-              return _listItemSavingAccount(index, logic);
+              return _listItemSavingAccount(index);
             },
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 3,
+            itemCount: 2,
             scrollDirection: Axis.vertical,
           ),
         )
@@ -457,47 +453,38 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemSavingAccount(int index, BankingController logic) {
-    return InkWell(
-      onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.savingAccountData,
-          logic.savingAccountData[0].detail![index].title.toString(),
-          index
-        ]);
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: CColor.backgroundColor,
-            borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              child: Image.asset(
-                "assets/images/ic_bank.png",
-                height: Sizes.height_5,
-                width: Sizes.height_5,
-              ),
+  _listItemSavingAccount(int index) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: CColor.backgroundColor,
+          borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            child: Image.asset(
+              "assets/images/ic_bank.png",
+              height: Sizes.height_5,
+              width: Sizes.height_5,
             ),
-            Text(
-              logic.savingAccountData[0].detail![index].title.toString(),
-              style: TextStyle(
-                color: CColor.black,
-                fontSize: FontSize.size_12,
-                fontWeight: FontWeight.w500,
-              ),
-            )
-          ],
-        ),
+          ),
+          Text(
+            "Saving account basic",
+            style: TextStyle(
+              color: CColor.black,
+              fontSize: FontSize.size_12,
+              fontWeight: FontWeight.w500,
+            ),
+          )
+        ],
       ),
     );
   }
 
-  /// **************************** Personal load guide *****************************
-  _widgetPersonalLoan(BankingController logic) {
+  /// **************************** Advanced Topics *****************************
+  _widgetPersonalLoan(AccountingController logic) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -510,7 +497,7 @@ class BankingScreen extends StatelessWidget {
                   top: Sizes.height_2,
                 ),
                 child: Text(
-                  "txtPersonalLoan".tr,
+                  "txtLearnTopics".tr,
                   style: TextStyle(
                     color: CColor.black,
                     fontSize: FontSize.size_12,
@@ -521,7 +508,7 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtPersonalLoan".tr,logic.loanGuideData]);
+                Get.toNamed(AppRoutes.viewAll, arguments: ["txtLearnTopics".tr,logic.advancedTopicData]);
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -552,9 +539,9 @@ class BankingScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount:2,
+            itemCount: 2,
             itemBuilder: (context, index) {
-              return _listItemPersonalLoan(index, logic);
+              return _listItemPersonalLoan(index);
             },
           ),
         )
@@ -562,18 +549,13 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemPersonalLoan(int index, BankingController logic) {
+  _listItemPersonalLoan(int index) {
     return InkWell(
-      onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.loanGuideData,
-          logic.loanGuideData[0].detail![index].title.toString(),
-          index
-        ]);
-      },
+      onTap: () {},
       child: Container(
         width: Sizes.width_40,
         height: 150,
+        // margin: EdgeInsets.symmetric(horizontal: Sizes.width_1),
         padding: EdgeInsets.all(Sizes.width_5),
         decoration: BoxDecoration(
             color: CColor.backgroundColor,
@@ -591,7 +573,7 @@ class BankingScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: Sizes.height_2),
               child: Text(
                 overflow: TextOverflow.ellipsis,
-                logic.loanGuideData[0].detail![index].title.toString(),
+                "title",
                 style: TextStyle(
                   color: CColor.black,
                   fontWeight: FontWeight.w500,

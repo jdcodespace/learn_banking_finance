@@ -19,6 +19,8 @@ class BankData {
 class Data {
   List<Accounting>? accounting;
   List<Accounting>? bank;
+  List<FaqTips>? tips;
+  List<FaqTips>? faq;
 
   Data({this.accounting, this.bank});
 
@@ -35,6 +37,18 @@ class Data {
         bank?.add(Accounting.fromJson(v));
       });
     }
+    if (json['tips'] != null) {
+      tips = <FaqTips>[];
+      json['tips'].forEach((v) {
+        tips?.add(FaqTips.fromJson(v));
+      });
+    }
+    if (json['faq'] != null) {
+      faq = <FaqTips>[];
+      json['faq'].forEach((v) {
+        faq?.add(FaqTips.fromJson(v));
+      });
+    }
   }
 
   Map toJson() {
@@ -44,6 +58,12 @@ class Data {
     }
     if (bank != null) {
       data['bank'] = bank!.map((v) => v.toJson()).toList();
+    }
+    if (tips != null) {
+      data['tips'] = tips!.map((v) => v.toJson()).toList();
+    }
+    if (faq != null) {
+      data['faq'] = faq!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -126,7 +146,27 @@ class DataList {
   }
 }
 
+class FaqTips {
+  String? desc;
+  String? image;
+  String? title;
 
+  FaqTips({this.desc, this.image, this.title});
+
+  FaqTips.fromJson(Map json) {
+    desc = json['desc'];
+    image = json['image'];
+    title = json['title'];
+  }
+
+  Map toJson() {
+    final Map data = {};
+    data['desc'] = desc;
+    data['image'] = image;
+    data['title'] = title;
+    return data;
+  }
+}
 // To parse this JSON data, do
 //
 //     final bankData = bankDataFromJson(jsonString);
