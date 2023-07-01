@@ -1,13 +1,9 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../facebook_ads/inter/facebook_inter_ad.dart';
-import '../../../google_ads/ad_helper.dart';
-import '../../../google_ads/inter/interAd.dart';
-import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
 import '../../../utils/debug.dart';
-import '../../../utils/preference.dart';
+import '../../../utils/network_connectivity.dart';
 import '../../../utils/sizer_utils.dart';
 import '../views/home_screen.dart';
 
@@ -15,16 +11,38 @@ class HomeController extends GetxController {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   List<ItemMenuClass> listData = [];
   List<CategoryFinanceClass> categoryListData = [];
+  Map source = {ConnectivityResult.none: false};
+  final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
 
   @override
   void onInit() {
+    networkConnectivity.initialise();
+    networkConnectivity.myStream.listen((source) {
+      source = source;
+      // 1.
+      switch (source.keys.toList()[0]) {
+        case ConnectivityResult.mobile:
+          string = source.values.toList()[0] ? 'Online' : 'Offline';
+          break;
+        case ConnectivityResult.wifi:
+          string = source.values.toList()[0] ? 'Online' : 'Offline';
+          break;
+        case ConnectivityResult.none:
+        default:
+          string = 'Offline';
+      }
+      // 2.
+      update();
+      // 3.
+      Debug.printLog("connection status-------------------->$string");
+    });
     getDrawerListData();
     getCategoryListData();
     super.onInit();
   }
 
-  getDrawerListData(){
+  getDrawerListData() {
     listData.add(ItemMenuClass(
         Icon(
           Icons.home_rounded,
@@ -54,7 +72,6 @@ class HomeController extends GetxController {
         ),
         "txtRateApp".tr));
     listData.add(ItemMenuClass(
-
         Icon(
           Icons.email_rounded,
           color: CColor.borderColor,
@@ -71,36 +88,14 @@ class HomeController extends GetxController {
   }
 
   void getCategoryListData() {
-    categoryListData.add(CategoryFinanceClass("","txtCategoryBanking".tr,"/banking"));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryAccounting".tr,"/accounting"));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryBookmarks".tr,"/bookMarks"));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryTips".tr,"/tips"));
-    categoryListData.add(CategoryFinanceClass("","txtCategoryFAQ".tr,"/faq"));
+    categoryListData
+        .add(CategoryFinanceClass("", "txtCategoryBanking".tr, "/banking"));
+    categoryListData.add(
+        CategoryFinanceClass("", "txtCategoryAccounting".tr, "/accounting"));
+    categoryListData
+        .add(CategoryFinanceClass("", "txtCategoryBookmarks".tr, "/bookMarks"));
+    categoryListData
+        .add(CategoryFinanceClass("", "txtCategoryTips".tr, "/tips"));
+    categoryListData.add(CategoryFinanceClass("", "txtCategoryFAQ".tr, "/faq"));
   }
-
-  showInterAdOutCat(BuildContext context,
-      Function callback ) {
-    if (Debug.isShowAd &&
-        Debug.isShowInter &&
-        AdHelper.interstitialAdUnitId != "" &&
-        Debug.adType == Debug.adGoogleType) {
-      loadAd(
-            () {
-             callback.call();
-        },
-        context,
-      );
-    } else if (Debug.isShowAd &&
-        Debug.isShowInter &&
-        AdHelper.interstitialAdUnitIdFacebook != "" &&
-        Debug.adType == Debug.adFacebookType) {
-      loadInterFacebookOutCat(context, () {
-        callback.call();
-      });
-    } else {
-      Preference.currentAdCount++;
-      callback.call();
-    }
-  }
-
 }

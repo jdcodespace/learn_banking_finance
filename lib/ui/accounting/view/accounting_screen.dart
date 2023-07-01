@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learn_banking_finance/facebook_ads/inter/interAd.dart';
 import 'package:learn_banking_finance/ui/accounting/controller/accounting_controller.dart';
 
+import '../../../offline/offline_screen.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
 import '../../../utils/sizer_utils.dart';
@@ -15,26 +17,28 @@ class AccountingScreen extends StatelessWidget {
       return Scaffold(
         backgroundColor: CColor.white,
         body: SafeArea(
-          child: Column(
-            children: [
-              _appBar(logic, context),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _firstViewHeader(),
-                      _widgetBlogNews(logic),
-                      _widgetLearnBanking(logic),
-                      _widgetFinanceLearn(logic),
-                      _widgetSavingAccount(logic),
-                      _widgetPersonalLoan(logic),
-                    ],
-                  ),
+          child: logic.string == "Offline"
+              ? OfflineScreen()
+              : Column(
+                  children: [
+                    _appBar(logic, context),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _firstViewHeader(),
+                            _widgetBlogNews(logic, context),
+                            _widgetLearnBanking(logic),
+                            _widgetFinanceLearn(logic),
+                            _widgetSavingAccount(logic, context),
+                            _widgetPersonalLoan(logic, context),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
       );
     });
@@ -140,7 +144,7 @@ class AccountingScreen extends StatelessWidget {
   }
 
   /// ****************************Blog and news section*****************************
-  _widgetBlogNews(AccountingController logic) {
+  _widgetBlogNews(AccountingController logic, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -164,8 +168,10 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll,
-                    arguments: ["txtLearnBlogNews".tr, logic.blogData]);
+                InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                  Get.toNamed(AppRoutes.viewAll,
+                      arguments: ["txtLearnBlogNews".tr, logic.blogData]);
+                });
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -187,8 +193,10 @@ class AccountingScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Get.toNamed(AppRoutes.listOfTask,
-                arguments: [logic.blogData, logic.blogTitle, 0]);
+            InterstitialAdClass.showInterstitialAdInterCount(context, () {
+              Get.toNamed(AppRoutes.listOfTask,
+                  arguments: [logic.blogData, logic.blogTitle, 0]);
+            });
           },
           child: Container(
             width: double.infinity,
@@ -261,7 +269,7 @@ class AccountingScreen extends StatelessWidget {
             ),
             itemCount: logic.introductionData[0].detail!.length,
             itemBuilder: (context, index) {
-              return _listItemLearnBanking(index, logic);
+              return _listItemLearnBanking(index, logic, context);
             },
           ),
         )
@@ -269,14 +277,17 @@ class AccountingScreen extends StatelessWidget {
     );
   }
 
-  _listItemLearnBanking(int index, AccountingController logic) {
+  _listItemLearnBanking(
+      int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.introductionData,
-          logic.introductionData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.introductionData,
+            logic.introductionData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         width: Sizes.width_40,
@@ -346,7 +357,7 @@ class AccountingScreen extends StatelessWidget {
             ),
             itemCount: logic.accountingData[0].detail!.length,
             itemBuilder: (context, index) {
-              return _listItemLearnFinance(index, logic);
+              return _listItemLearnFinance(index, logic, context);
             },
           ),
         )
@@ -354,14 +365,17 @@ class AccountingScreen extends StatelessWidget {
     );
   }
 
-  _listItemLearnFinance(int index, AccountingController logic) {
+  _listItemLearnFinance(
+      int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.accountingData,
-          logic.accountingData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.accountingData,
+            logic.accountingData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         width: Sizes.width_40,
@@ -400,7 +414,7 @@ class AccountingScreen extends StatelessWidget {
   }
 
   /// **************************** Evolution of Accounting *****************************
-  _widgetSavingAccount(AccountingController logic) {
+  _widgetSavingAccount(AccountingController logic, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -424,8 +438,10 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll,
-                    arguments: ["txtLearnEvolution".tr, logic.evolutionData]);
+                InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                  Get.toNamed(AppRoutes.viewAll,
+                      arguments: ["txtLearnEvolution".tr, logic.evolutionData]);
+                });
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -450,7 +466,7 @@ class AccountingScreen extends StatelessWidget {
               horizontal: Sizes.width_3, vertical: Sizes.height_2),
           child: ListView.builder(
             itemBuilder: (context, index) {
-              return _listItemSavingAccount(index, logic);
+              return _listItemSavingAccount(index, logic, context);
             },
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -462,14 +478,17 @@ class AccountingScreen extends StatelessWidget {
     );
   }
 
-  _listItemSavingAccount(int index, AccountingController logic) {
+  _listItemSavingAccount(
+      int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.evolutionData,
-          logic.evolutionData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.evolutionData,
+            logic.evolutionData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -502,7 +521,7 @@ class AccountingScreen extends StatelessWidget {
   }
 
   /// **************************** Advanced Topics *****************************
-  _widgetPersonalLoan(AccountingController logic) {
+  _widgetPersonalLoan(AccountingController logic, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -526,8 +545,12 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll,
-                    arguments: ["txtLearnTopics".tr, logic.advancedTopicData]);
+                InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                  Get.toNamed(AppRoutes.viewAll, arguments: [
+                    "txtLearnTopics".tr,
+                    logic.advancedTopicData
+                  ]);
+                });
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -560,7 +583,7 @@ class AccountingScreen extends StatelessWidget {
             ),
             itemCount: 2,
             itemBuilder: (context, index) {
-              return _listItemPersonalLoan(index, logic);
+              return _listItemPersonalLoan(index, logic, context);
             },
           ),
         )
@@ -568,14 +591,17 @@ class AccountingScreen extends StatelessWidget {
     );
   }
 
-  _listItemPersonalLoan(int index, AccountingController logic) {
+  _listItemPersonalLoan(
+      int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.advancedTopicData,
-          logic.advancedTopicData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.advancedTopicData,
+            logic.advancedTopicData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         width: Sizes.width_40,

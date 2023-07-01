@@ -7,7 +7,6 @@ import 'package:learn_banking_finance/connectivitymanager/connectivitymanager.da
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
 import 'package:learn_banking_finance/google_ads/ad_helper.dart';
 import 'package:learn_banking_finance/google_ads/app_open.dart';
-import 'package:learn_banking_finance/google_ads/inter/interAd.dart';
 import 'package:learn_banking_finance/localization/locale_constant.dart';
 import 'package:learn_banking_finance/routes/app_pages.dart';
 import 'package:learn_banking_finance/routes/app_routes.dart';
@@ -16,6 +15,7 @@ import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
+import 'facebook_ads/inter/interAd.dart';
 import 'localization/localizations_delegate.dart';
 import 'package:get/get.dart';
 
@@ -29,9 +29,11 @@ Future<void> main() async {
 
   await Future.delayed(const Duration(milliseconds: 3000));
 
-  runApp(
-    const MyApp(),
-  );
+  InterstitialAdClass.showInterstitialAdForSplash(() {
+    runApp(
+      const MyApp(),
+    );
+  });
 }
 
 /*Future<void> _configureLocalTimeZone() async {

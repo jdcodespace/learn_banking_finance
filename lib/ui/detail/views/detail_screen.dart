@@ -4,6 +4,11 @@ import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
+import '../../../facebook_ads/inter/interAd.dart';
+import '../../../facebook_ads/native/facebook_native_small.dart';
+import '../../../google_ads/native/native_small_page.dart';
+import '../../../offline/offline_screen.dart';
+import '../../../utils/debug.dart';
 import '../controllers/detail_controller.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -17,7 +22,9 @@ class DetailScreen extends StatelessWidget {
         body: SafeArea(
           child: GetBuilder<DetailController>(
             builder: (logic) {
-              return Column(
+              return logic.string == "Offline"
+                  ? OfflineScreen()
+                  :Column(
                 children: [
                   _appBar(logic, context),
                   _centerView(logic),
@@ -64,7 +71,9 @@ class DetailScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Get.back();
+              InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                Get.back();
+              });
             },
             child: Icon(
               Icons.bookmark_border_rounded,
@@ -81,7 +90,7 @@ class DetailScreen extends StatelessWidget {
       child: PageView.builder(
         controller: logic.pageController,
         itemBuilder: (context, index) {
-          return _descriptionItem(logic, index);
+          return _descriptionItem(logic, index, context);
         },
         itemCount: (logic.isTips == true)
             ? logic.tipsData.length
@@ -92,7 +101,7 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  _descriptionItem(DetailController logic, int index) {
+  _descriptionItem(DetailController logic, int index, BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,9 +134,12 @@ class DetailScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: CColor.backgroundColor.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.black),
               ),
-              child: const Center(child: Text("Small native ad")),
+              child: (Debug.adType == Debug.adGoogleType &&
+                      Debug.isShowAd &&
+                      Debug.isNativeAd)
+                  ? NativeInlinePageSmall(context: context)
+                  : smallNativeAdFacebook(context),
             ),
           ),
           Padding(

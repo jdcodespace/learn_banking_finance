@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
+import '../../../facebook_ads/inter/interAd.dart';
+import '../../../offline/offline_screen.dart';
+
 class BankingScreen extends StatelessWidget {
   const BankingScreen({Key? key}) : super(key: key);
 
@@ -14,7 +17,9 @@ class BankingScreen extends StatelessWidget {
       return Scaffold(
         backgroundColor: CColor.white,
         body: SafeArea(
-          child: Column(
+          child:logic.string == "Offline"
+              ? OfflineScreen()
+              : Column(
             children: [
               _appBar(logic, context),
               Expanded(
@@ -23,11 +28,11 @@ class BankingScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _firstViewHeader(),
-                      _widgetBlogNews(logic),
+                      _widgetBlogNews(logic, context),
                       _widgetLearnBanking(logic),
                       _widgetFinanceLearn(logic),
-                      _widgetSavingAccount(logic),
-                      _widgetPersonalLoan(logic),
+                      _widgetSavingAccount(logic, context),
+                      _widgetPersonalLoan(logic, context),
                     ],
                   ),
                 ),
@@ -139,7 +144,7 @@ class BankingScreen extends StatelessWidget {
   }
 
   /// **************************** Blog and news section *****************************
-  _widgetBlogNews(BankingController logic) {
+  _widgetBlogNews(BankingController logic, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -163,7 +168,10 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtBlogNews".tr,logic.blogData]);
+                InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                  Get.toNamed(AppRoutes.viewAll,
+                      arguments: ["txtBlogNews".tr, logic.blogData]);
+                });
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -185,8 +193,10 @@ class BankingScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Get.toNamed(AppRoutes.listOfTask,
-                arguments: [logic.blogData, logic.blogTitle, 0]);
+            InterstitialAdClass.showInterstitialAdInterCount(context, () {
+              Get.toNamed(AppRoutes.listOfTask,
+                  arguments: [logic.blogData, logic.blogTitle, 0]);
+            });
           },
           child: Container(
             width: double.infinity,
@@ -259,7 +269,7 @@ class BankingScreen extends StatelessWidget {
             ),
             itemCount: logic.learnBankingData[0].detail!.length,
             itemBuilder: (context, index) {
-              return _listItemLearnBanking(index, logic);
+              return _listItemLearnBanking(index, logic, context);
             },
           ),
         )
@@ -267,14 +277,17 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemLearnBanking(int index, BankingController logic) {
+  _listItemLearnBanking(
+      int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.learnBankingData,
-          logic.learnBankingData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.learnBankingData,
+            logic.learnBankingData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         width: Sizes.width_40,
@@ -343,7 +356,7 @@ class BankingScreen extends StatelessWidget {
             ),
             itemCount: logic.financeData[0].detail!.length,
             itemBuilder: (context, index) {
-              return _listItemLearnFinance(index, logic);
+              return _listItemLearnFinance(index, logic, context);
             },
           ),
         )
@@ -351,14 +364,17 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemLearnFinance(int index, BankingController logic) {
+  _listItemLearnFinance(
+      int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.financeData,
-          logic.financeData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.financeData,
+            logic.financeData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         width: Sizes.width_40,
@@ -396,7 +412,7 @@ class BankingScreen extends StatelessWidget {
   }
 
   /// **************************** Saving account *****************************
-  _widgetSavingAccount(BankingController logic) {
+  _widgetSavingAccount(BankingController logic, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -420,7 +436,12 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtSavingAccount".tr,logic.savingAccountData]);
+                InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                  Get.toNamed(AppRoutes.viewAll, arguments: [
+                    "txtSavingAccount".tr,
+                    logic.savingAccountData
+                  ]);
+                });
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -445,7 +466,7 @@ class BankingScreen extends StatelessWidget {
               horizontal: Sizes.width_3, vertical: Sizes.height_2),
           child: ListView.builder(
             itemBuilder: (context, index) {
-              return _listItemSavingAccount(index, logic);
+              return _listItemSavingAccount(index, logic, context);
             },
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -457,14 +478,17 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemSavingAccount(int index, BankingController logic) {
+  _listItemSavingAccount(
+      int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.savingAccountData,
-          logic.savingAccountData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.savingAccountData,
+            logic.savingAccountData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -497,7 +521,7 @@ class BankingScreen extends StatelessWidget {
   }
 
   /// **************************** Personal load guide *****************************
-  _widgetPersonalLoan(BankingController logic) {
+  _widgetPersonalLoan(BankingController logic, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -521,7 +545,10 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.viewAll, arguments: ["txtPersonalLoan".tr,logic.loanGuideData]);
+                InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                  Get.toNamed(AppRoutes.viewAll,
+                      arguments: ["txtPersonalLoan".tr, logic.loanGuideData]);
+                });
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -552,9 +579,9 @@ class BankingScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount:2,
+            itemCount: 2,
             itemBuilder: (context, index) {
-              return _listItemPersonalLoan(index, logic);
+              return _listItemPersonalLoan(index, logic, context);
             },
           ),
         )
@@ -562,14 +589,17 @@ class BankingScreen extends StatelessWidget {
     );
   }
 
-  _listItemPersonalLoan(int index, BankingController logic) {
+  _listItemPersonalLoan(
+      int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask, arguments: [
-          logic.loanGuideData,
-          logic.loanGuideData[0].detail![index].title.toString(),
-          index
-        ]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.loanGuideData,
+            logic.loanGuideData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         width: Sizes.width_40,

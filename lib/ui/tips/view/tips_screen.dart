@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/tips/controller/tips_controller.dart';
 
+import '../../../facebook_ads/inter/interAd.dart';
+import '../../../offline/offline_screen.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
 import '../../../utils/sizer_utils.dart';
@@ -17,7 +19,10 @@ class TipsScreen extends StatelessWidget {
         body: SafeArea(
           child: GetBuilder<TipsController>(
             builder: (logic) {
-              return Column(
+              return
+                logic.string == "Offline"
+                    ? OfflineScreen()
+                    :Column(
                 children: [
                   _appBar(logic, context),
                   Expanded(
@@ -134,20 +139,23 @@ class TipsScreen extends StatelessWidget {
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return _listItemViewAll(index,logic);
+          return _listItemViewAll(index, logic, context);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount:  logic.tipsData.length,
+        itemCount: logic.tipsData.length,
         scrollDirection: Axis.vertical,
       ),
     );
   }
 
-  _listItemViewAll(int index,TipsController logic) {
+  _listItemViewAll(int index, TipsController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail,arguments: [true,logic.tipsData,index]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.detail,
+              arguments: [true, logic.tipsData, index]);
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),

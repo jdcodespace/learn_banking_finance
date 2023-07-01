@@ -5,6 +5,9 @@ import 'package:learn_banking_finance/ui/bookmarks/controller/bookmarks_controll
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
+import '../../../facebook_ads/inter/interAd.dart';
+import '../../../offline/offline_screen.dart';
+
 class BookMarkScreen extends StatelessWidget {
   const BookMarkScreen({super.key});
 
@@ -16,7 +19,9 @@ class BookMarkScreen extends StatelessWidget {
         body: SafeArea(
           child: GetBuilder<BookMarkController>(
             builder: (logic) {
-              return Column(
+              return logic.string == "Offline"
+                  ? OfflineScreen()
+                  :Column(
                 children: [
                   _appBar(logic, context),
                   _widgetViewAll(logic),
@@ -60,7 +65,6 @@ class BookMarkScreen extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );
@@ -72,7 +76,7 @@ class BookMarkScreen extends StatelessWidget {
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return _listItemViewAll(index);
+          return _listItemViewAll(index, context);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -82,10 +86,12 @@ class BookMarkScreen extends StatelessWidget {
     );
   }
 
-  _listItemViewAll(int index) {
+  _listItemViewAll(int index, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.detail);
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -113,8 +119,7 @@ class BookMarkScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(Icons.arrow_forward_ios_outlined,
-            size: 17)
+            const Icon(Icons.arrow_forward_ios_outlined, size: 17)
           ],
         ),
       ),

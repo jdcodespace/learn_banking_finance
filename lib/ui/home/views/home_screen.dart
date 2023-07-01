@@ -3,8 +3,10 @@ import 'package:learn_banking_finance/ui/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
+import '../../../facebook_ads/inter/interAd.dart';
 import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/native/native_small_page.dart';
+import '../../../offline/offline_screen.dart';
 import '../../../utils/debug.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,7 +22,9 @@ class HomeScreen extends StatelessWidget {
         body: SafeArea(
           child: GetBuilder<HomeController>(
             builder: (logic) {
-              return Column(
+              return logic.string == "Offline"
+                  ? OfflineScreen()
+                  :Column(
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
@@ -184,7 +188,8 @@ class HomeScreen extends StatelessWidget {
       HomeController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        logic.showInterAdOutCat(context, () {
+        InterstitialAdClass.showInterstitialAdForceShow(context, () {
+          Get.back();
           if (categoryListData.screenName != "") {
             Get.toNamed(categoryListData.screenName.toString(),
                 arguments: [categoryListData]);
@@ -196,8 +201,9 @@ class HomeScreen extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: Sizes.width_1),
         padding: EdgeInsets.all(Sizes.width_5),
         decoration: BoxDecoration(
-            color: CColor.backgroundColor,
-            borderRadius: BorderRadius.circular(10)),
+          color: CColor.backgroundColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Column(
           children: [
             Expanded(

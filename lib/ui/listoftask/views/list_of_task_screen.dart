@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
+import '../../../facebook_ads/inter/interAd.dart';
+import '../../../offline/offline_screen.dart';
 import '../../../routes/app_routes.dart';
 import '../controllers/list_of_task_controller.dart';
 
@@ -15,7 +17,9 @@ class ListOfTaskScreen extends StatelessWidget {
       return Scaffold(
         backgroundColor: CColor.white,
         body: SafeArea(
-          child: Column(
+          child:logic.string == "Offline"
+              ? OfflineScreen()
+              : Column(
             children: [
               _appBar(logic, context),
               Expanded(
@@ -84,7 +88,7 @@ class ListOfTaskScreen extends StatelessWidget {
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return _listItemViewAll(index, logic);
+          return _listItemViewAll(index, logic, context);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -94,11 +98,14 @@ class ListOfTaskScreen extends StatelessWidget {
     );
   }
 
-  _listItemViewAll(int index, ListOfTaskController logic) {
+  _listItemViewAll(
+      int index, ListOfTaskController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail,
-            arguments: [false,logic.dataList, logic.mainIndex]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.detail,
+              arguments: [false, logic.dataList, logic.mainIndex]);
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),

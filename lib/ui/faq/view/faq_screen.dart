@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/faq/controller/faq_controller.dart';
 
+import '../../../facebook_ads/inter/interAd.dart';
+import '../../../offline/offline_screen.dart';
 import '../../../utils/color.dart';
 import '../../../utils/sizer_utils.dart';
 
@@ -16,7 +18,9 @@ class FaqScreen extends StatelessWidget {
         body: SafeArea(
           child: GetBuilder<FaqController>(
             builder: (logic) {
-              return Column(
+              return logic.string == "Offline"
+                  ? OfflineScreen()
+                  :Column(
                 children: [
                   _appBar(logic, context),
                   Expanded(
@@ -133,7 +137,7 @@ class FaqScreen extends StatelessWidget {
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return _listItemFaqAll(index, logic);
+          return _listItemFaqAll(index, logic, context);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -143,10 +147,12 @@ class FaqScreen extends StatelessWidget {
     );
   }
 
-  _listItemFaqAll(int index, FaqController logic) {
+  _listItemFaqAll(int index, FaqController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        logic.dataVisible(index);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          logic.dataVisible(index);
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -179,7 +185,10 @@ class FaqScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    logic.dataVisible(index);
+                    InterstitialAdClass.showInterstitialAdInterCount(context,
+                        () {
+                      logic.dataVisible(index);
+                    });
                   },
                   child: Icon(
                     (logic.isVisible == true)

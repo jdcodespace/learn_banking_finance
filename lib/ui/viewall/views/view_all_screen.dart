@@ -4,6 +4,8 @@ import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
+import '../../../facebook_ads/inter/interAd.dart';
+import '../../../offline/offline_screen.dart';
 import '../controllers/view_all_controller.dart';
 
 class ViewAllScreen extends StatelessWidget {
@@ -17,12 +19,14 @@ class ViewAllScreen extends StatelessWidget {
         body: SafeArea(
           child: GetBuilder<ViewAllController>(
             builder: (logic) {
-              return Column(
-                children: [
-                  _appBar(logic, context),
-                  _widgetViewAll(logic),
-                ],
-              );
+              return logic.string == "Offline"
+                  ? OfflineScreen()
+                  : Column(
+                      children: [
+                        _appBar(logic, context),
+                        _widgetViewAll(logic),
+                      ],
+                    );
             },
           ),
         ),
@@ -72,14 +76,13 @@ class ViewAllScreen extends StatelessWidget {
     );
   }
 
-
   _widgetViewAll(ViewAllController logic) {
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return _listItemViewAll(index,logic);
+          return _listItemViewAll(index, logic, context);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -89,18 +92,23 @@ class ViewAllScreen extends StatelessWidget {
     );
   }
 
-  _listItemViewAll(int index,ViewAllController logic) {
+  _listItemViewAll(int index, ViewAllController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.listOfTask,arguments: [logic.bankData, logic.bankData[0].detail![index].title.toString(),index]);
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          Get.toNamed(AppRoutes.listOfTask, arguments: [
+            logic.bankData,
+            logic.bankData[0].detail![index].title.toString(),
+            index
+          ]);
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: CColor.backgroundColor,
-            borderRadius: BorderRadius.circular(10)
-        ),
+            borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
             Container(
@@ -124,5 +132,4 @@ class ViewAllScreen extends StatelessWidget {
       ),
     );
   }
-
 }
