@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +13,7 @@ import 'package:learn_banking_finance/localization/locale_constant.dart';
 import 'package:learn_banking_finance/routes/app_pages.dart';
 import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/themes/app_theme.dart';
+import 'package:learn_banking_finance/ui/home/views/home_screen.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
@@ -43,12 +46,13 @@ Future<void> main() async {
 }*/
 
 Future<void> getFirebaseData() async {
+
   FirebaseDatabase.instance.reference().once().then((value) {
     var categoriesData = value.snapshot.value as Map;
     if (categoriesData["data"] != null) {
       Constant.firebaseBankData = BankData.fromJson(categoriesData);
       Debug.printLog(
-          "Constant.firebaseBankData....................${Constant.firebaseBankData.data!.accounting!.length}   ${Constant.firebaseBankData.data!.accounting!.length}  ");
+          "Constant.firebaseBankData....................${Constant.firebaseBankData.data!.accounting!.length} && ${Constant.firebaseBankData.data!.accounting!.length}");
     }
   });
 
@@ -129,16 +133,43 @@ Future<void> getFirebaseData() async {
           Debug.facebookNative =
               value["native"]["Native_FB_Property_Type_Child"];
         }
+        if (value["nativeSmall"]["Small_Native_Home_Screen"] != null) {
+          Debug.facebookNativeSmall =
+              value["nativeSmall"]["Small_Native_Home_Screen"];
+        }
+        if (value["native"]["Native_Banner"] != null) {
+          Debug.facebookNativeBanner = value["native"]["Native_Banner"];
+        }
+      }
+    });
+  });
+
+  FirebaseDatabase.instance.ref("other").onValue.listen((event) {
+    final data = Map<String, dynamic>.from(event.snapshot.value as Map);
+    data.forEach((key, value) {
+      if (key == Debug.keyNameCurrentAdCount) {
+        Preference.currentAdCount = value;
+      }
+      if (key == Debug.keyNameTotalAdInterCount) {
+        Debug.totalAdInterCount = value;
+      }
+      if (key == Debug.keyNameTotalAttemptCount) {
+        Preference.totalAttemptCount = value;
+      }
+      if (key == Debug.keyNameTotalAttemptCountNative) {
+        Preference.totalAttemptCountNative = value;
+      }
+      if (key == Debug.keyNameTotalAttemptCountRewarded) {
+        Preference.totalAttemptCountRewarded = value;
+      }
+      if (key == Debug.keyPrivacyPolicy) {
+        Debug.privacyPolicy = value;
       }
     });
   });
 }
 
 preloadAllNativeAds(BuildContext context) async {
-  var brightness = SchedulerBinding.instance.window.platformBrightness;
-  bool isDarkMode = brightness == Brightness.dark;
-  Debug.printLog("night or light mode.......$isDarkMode");
-
   /*native banner*/
   Debug.preloadNativeBanner = NativeAd(
     adUnitId: AdHelper.nativeAdUnitId,
@@ -176,7 +207,7 @@ preloadAllNativeAds(BuildContext context) async {
     listener: NativeAdListener(
       // Called when an ad is successfully received.
       onAdLoaded: (Ad ad) {
-        var add = ad as NativeAd;
+        Debug.printLog('Normal Ad load success preload.......');
       },
       // Called when an ad request failed.
       onAdFailedToLoad: (Ad ad, LoadAdError error) {
@@ -196,31 +227,32 @@ preloadAllNativeAds(BuildContext context) async {
   Debug.preloadNativeNormal!.load();
 
   /*native small*/
-  Debug.preloadNativeSmall = NativeAd(
-    adUnitId: AdHelper.nativeAdUnitId,
-    factoryId: 'listTileSmall',
-    request: const AdRequest(),
-    listener: NativeAdListener(
-      // Called when an ad is successfully received.
-      onAdLoaded: (Ad ad) {
-        var add = ad as NativeAd;
-      },
-      // Called when an ad request failed.
-      onAdFailedToLoad: (Ad ad, LoadAdError error) {
-        // Dispose the ad here to free resources.
-        ad.dispose();
-      },
-      // Called when an ad opens an overlay that covers the screen.
-      onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
-      // Called when an ad removes an overlay that covers the screen.
-      onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
-      // Called when an impression occurs on the ad.
-      onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
-      // Called when a click is recorded for a NativeAd.
-      onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
-    ),
-  );
-  Debug.preloadNativeSmall!.load();
+  //
+  // Debug.preloadNativeSmall = NativeAd(
+  //   adUnitId: AdHelper.nativeAdUnitId,
+  //   factoryId: 'listTileSmall',
+  //   request: const AdRequest(),
+  //   listener: NativeAdListener(
+  //     // Called when an ad is successfully received.
+  //     onAdLoaded: (Ad ad) {
+  //       Debug.printLog('Small Ad load success preload.......');
+  //     },
+  //     // Called when an ad request failed.
+  //     onAdFailedToLoad: (Ad ad, LoadAdError error) {
+  //       // Dispose the ad here to free resources.
+  //       ad.dispose();
+  //     },
+  //     // Called when an ad opens an overlay that covers the screen.
+  //     onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+  //     // Called when an ad removes an overlay that covers the screen.
+  //     onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+  //     // Called when an impression occurs on the ad.
+  //     onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+  //     // Called when a click is recorded for a NativeAd.
+  //     onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+  //   ),
+  // );
+  // Debug.preloadNativeSmall!.load();
 }
 
 class MyApp extends StatefulWidget {
@@ -269,9 +301,9 @@ class _MyAppState extends State<MyApp> {
       color: CColor.white,
       translations: AppLanguages(),
       fallbackLocale: const Locale(Constant.languageEn, Constant.countryCodeEn),
-      themeMode: ThemeMode.light,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.light,
+      // themeMode: ThemeMode.light,
+      // theme: AppTheme.light,
+      // darkTheme: AppTheme.light,
       locale: Get.deviceLocale,
       getPages: AppPages.list,
       initialRoute: AppRoutes.home,

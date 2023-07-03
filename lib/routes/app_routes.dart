@@ -8,4 +8,5 @@ class AppRoutes {
   static const String bookMarks = '/bookMarks';
   static const String faq = '/faq';
   static const String tips = '/tips';
+  static const String webView = '/webView';
 }

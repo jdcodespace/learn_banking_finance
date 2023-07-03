@@ -33,7 +33,6 @@ class Debug {
   static var keyNameIsBoostAd = "isBoostAd";
   static var keyNameIsBuySellAd = "isBuySellAd";
 
-
   static var fullAdCount = 20;
   static var totalAdInterCount = 0;
   static var keyNameFullAdCount = "fullAdCount";
@@ -55,12 +54,18 @@ class Debug {
   static var facebookRewarded = "";
   static var facebookOpenApp = "";
   static var facebookNative = "";
-  static var facebookNativeSmall = "IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";
-  static var facebookNativeBanner = "IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";
+  static var facebookNativeSmall = "";
+      // "IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";
+  static var facebookNativeBanner = "";
+      // "IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";
 
   static var adGoogleType = "g";
   static var adFacebookType = "f";
   static var adType = adFacebookType;
+
+
+  static var keyPrivacyPolicy = "privacy";
+  static var privacyPolicy = "";
 
   static var keyNameAdType = "adType";
   static var keyNameAdTypeGoogle = "google";
@@ -73,6 +78,12 @@ class Debug {
   static var keyNameFacebookInter = "facebookInter";
   static var keyNameFacebookRewarded = "facebookRewarded";
   static var keyNameFacebookNative = "facebookNative";
+  static var keyNameFacebookSmallNative = "facebookSmallNative";
+  static var keyNameCurrentAdCount = "currentAdCount";
+  static var keyNameTotalAdInterCount = "totalAdInterCount";
+  static var keyNameTotalAttemptCount = "totalAttemptCount";
+  static var keyNameTotalAttemptCountNative = "totalAttemptCountNative";
+  static var keyNameTotalAttemptCountRewarded = "totalAttemptCountRewarded";
 
   static printLog(String str) {
     if (debug) log(str);

@@ -23,6 +23,7 @@ class _NativeInlinePageSmallState extends State<NativeInlinePageSmall> {
     super.initState();
     if (Debug.preloadNativeSmall != null) {
       _ad = Debug.preloadNativeSmall;
+      Debug.printLog("*************** INIT small STATE ***************");
     }else {
       _ad = NativeAd(
         adUnitId: AdHelper.nativeAdUnitId,
@@ -68,9 +69,10 @@ class _NativeInlinePageSmallState extends State<NativeInlinePageSmall> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return _ad != null && isAdLoaded && Debug.isShowAd && Debug.isNativeAd
+    return _ad != null && Debug.isShowAd && Debug.isNativeAd || isAdLoaded
         ? Container(
             height: 220.0,
             alignment: Alignment.center,
@@ -80,4 +82,5 @@ class _NativeInlinePageSmallState extends State<NativeInlinePageSmall> {
             height: 0,
           );
   }
+
 }

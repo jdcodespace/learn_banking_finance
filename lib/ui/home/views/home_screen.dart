@@ -24,51 +24,51 @@ class HomeScreen extends StatelessWidget {
             builder: (logic) {
               return logic.string == "Offline"
                   ? OfflineScreen()
-                  :Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _appBar(logic, context),
-                          _firstViewHeader(),
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: Sizes.width_5,
-                              top: Sizes.height_2,
-                            ),
-                            child: Text(
-                              "txtFinanceCategory".tr,
-                              style: TextStyle(
-                                color: CColor.black,
-                                fontSize: FontSize.size_12,
-                                fontWeight: FontWeight.w800,
-                              ),
+                  : Column(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _appBar(logic, context),
+                                _firstViewHeader(),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    left: Sizes.width_5,
+                                    top: Sizes.height_2,
+                                  ),
+                                  child: Text(
+                                    "txtFinanceCategory".tr,
+                                    style: TextStyle(
+                                      color: CColor.black,
+                                      fontSize: FontSize.size_12,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                                _widgetCategoryFinance(),
+                              ],
                             ),
                           ),
-                          _widgetCategoryFinance(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 1),
-                    decoration: BoxDecoration(
-                      color: CColor.opacityBlack10,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: 200,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: (Debug.adType == Debug.adGoogleType &&
-                            Debug.isShowAd &&
-                            Debug.isNativeAd)
-                        ? NativeInlinePageSmall(context: context)
-                        : smallNativeAdFacebook(context),
-                  )
-                ],
-              );
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 1),
+                          decoration: BoxDecoration(
+                            color: CColor.opacityBlack10,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          height: 200,
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          child: (Debug.adType == Debug.adGoogleType &&
+                                  Debug.isShowAd &&
+                                  Debug.isNativeAd)
+                              ? NativeInlinePageSmall(context: context)
+                              : smallNativeAdFacebook(context),
+                        )
+                      ],
+                    );
             },
           ),
         ),
@@ -188,7 +188,7 @@ class HomeScreen extends StatelessWidget {
       HomeController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdForceShow(context, () {
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
           Get.back();
           if (categoryListData.screenName != "") {
             Get.toNamed(categoryListData.screenName.toString(),
@@ -276,7 +276,7 @@ class HomeScreen extends StatelessWidget {
     return ListView.builder(
         padding: const EdgeInsets.all(0),
         itemBuilder: (context, index) {
-          return _itemMenu(index, logic.listData[index]);
+          return _itemMenu(index, logic.listData[index], logic);
         },
         physics: const AlwaysScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -284,9 +284,11 @@ class HomeScreen extends StatelessWidget {
         scrollDirection: Axis.vertical);
   }
 
-  _itemMenu(int index, ItemMenuClass listData) {
+  _itemMenu(int index, ItemMenuClass listData, HomeController logic) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        logic.drawerTransfer(listData);
+      },
       child: Container(
         margin: EdgeInsets.only(top: Sizes.height_3),
         child: Row(
@@ -300,14 +302,12 @@ class HomeScreen extends StatelessWidget {
               margin: EdgeInsets.only(
                 left: Sizes.width_2,
               ),
-              child: Expanded(
-                child: Text(
-                  listData.title.toString(),
-                  style: TextStyle(
-                    color: CColor.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: FontSize.size_10,
-                  ),
+              child: Text(
+                listData.title.toString(),
+                style: TextStyle(
+                  color: CColor.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: FontSize.size_10,
                 ),
               ),
             ),
@@ -321,8 +321,13 @@ class HomeScreen extends StatelessWidget {
 class ItemMenuClass {
   Icon? icon;
   String? title;
+  String? screenName;
 
-  ItemMenuClass(this.icon, this.title);
+  ItemMenuClass(
+    this.icon,
+    this.title,
+    this.screenName,
+  );
 }
 
 class CategoryFinanceClass {

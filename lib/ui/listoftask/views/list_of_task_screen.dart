@@ -103,6 +103,7 @@ class ListOfTaskScreen extends StatelessWidget {
     return InkWell(
       onTap: () {
         InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          // Get.back();
           Get.toNamed(AppRoutes.detail,
               arguments: [false, logic.dataList, logic.mainIndex]);
         });

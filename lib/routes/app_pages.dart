@@ -10,7 +10,6 @@ import 'package:learn_banking_finance/ui/bookmarks/views/bookmarks_screen.dart';
 import 'package:learn_banking_finance/ui/detail/bindings/detail_binding.dart';
 import 'package:learn_banking_finance/ui/detail/views/detail_screen.dart';
 import 'package:learn_banking_finance/ui/faq/bindings/faq_binding.dart';
-import 'package:learn_banking_finance/ui/faq/controller/faq_controller.dart';
 import 'package:learn_banking_finance/ui/faq/view/faq_screen.dart';
 import 'package:learn_banking_finance/ui/home/bindings/home_binding.dart';
 import 'package:learn_banking_finance/ui/home/views/home_screen.dart';
@@ -19,6 +18,8 @@ import 'package:learn_banking_finance/ui/listoftask/views/list_of_task_screen.da
 import 'package:learn_banking_finance/ui/tips/bindings/tips_binding.dart';
 import 'package:learn_banking_finance/ui/tips/view/tips_screen.dart';
 import 'package:learn_banking_finance/ui/viewall/views/view_all_screen.dart';
+import 'package:learn_banking_finance/webview/bindings/webview_binding.dart';
+import 'package:learn_banking_finance/webview/views/webview_screen.dart';
 import 'package:sizer/sizer.dart';
 import '../ui/viewall/bindings/view_all_binding.dart';
 import '../utils/color.dart';
@@ -193,6 +194,26 @@ class AppPages {
         },
       ),
       binding: AccountingBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+    ),
+
+
+    GetPage(
+      name: AppRoutes.webView,
+      page: () => Sizer(
+        builder: (context, orientation, deviceType) {
+          return   AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: CColor.transparent,
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarIconBrightness: Brightness.light,
+            ),
+            child: WebViewScreen(),
+          );
+        },
+      ),
+      binding: WebViewBinding(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),

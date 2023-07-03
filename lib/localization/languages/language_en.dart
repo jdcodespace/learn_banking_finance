@@ -41,4 +41,12 @@ final Map<String, String> enUS = {
 
   'txtFaq': "FAQ's",
   'txtFaqDesc': "Banking, Finance & Accounting FAQ's",
+
+  'txtBookMarkTransfer': "Tips",
+  'txtHomeTransfer': "Home",
+  'txtPrivacyPolicyTransfer': "PrivacyPolicy",
+  'txtRateAppTransfer': "RateApp",
+  'txtFeedBackTransfer': "FeedBack",
+  'txtShareAppTransfer': "ShareApp",
+
 };

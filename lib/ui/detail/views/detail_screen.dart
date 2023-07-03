@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
-
 import '../../../facebook_ads/inter/interAd.dart';
+import '../../../facebook_ads/native/facebook_native_banner.dart';
 import '../../../facebook_ads/native/facebook_native_small.dart';
+import '../../../google_ads/native/native_banner_page.dart';
 import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/debug.dart';
@@ -24,13 +24,20 @@ class DetailScreen extends StatelessWidget {
             builder: (logic) {
               return logic.string == "Offline"
                   ? OfflineScreen()
-                  :Column(
-                children: [
-                  _appBar(logic, context),
-                  _centerView(logic),
-                  _nextPreviousButton(logic),
-                ],
-              );
+                  : Column(
+                      children: [
+                        _appBar(logic, context),
+                        _centerView(logic),
+                        Container(
+                          child: (Debug.adType == Debug.adGoogleType &&
+                                  Debug.isShowAd &&
+                                  Debug.isShowBanner)
+                              ? NativeInlinePageBanner(context: context)
+                              : const FacebookBannerNative(),
+                        )
+                        // _nextPreviousButton(logic),
+                      ],
+                    );
             },
           ),
         ),
@@ -55,20 +62,23 @@ class DetailScreen extends StatelessWidget {
             },
             child: Icon(
               Icons.arrow_back_ios_new_rounded,
-              size: Sizes.height_3,
+              size: Sizes.height_2,
             ),
           ),
-          Expanded(
-            child: Text(
-              "Detail",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: CColor.black,
-                fontWeight: FontWeight.w700,
-                fontSize: FontSize.size_14,
-              ),
-            ),
-          ),
+          const Spacer(),
+          _nextPreviousButton(logic),
+          // Expanded(
+          //   child: Text(
+          //     "Detail",
+          //     textAlign: TextAlign.center,
+          //     style: TextStyle(
+          //       color: CColor.black,
+          //       fontWeight: FontWeight.w700,
+          //       fontSize: FontSize.size_14,
+          //     ),
+          //   ),
+          // ),
+
           InkWell(
             onTap: () {
               InterstitialAdClass.showInterstitialAdInterCount(context, () {
@@ -163,7 +173,7 @@ class DetailScreen extends StatelessWidget {
 
   _nextPreviousButton(DetailController logic) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: Sizes.width_7),
       child: Row(
         children: [
           InkWell(
@@ -172,30 +182,31 @@ class DetailScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeIn);
             },
-            child: const CircleAvatar(
-              maxRadius: 30,
-              backgroundColor: CColor.backgroundColor,
-              child: Icon(
-                Icons.arrow_back_ios_new_outlined,
-                color: Colors.black,
-              ),
+            // child: const CircleAvatar(
+            //   maxRadius: 25,
+            //   backgroundColor: CColor.backgroundColor,
+            child: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
             ),
+            // ),
           ),
-          const Spacer(),
+          const SizedBox(width: 25),
+          // const Spacer(),
           InkWell(
             onTap: () {
               logic.pageController.nextPage(
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeIn);
             },
-            child: const CircleAvatar(
-              maxRadius: 30,
-              backgroundColor: CColor.backgroundColor,
-              child: Icon(
-                Icons.arrow_forward_ios_outlined,
-                color: Colors.black,
-              ),
+            // child: const CircleAvatar(
+            //   maxRadius: 25,
+            //   backgroundColor: CColor.backgroundColor,
+            child: const Icon(
+              Icons.arrow_forward,
+              color: Colors.black,
             ),
+            // ),
           ),
         ],
       ),

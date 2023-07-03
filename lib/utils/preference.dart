@@ -28,7 +28,7 @@ class Preference {
   static const String adImage = "AD_IMAGE";
   static const String adLogo = "AD_LOGO";
 
-  static int currentAdCount = 1;
+  static int currentAdCount = 0;
   static int totalAttemptCount = 2;
   static int totalAttemptCountNative = 2;
   static int totalAttemptCountRewarded = 2;
