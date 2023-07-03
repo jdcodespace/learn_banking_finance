@@ -98,7 +98,7 @@ class ListOfTaskScreen extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(AppRoutes.detail,
-            arguments: [false,logic.dataList, logic.mainIndex]);
+            arguments: [false,logic.dataList, logic.mainIndex,index]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),

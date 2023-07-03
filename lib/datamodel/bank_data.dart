@@ -128,6 +128,7 @@ class DataList {
   String? desc;
   String? isBookmark;
   String? title;
+  bool isMark = false;
 
   DataList({this.desc, this.isBookmark, this.title});
 
@@ -150,6 +151,7 @@ class FaqTips {
   String? desc;
   String? image;
   String? title;
+  bool isMark = false;
 
   FaqTips({this.desc, this.image, this.title});
 

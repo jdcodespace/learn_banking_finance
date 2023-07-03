@@ -147,7 +147,7 @@ class TipsScreen extends StatelessWidget {
   _listItemViewAll(int index,TipsController logic) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail,arguments: [true,logic.tipsData,index]);
+        Get.toNamed(AppRoutes.detail,arguments: [true,logic.tipsData,index,null]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),

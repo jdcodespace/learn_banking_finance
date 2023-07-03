@@ -90,7 +90,7 @@ class BookMarkScreen extends StatelessWidget {
   _listItemViewAll(int index, FaqTips listData, List<FaqTips> listDataData) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail,arguments: [true,listDataData,index]);
+        Get.toNamed(AppRoutes.detail,arguments: [true,listDataData,index,null]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),

@@ -85,6 +85,7 @@ class Constant {
   static const campaignFileTypeImage = "image";
   static const campaignFileTypeGiftQrLogo = "gift_qr_logo";
   static const campaignFileTypeLogo = "logo";
+  static const idAppBar = "idAppBar";
 
 
   static BankData firebaseBankData = BankData();

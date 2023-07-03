@@ -8,10 +8,13 @@ import 'package:learn_banking_finance/main.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
 
+import '../../../utils/constant.dart';
+
 class DetailController extends GetxController {
   List<Accounting> bankData = [];
   List<FaqTips> tipsData = [];
   int mainIndex = 0;
+  int subIndex = 0;
   bool isTips = false ;
   PageController pageController =
       PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
@@ -33,13 +36,34 @@ class DetailController extends GetxController {
       }
       if (Get.arguments[2] != null) {
         mainIndex = Get.arguments[2];
-        pageController =
-            PageController(initialPage: mainIndex, keepPage: true, viewportFraction: 1);
+        if(isTips) {
+          pageController =
+              PageController(
+                  initialPage: mainIndex, keepPage: true, viewportFraction: 1);
+        }
+      }
+      if(Get.arguments[3] != null){
+        subIndex = Get.arguments[3];
+        if(!isTips) {
+          pageController =
+              PageController(
+                  initialPage: subIndex, keepPage: true, viewportFraction: 1);
+        }
       }
     }
 
+    getBookMarkData();
+    /*if(isTips){
+      checkMarkData(pageIndexValue: mainIndex);
+    }else {
+      checkMarkData(pageIndexValue: subIndex);
+    }*/
+    super.onInit();
+  }
 
-   /* if(Preference.shared.getString(Preference.bookMarkDetailData) != ""){
+  getBookMarkData(){
+    bookmarkCheckDataList.clear();
+    if(Preference.shared.getString(Preference.bookMarkDetailData) != ""){
       var oldData = Preference.shared.getString(Preference.bookMarkDetailData);
       List<dynamic> rellyAStringList = jsonDecode(oldData.toString());
       for (Map bookMarkData in rellyAStringList) {
@@ -49,21 +73,44 @@ class DetailController extends GetxController {
       }
     }
 
+    if(isTips){
+      checkMarkData(pageIndexValue: mainIndex);
+    }else {
+      checkMarkData(pageIndexValue: subIndex);
+    }
+  }
 
+  void checkMarkData({int? pageIndexValue}){
     if(bookmarkCheckDataList.isNotEmpty){
-      var title = (isTips == true)
-          ? tipsData[mainIndex].title.toString()
-          : bankData[0].detail![mainIndex]
-          .dataList![0].title
-          .toString();
-      var listData = bookmarkCheckDataList.where((element) => element.title = )
-    }*/
-
-    super.onInit();
+      if(isTips){
+        mainIndex = pageIndexValue!;
+      }else{
+        subIndex = pageIndexValue!;
+      }
+      for(int i=0;i < bookmarkCheckDataList.length;i++){
+        if(isTips){
+          var listDataIndex = tipsData.indexWhere((element) => element.title == bookmarkCheckDataList[i].title && element.desc == bookmarkCheckDataList[i].desc);
+          if (listDataIndex != -1 && pageIndexValue == listDataIndex) {
+            tipsData[mainIndex].isMark = true;
+            Debug.printLog("index of bookmark data isTips ....$listDataIndex  $pageIndexValue");
+            update([Constant.idAppBar]);
+            break;
+          }
+        }else {
+          var listDataIndex = bankData[0].detail![mainIndex].dataList!.indexWhere((element) => element.title == bookmarkCheckDataList[i].title && element.desc == bookmarkCheckDataList[i].desc);
+          if (listDataIndex != -1 && pageIndexValue == listDataIndex) {
+            bankData[0].detail![mainIndex].dataList![listDataIndex].isMark = true;
+            Debug.printLog("index of bookmark data....$listDataIndex  $pageIndexValue");
+            update([Constant.idAppBar]);
+            break;
+          }
+        }
+      }
+    }
   }
 
   void addBookmarkData() {
-    var pageViewIndex = pageController.initialPage;
+    var pageViewIndex = pageController.page!.toInt();
 
     var title = "";
     var desc = "";
@@ -73,10 +120,12 @@ class DetailController extends GetxController {
       title = tipsData[pageViewIndex].title.toString();
       desc = tipsData[pageViewIndex].desc.toString();
       image = tipsData[pageViewIndex].image.toString();
+      tipsData[pageViewIndex].isMark = true;
     }else{
       title = bankData[0].detail![mainIndex].dataList![pageViewIndex].title.toString();
       desc = bankData[0].detail![mainIndex].dataList![pageViewIndex].desc.toString();
       image = "";
+      bankData[0].detail![mainIndex].dataList![pageViewIndex].isMark = true;
     }
     var bookMarkData = BookMarkDataClass(title, desc, image);
     var stringOldDatList = [];
@@ -91,18 +140,81 @@ class DetailController extends GetxController {
     }
     stringOldDatList.add(json.encode(bookMarkData));
     Preference.shared.setString(Preference.bookMarkDetailData, stringOldDatList.toString());
-
     Debug.printLog("Bookmark data..........${Preference.shared.getString(Preference.bookMarkDetailData)}");
+    Debug.printLog("Bookmark......changedValuesForPage........");
+
+    update([Constant.idAppBar]);
   }
 
-  void onChangedPageValue(bool isNext) {
-    if(isNext) {
-      mainIndex++;
-    }else{
-      mainIndex--;
+  void changedValuesForPage(int value) {
+    checkMarkData(pageIndexValue: value);
+    update([Constant.idAppBar]);
+  }
+
+  void removeTipsBookMark() {
+    getBookMarkData();
+    if(bookmarkCheckDataList.isNotEmpty) {
+      var pageViewIndex = pageController.page!.toInt();
+      var addedDataIndex = bookmarkCheckDataList.indexWhere((element) =>
+      element.title == tipsData[pageViewIndex].title.toString() &&
+          element.desc == tipsData[pageViewIndex].desc.toString());
+      bookmarkCheckDataList.removeAt(addedDataIndex);
+      if(bookmarkCheckDataList.isNotEmpty) {
+        Preference.shared.setString(
+            Preference.bookMarkDetailData, jsonEncode(bookmarkCheckDataList));
+      }else{
+        Preference.shared.setString(
+            Preference.bookMarkDetailData, "");
+      }
+      tipsData[pageViewIndex].isMark = false;
     }
-    pageController.animateToPage(mainIndex, duration: Duration(milliseconds: 50), curve: Curves.easeIn);
-    update();
+    Debug.printLog("Bookmark......removeTipsBookMark........  ${bookmarkCheckDataList.length}");
+
+    update([Constant.idAppBar]);
+  }
+
+  void removeBankDataBookMark() {
+    getBookMarkData();
+    if(bookmarkCheckDataList.isNotEmpty) {
+      var pageViewIndex = pageController.page!.toInt();
+
+      var addedDataIndex = bankData[0].detail![mainIndex]
+          .dataList!.indexWhere((element) =>
+      element.title == bankData[0].detail![mainIndex]
+          .dataList![pageViewIndex].title.toString() &&
+          element.desc == bankData[0].detail![mainIndex]
+              .dataList![pageViewIndex].desc.toString());
+
+      bankData[0].detail![mainIndex]
+          .dataList![pageViewIndex].isMark = false;
+
+      bookmarkCheckDataList.removeAt(addedDataIndex);
+      if(bookmarkCheckDataList.isNotEmpty) {
+        Preference.shared.setString(
+            Preference.bookMarkDetailData, jsonEncode(bookmarkCheckDataList));
+      }else{
+        Preference.shared.setString(
+            Preference.bookMarkDetailData, "");
+      }
+
+    }
+    Debug.printLog("Bookmark......removeBankDataBookMark........  ${bookmarkCheckDataList.length}");
+
+    update([Constant.idAppBar]);
+  }
+
+  void nextPrevPage(bool isNext) {
+    getBookMarkData();
+    if(isNext){
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeIn);
+    }else{
+      pageController.previousPage(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeIn);
+    }
+    update([Constant.idAppBar]);
   }
 }
 
