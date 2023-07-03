@@ -64,7 +64,7 @@ class DetailScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Get.back();
+              logic.addBookmarkData();
             },
             child: Icon(
               Icons.bookmark_border_rounded,
@@ -85,7 +85,7 @@ class DetailScreen extends StatelessWidget {
         },
         itemCount: (logic.isTips == true)
             ? logic.tipsData.length
-            : logic.bankData[0].detail![logic.mainIndex].dataList!.length,
+            : (logic.bankData.isNotEmpty)?logic.bankData[0].detail![logic.mainIndex].dataList!.length:0,
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
       ),
@@ -101,20 +101,16 @@ class DetailScreen extends StatelessWidget {
             alignment: Alignment.center,
             height: Get.height * 0.21,
             color: CColor.backgroundColor,
-            child: Center(
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  (logic.isTips == true)
-                      ? logic.tipsData[index].title.toString()
-                      : logic.bankData[0].detail![logic.mainIndex]
-                          .dataList![index].title
-                          .toString(),
-                  style: TextStyle(
-                    fontSize: FontSize.size_20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+            child: Text(
+              (logic.isTips == true)
+                  ? logic.tipsData[index].title.toString()
+                  : logic.bankData[0].detail![logic.mainIndex]
+                      .dataList![index].title
+                      .toString(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: FontSize.size_20,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -159,6 +155,9 @@ class DetailScreen extends StatelessWidget {
               logic.pageController.previousPage(
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeIn);
+              /*if((logic.isTips && logic.tipsData.length > logic.mainIndex) || (!logic.isTips && logic.bankData.length > logic.mainIndex)) {
+                logic.onChangedPageValue(false);
+              }*/
             },
             child: const CircleAvatar(
               maxRadius: 30,
@@ -175,6 +174,9 @@ class DetailScreen extends StatelessWidget {
               logic.pageController.nextPage(
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeIn);
+             /* if((logic.isTips && logic.tipsData.length > logic.mainIndex) || (!logic.isTips && logic.bankData.length > logic.mainIndex)) {
+                logic.onChangedPageValue(true);
+              }*/
             },
             child: const CircleAvatar(
               maxRadius: 30,

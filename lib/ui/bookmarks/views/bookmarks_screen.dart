@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/ui/bookmarks/controller/bookmarks_controller.dart';
+import 'package:learn_banking_finance/ui/detail/controllers/detail_controller.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
+
+import '../../../datamodel/bank_data.dart';
 
 class BookMarkScreen extends StatelessWidget {
   const BookMarkScreen({super.key});
@@ -67,25 +70,27 @@ class BookMarkScreen extends StatelessWidget {
   }
 
   _widgetViewAll(BookMarkController logic) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: Sizes.width_3, vertical: Sizes.height_2),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return _listItemViewAll(index);
-        },
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        scrollDirection: Axis.vertical,
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: Sizes.width_3, vertical: Sizes.height_2),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return _listItemViewAll(index,logic.listData[index],logic.listData);
+          },
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: logic.listData.length,
+          scrollDirection: Axis.vertical,
+        ),
       ),
     );
   }
 
-  _listItemViewAll(int index) {
+  _listItemViewAll(int index, FaqTips listData, List<FaqTips> listDataData) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail);
+        Get.toNamed(AppRoutes.detail,arguments: [true,listDataData,index]);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -105,7 +110,7 @@ class BookMarkScreen extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                "Saving account basic",
+                listData.title.toString(),
                 style: TextStyle(
                   color: CColor.black,
                   fontSize: FontSize.size_12,
@@ -113,7 +118,7 @@ class BookMarkScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(Icons.arrow_forward_ios_outlined,
+            const Icon(Icons.arrow_forward_ios_outlined,
             size: 17)
           ],
         ),
