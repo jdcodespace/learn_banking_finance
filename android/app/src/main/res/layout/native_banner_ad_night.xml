@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="65dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_back"
+        >
+
+        <RelativeLayout
+            android:padding="10dp"
+            android:id="@+id/middle_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icon_banner"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:scaleType="fitCenter" />
+
+                <LinearLayout
+                    android:id="@+id/content_banner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/gnt_default_margin"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/primary_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5"
+                        android:lines="1"
+                        tools:text="Primary"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:id="@+id/row_two_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/gnt_no_size"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/secondary_banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="start"
+                            android:gravity="start"
+                            android:lines="1"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/gnt_text_size_small"
+                            tools:text="Secondary">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+<!--
+                <Button
+                    android:id="@+id/cta_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/my_button"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:padding="10dp"
+                    tools:text="@android:string/autofill"
+                    android:textColor="@color/gnt_white" />
+-->
+
+                <Button
+                    android:id="@+id/cta_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="4dp"
+                    android:background="@drawable/my_button"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:paddingHorizontal="20sp"
+                    android:textColor="@color/adButtonBlackColor"
+                    tools:text="Install" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</com.google.android.gms.ads.nativead.NativeAdView>
