@@ -6,6 +6,7 @@ import '../../../facebook_ads/inter/interAd.dart';
 import '../../../facebook_ads/native/facebook_native_banner.dart';
 import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/native/native_banner_page.dart';
+import '../../../google_ads/native/native_banner_page_without_preload.dart';
 import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/debug.dart';
@@ -28,12 +29,17 @@ class DetailScreen extends StatelessWidget {
                       children: [
                         _appBar(logic, context),
                         _centerView(logic),
-                        Container(
-                          child: (Debug.adType == Debug.adGoogleType &&
-                                  Debug.isShowAd &&
-                                  Debug.isShowBanner)
-                              ? NativeInlinePageBanner(context: context)
-                              : const FacebookBannerNative(),
+                        Visibility(
+                          visible:logic.isLoaded ,
+                          child: Container(
+                            child: (Debug.adType == Debug.adGoogleType &&
+                                    Debug.isShowAd &&
+                                    Debug.isNativeAd)
+                                ? NativeInlinePageBannerWithoutPreload(context: context,function:(isLoaded){
+                                  logic.onChangeNativeBannerAd(isLoaded);
+                            },)
+                                : const FacebookBannerNative(),
+                          ),
                         )
                         // _nextPreviousButton(logic),
                       ],
@@ -137,20 +143,19 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: Get.height * 0.25,
-              decoration: BoxDecoration(
-                color: CColor.backgroundColor.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: (Debug.adType == Debug.adGoogleType &&
-                      Debug.isShowAd &&
-                      Debug.isNativeAd)
-                  ? NativeInlinePageSmall(context: context)
-                  : smallNativeAdFacebook(context),
+          Container(
+            height: Get.height * 0.25,
+            decoration: BoxDecoration(
+              // color: CColor.backgroundColor.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(16),
             ),
+            child: (Debug.adType == Debug.adGoogleType &&
+                    Debug.isShowAd &&
+                    Debug.isNativeAd)
+                // ? NativeInlinePageSmall(context: context)
+                ? logic.bankData[0].detail![logic.mainIndex]
+                .dataList![index].nativeInlinePage
+                : smallNativeAdFacebook(context),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

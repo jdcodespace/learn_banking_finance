@@ -18,6 +18,7 @@ import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
+import 'package:learn_banking_finance/utils/utils.dart';
 import 'facebook_ads/inter/interAd.dart';
 import 'localization/localizations_delegate.dart';
 import 'package:get/get.dart';
@@ -169,7 +170,7 @@ Future<void> getFirebaseData() async {
   });
 }
 
-preloadAllNativeAds(BuildContext context) async {
+preLoadBannerNative() async {
   /*native banner*/
   Debug.preloadNativeBanner = NativeAd(
     adUnitId: AdHelper.nativeAdUnitId,
@@ -198,6 +199,9 @@ preloadAllNativeAds(BuildContext context) async {
     ),
   );
   Debug.preloadNativeBanner!.load();
+}
+
+preloadAllNativeAds() async {
 
   /*native normal*/
   Debug.preloadNativeNormal = NativeAd(
@@ -268,7 +272,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     if (Debug.isShowAd && Debug.isNativeAd) {
-      preloadAllNativeAds(context);
+      Utils.preLoadBannerNative();
+      Utils.preloadNormalNativeAds();
     }
 
     AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();

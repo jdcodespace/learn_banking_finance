@@ -1,10 +1,16 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
+import 'package:learn_banking_finance/google_ads/native/native_inline_page.dart';
+import 'package:learn_banking_finance/main.dart';
 
+import '../../../google_ads/native/native_inline_page_list_data.dart';
+import '../../../google_ads/native/native_small_page_list_data.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/utils.dart';
 
 class DetailController extends GetxController {
   List<Accounting> bankData = [];
@@ -16,6 +22,13 @@ class DetailController extends GetxController {
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
+  bool isLoaded = true;
+
+  onChangeNativeBannerAd(bool value){
+    isLoaded = value;
+    update();
+    Debug.printLog("onChangeNativeBannerAd.....$value  $isLoaded");
+  }
 
   @override
   void onInit() {
@@ -47,11 +60,23 @@ class DetailController extends GetxController {
         tipsData = Get.arguments[1];
       }else{
         bankData = Get.arguments[1];
+        for(int i =0 ; i< bankData[0].detail![mainIndex].dataList!.length ; i++){
+          bankData[0].detail![mainIndex].dataList![i].nativeInlinePage = NativeInlinePageSmallListData(context: Get.context!);
+          Debug.printLog("NativeInlinePageSmallWithOutPreload.............");
+        }
       }
       if (Get.arguments[2] != null) {
         mainIndex = Get.arguments[2];
       }
     }
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    Debug.preloadNativeBanner!.dispose();
+    Debug.preloadNativeBanner = null;
+    Utils.preLoadBannerNative();
+    super.onClose();
   }
 }

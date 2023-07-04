@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.only(bottom: 1),
                           decoration: BoxDecoration(
-                            color: CColor.opacityBlack10,
+                            // color: CColor.opacityBlack10,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           height: 200,
