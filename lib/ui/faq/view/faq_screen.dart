@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/faq/controller/faq_controller.dart';
+import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/inter/inter_ad.dart';
+import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/color.dart';
+import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
 
@@ -33,6 +36,21 @@ class FaqScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 1),
+                          decoration: BoxDecoration(
+                            color: CColor.opacityBlack10,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          height: 200,
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          child: (Debug.adType == Debug.adGoogleType &&
+                              Debug.isShowAd &&
+                              Debug.isNativeAd)
+                              ? NativeInlinePageSmall(context: context)
+                              : smallNativeAdFacebook(context),
                         ),
                       ],
                     );
@@ -143,7 +161,7 @@ class FaqScreen extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
-      child: ListView.separated(
+      child: ListView.builder(
         itemBuilder: (context, index) {
           return _listItemFaqAll(index, logic, context);
         },
@@ -151,9 +169,9 @@ class FaqScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: logic.faqData.length,
         scrollDirection: Axis.vertical,
-        separatorBuilder: (BuildContext context, int index) {
+       /* separatorBuilder: (BuildContext context, int index) {
           return _separatorListItemViewAll(context, index);
-        },
+        },*/
       ),
     );
   }
@@ -226,28 +244,28 @@ class FaqScreen extends StatelessWidget {
     );
   }
 
-  _separatorListItemViewAll(BuildContext context, int index) {
-    if ((index + 1) % 3 == 0) {
-      return Container(
-        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
-        height: Get.height * 0.1,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: CColor.backgroundColor,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.black)),
-        child: /*(Debug.adType == Debug.adGoogleType &&
-                Debug.isShowAd &&
-                Debug.isShowBanner)
-            ? NativeInlinePageBanner(context: context)
-            : const FacebookBannerNative(),*/
-            const Text(
-          "Banner Native",
-          textAlign: TextAlign.center,
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
+  // _separatorListItemViewAll(BuildContext context, int index) {
+  //   if ((index + 1) % 3 == 0) {
+  //     return Container(
+  //       margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+  //       height: Get.height * 0.1,
+  //       alignment: Alignment.center,
+  //       decoration: BoxDecoration(
+  //           color: CColor.backgroundColor,
+  //           borderRadius: BorderRadius.circular(10),
+  //           border: Border.all(color: Colors.black)),
+  //       child: /*(Debug.adType == Debug.adGoogleType &&
+  //               Debug.isShowAd &&
+  //               Debug.isShowBanner)
+  //           ? NativeInlinePageBanner(context: context)
+  //           : const FacebookBannerNative(),*/
+  //           const Text(
+  //         "Banner Native",
+  //         textAlign: TextAlign.center,
+  //       ),
+  //     );
+  //   } else {
+  //     return Container();
+  //   }
+  // }
 }

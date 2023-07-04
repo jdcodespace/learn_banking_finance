@@ -84,7 +84,7 @@ class InterstitialFacebookAdClass {
       placementId: AdHelper.interstitialAdUnitIdFacebook,
       listener: (result, value) {
         if (result == InterstitialAdResult.LOADED) {
-          Get.back();
+          // Get.back();
           FacebookInterstitialAd.showInterstitialAd();
         }
 

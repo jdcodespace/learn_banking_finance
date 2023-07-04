@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/connectivitymanager/connectivitymanager.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
+import 'package:learn_banking_finance/facebook_ads/inter/inter_ad.dart';
 import 'package:learn_banking_finance/google_ads/ad_helper.dart';
 import 'package:learn_banking_finance/google_ads/inter/inter_ad.dart';
 import 'package:learn_banking_finance/localization/locale_constant.dart';
@@ -16,7 +17,6 @@ import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
 import 'package:learn_banking_finance/utils/utils.dart';
-import 'facebook_ads/inter/inter_ad.dart';
 import 'google_ads/app_open/app_lifecycle.dart';
 import 'localization/localizations_delegate.dart';
 import 'package:get/get.dart';
@@ -31,7 +31,7 @@ Future<void> main() async {
 
   await Future.delayed(const Duration(milliseconds: 3000));
 
-  /*if (Debug.adType == Debug.adGoogleType) {
+  if (Debug.adType == Debug.adGoogleType) {
     InterstitialAdClass.showInterstitialAdForSplash(() {
       runApp(
         const MyApp(),
@@ -43,15 +43,9 @@ Future<void> main() async {
         const MyApp(),
       );
     });
-  }*/
-  runApp(const MyApp());
+  }
+  // runApp(const MyApp());
 }
-
-/*Future<void> _configureLocalTimeZone() async {
-  tz.initializeTimeZones();
-  final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
-}*/
 
 Future<void> getFirebaseData() async {
   FirebaseDatabase.instance.reference().once().then((value) {

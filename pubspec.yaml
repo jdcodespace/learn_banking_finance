@@ -37,7 +37,6 @@ dependencies:
   flutter_lints: ^2.0.0
   get: ^4.6.5
   sizer: ^2.0.15
-  dio: ^4.0.4
   get_storage: ^2.0.3
   connectivity_plus: ^2.2.0
   intl:
@@ -47,7 +46,6 @@ dependencies:
   share_plus: ^7.0.2
   google_mobile_ads: ^3.0.0
   rxdart: ^0.27.2
-  timezone: ^0.8.0
   firebase_core: ^2.9.0
   facebook_audience_network: ^1.0.1
   firebase_database: ^10.2.1
