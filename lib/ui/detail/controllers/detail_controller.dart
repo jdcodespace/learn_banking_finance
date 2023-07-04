@@ -27,11 +27,19 @@ class DetailController extends GetxController {
       if (Get.arguments[0] != null) {
         isTips = Get.arguments[0];
       }
+      tipsData.clear();
+      bankData.clear();
       if(isTips){
         tipsData = Get.arguments[1];
+        for(int i = 0; i < tipsData.length; i++){
+          tipsData[i].isMark = false;
+        }
       }else{
         if(Get.arguments[1] != null) {
           bankData = Get.arguments[1];
+          for(int i = 0; i < bankData[0].detail![mainIndex].dataList!.length;i++){
+            bankData[0].detail![mainIndex].dataList![i].isMark = false;
+          }
         }
       }
       if (Get.arguments[2] != null) {
@@ -121,6 +129,7 @@ class DetailController extends GetxController {
       desc = tipsData[pageViewIndex].desc.toString();
       image = tipsData[pageViewIndex].image.toString();
       tipsData[pageViewIndex].isMark = true;
+      mainIndex = pageViewIndex;
     }else{
       title = bankData[0].detail![mainIndex].dataList![pageViewIndex].title.toString();
       desc = bankData[0].detail![mainIndex].dataList![pageViewIndex].desc.toString();
@@ -142,7 +151,7 @@ class DetailController extends GetxController {
     Preference.shared.setString(Preference.bookMarkDetailData, stringOldDatList.toString());
     Debug.printLog("Bookmark data..........${Preference.shared.getString(Preference.bookMarkDetailData)}");
     Debug.printLog("Bookmark......changedValuesForPage........");
-
+    getBookMarkData();
     update([Constant.idAppBar]);
   }
 

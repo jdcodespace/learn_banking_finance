@@ -15,6 +15,12 @@ class BookMarkController extends GetxController{
 
   @override
   void onInit() {
+    getBookMarkData();
+    super.onInit();
+  }
+
+  getBookMarkData(){
+    listData.clear();
     if(Preference.shared.getString(Preference.bookMarkDetailData) != ""){
       var oldData = Preference.shared.getString(Preference.bookMarkDetailData);
       List<dynamic> rellyAStringList = jsonDecode(oldData.toString());
@@ -24,7 +30,7 @@ class BookMarkController extends GetxController{
         listData.add(bookData);
       }
     }
-    super.onInit();
+    update();
   }
 
 }

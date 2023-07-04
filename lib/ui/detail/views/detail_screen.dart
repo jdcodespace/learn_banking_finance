@@ -92,6 +92,7 @@ class DetailScreen extends StatelessWidget {
                         : (logic.isTips)
                             ? (logic.tipsData.isNotEmpty &&
                                     logic.tipsData[logic.mainIndex].isMark)
+                                    // logic.tipsData[logic.pageController.page!.toInt()].isMark)
                                 ? Icons.bookmark
                                 : Icons.bookmark_border_rounded
                             : Icons.bookmark_border_rounded,

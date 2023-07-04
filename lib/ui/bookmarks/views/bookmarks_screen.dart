@@ -76,7 +76,7 @@ class BookMarkScreen extends StatelessWidget {
             horizontal: Sizes.width_3, vertical: Sizes.height_2),
         child: ListView.builder(
           itemBuilder: (context, index) {
-            return _listItemViewAll(index,logic.listData[index],logic.listData);
+            return _listItemViewAll(index,logic.listData[index],logic.listData,logic);
           },
           shrinkWrap: true,
           physics: const AlwaysScrollableScrollPhysics(),
@@ -87,10 +87,14 @@ class BookMarkScreen extends StatelessWidget {
     );
   }
 
-  _listItemViewAll(int index, FaqTips listData, List<FaqTips> listDataData) {
+  _listItemViewAll(int index, FaqTips listData, List<FaqTips> listDataData, BookMarkController logic) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.detail,arguments: [true,listDataData,index,null]);
+        Get.toNamed(AppRoutes.detail,
+                arguments: [true, listDataData, index, null])!
+            .then((value) {
+          logic.getBookMarkData();
+        });
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
