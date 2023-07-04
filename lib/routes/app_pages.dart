@@ -203,8 +203,8 @@ class AppPages {
       name: AppRoutes.webView,
       page: () => Sizer(
         builder: (context, orientation, deviceType) {
-          return   AnnotatedRegion<SystemUiOverlayStyle>(
-            value: const SystemUiOverlayStyle(
+          return   const AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
               statusBarColor: CColor.transparent,
               statusBarIconBrightness: Brightness.dark,
               systemNavigationBarIconBrightness: Brightness.light,

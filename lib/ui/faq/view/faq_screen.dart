@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/faq/controller/faq_controller.dart';
-
-import '../../../facebook_ads/inter/interAd.dart';
+import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/color.dart';
+import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
 
 class FaqScreen extends StatelessWidget {
@@ -20,22 +20,22 @@ class FaqScreen extends StatelessWidget {
             builder: (logic) {
               return logic.string == "Offline"
                   ? OfflineScreen()
-                  :Column(
-                children: [
-                  _appBar(logic, context),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _firstViewHeader(),
-                          _widgetTipsAll(logic),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
+                  : Column(
+                      children: [
+                        _appBar(logic, context),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _firstViewHeader(),
+                                _widgetTipsAll(logic),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
             },
           ),
         ),
@@ -59,8 +59,8 @@ class FaqScreen extends StatelessWidget {
               Get.back();
             },
             child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: Sizes.height_3,
+              Icons.keyboard_arrow_left_rounded,
+              size: Sizes.height_3_5,
             ),
           ),
           Expanded(
@@ -68,11 +68,17 @@ class FaqScreen extends StatelessWidget {
               "FAQ's",
               textAlign: TextAlign.center,
               style: TextStyle(
+                fontFamily: Font.poppins,
                 color: CColor.black,
                 fontWeight: FontWeight.w700,
                 fontSize: FontSize.size_14,
               ),
             ),
+          ),
+          Icon(
+            Icons.keyboard_arrow_left_rounded,
+            size: Sizes.height_3_5,
+            color: Colors.transparent,
           ),
         ],
       ),
@@ -103,6 +109,7 @@ class FaqScreen extends StatelessWidget {
                   Text(
                     "txtFaq".tr,
                     style: TextStyle(
+                      fontFamily: Font.poppins,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
@@ -116,6 +123,7 @@ class FaqScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
+                        fontFamily: Font.poppins,
                         color: CColor.black,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
@@ -135,7 +143,7 @@ class FaqScreen extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
-      child: ListView.builder(
+      child: ListView.separated(
         itemBuilder: (context, index) {
           return _listItemFaqAll(index, logic, context);
         },
@@ -143,6 +151,9 @@ class FaqScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: logic.faqData.length,
         scrollDirection: Axis.vertical,
+        separatorBuilder: (BuildContext context, int index) {
+          return _separatorListItemViewAll(context, index);
+        },
       ),
     );
   }
@@ -150,9 +161,7 @@ class FaqScreen extends StatelessWidget {
   _listItemFaqAll(int index, FaqController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          logic.dataVisible(index);
-        });
+        logic.dataVisible(index);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -177,6 +186,7 @@ class FaqScreen extends StatelessWidget {
                   child: Text(
                     logic.faqData[index].title.toString(),
                     style: TextStyle(
+                      fontFamily: Font.poppins,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w500,
@@ -191,7 +201,7 @@ class FaqScreen extends StatelessWidget {
                     });
                   },
                   child: Icon(
-                    (logic.isVisible == true)
+                    (logic.faqData[index].isFaqShow)
                         ? Icons.keyboard_arrow_up_outlined
                         : Icons.keyboard_arrow_down_outlined,
                     size: 25,
@@ -200,10 +210,11 @@ class FaqScreen extends StatelessWidget {
               ],
             ),
             Visibility(
-              visible: (index == logic.selectedIndex) ? logic.isVisible : false,
+              visible: logic.faqData[index].isFaqShow,
               child: Text(
                 logic.faqData[index].desc.toString(),
                 style: TextStyle(
+                  fontFamily: Font.poppins,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w400,
                 ),
@@ -213,5 +224,30 @@ class FaqScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _separatorListItemViewAll(BuildContext context, int index) {
+    if ((index + 1) % 3 == 0) {
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+        height: Get.height * 0.1,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: CColor.backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black)),
+        child: /*(Debug.adType == Debug.adGoogleType &&
+                Debug.isShowAd &&
+                Debug.isShowBanner)
+            ? NativeInlinePageBanner(context: context)
+            : const FacebookBannerNative(),*/
+            const Text(
+          "Banner Native",
+          textAlign: TextAlign.center,
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }

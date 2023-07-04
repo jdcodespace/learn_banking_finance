@@ -63,7 +63,7 @@ class AccountingController extends GetxController {
     advancedTopicData = Constant.firebaseBankData.data!.accounting!
         .where((element) => element.title == "Advanced Topics")
         .toList();
-    for (var i = 0; i < blogData[0].detail!.length; i++) {
+    for (var i = 0; i < blogData[0].detail!.length; ) {
       blogTitle = blogData[0].detail![i].title.toString();
       break;
     }

@@ -4,8 +4,11 @@ import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
-import '../../../facebook_ads/inter/interAd.dart';
+import '../../../facebook_ads/inter/inter_ad.dart';
+import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
+import '../../../utils/debug.dart';
+import '../../../utils/font.dart';
 import '../controllers/view_all_controller.dart';
 
 class ViewAllScreen extends StatelessWidget {
@@ -50,8 +53,8 @@ class ViewAllScreen extends StatelessWidget {
               Get.back();
             },
             child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: Sizes.height_2,
+              Icons.keyboard_arrow_left_rounded,
+              size: Sizes.height_3_5,
             ),
           ),
           Expanded(
@@ -59,17 +62,22 @@ class ViewAllScreen extends StatelessWidget {
               margin: EdgeInsets.only(
                 left: Sizes.width_4,
               ),
-              child: Center(
-                child: Text(
-                  logic.title,
-                  style: TextStyle(
-                    color: CColor.black,
-                    fontSize: FontSize.size_12,
-                    fontWeight: FontWeight.w800,
-                  ),
+              child: Text(
+                logic.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: Font.poppins,
+                  color: CColor.black,
+                  fontSize: FontSize.size_12,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
+          ),
+          Icon(
+            Icons.keyboard_arrow_left_rounded,
+            size: Sizes.height_3_5,
+            color: Colors.transparent,
           ),
         ],
       ),
@@ -77,17 +85,25 @@ class ViewAllScreen extends StatelessWidget {
   }
 
   _widgetViewAll(ViewAllController logic) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: Sizes.width_3, vertical: Sizes.height_2),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return _listItemViewAll(index, logic, context);
-        },
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: logic.bankData[0].detail!.length,
-        scrollDirection: Axis.vertical,
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: Sizes.width_3, vertical: Sizes.height_2),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: ListView.separated(
+            itemBuilder: (context, index) {
+              return _listItemViewAll(index, logic, context);
+            },
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: logic.bankData[0].detail!.length,
+            scrollDirection: Axis.vertical,
+            separatorBuilder: (BuildContext context, int index) {
+              return _separatorListItemViewAll(context, index);
+            },
+          ),
+        ),
       ),
     );
   }
@@ -95,13 +111,24 @@ class ViewAllScreen extends StatelessWidget {
   _listItemViewAll(int index, ViewAllController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.bankData,
-            logic.bankData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.bankData,
+              logic.bankData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.bankData,
+              logic.bankData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -122,6 +149,7 @@ class ViewAllScreen extends StatelessWidget {
             Text(
               logic.bankData[0].detail![index].title.toString(),
               style: TextStyle(
+                fontFamily: Font.poppins,
                 color: CColor.black,
                 fontSize: FontSize.size_12,
                 fontWeight: FontWeight.w500,
@@ -131,5 +159,30 @@ class ViewAllScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _separatorListItemViewAll(BuildContext context, int index) {
+    if ((index + 1) % 3 == 0) {
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+        height: Get.height * 0.1,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: CColor.backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black)),
+        child: /*(Debug.adType == Debug.adGoogleType &&
+                Debug.isShowAd &&
+                Debug.isShowBanner)
+            ? NativeInlinePageBanner(context: context)
+            : const FacebookBannerNative(),*/
+            const Text(
+          "Banner Native",
+          textAlign: TextAlign.center,
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }

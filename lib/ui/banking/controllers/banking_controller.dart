@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import '../../../datamodel/bank_data.dart';
@@ -53,7 +52,7 @@ class BankingController extends GetxController {
     financeData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Finance Guide").toList();
     savingAccountData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Saving Accounts").toList();
     loanGuideData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Personal Loan Guide").toList();
-    for(var i = 0 ; i <  blogData[0].detail!.length ; i++){
+    for(var i = 0 ; i <  blogData[0].detail!.length ; ){
       blogTitle = blogData[0].detail![i].title.toString();
       break;
     }

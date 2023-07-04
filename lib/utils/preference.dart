@@ -27,6 +27,7 @@ class Preference {
   static const String activatedCarousel = "ACTIVATED_CAROUSEL";
   static const String adImage = "AD_IMAGE";
   static const String adLogo = "AD_LOGO";
+  static const String bookMarkDetailData = "bookMarkDetailData";
 
   static int currentAdCount = 0;
   static int totalAttemptCount = 2;
@@ -60,7 +61,7 @@ class Preference {
   }
 
   String? getString(String key) {
-    return _pref!.read(key);
+    return _pref!.read(key) ?? "";
   }
 
   Future<void> setString(String key, String value) {

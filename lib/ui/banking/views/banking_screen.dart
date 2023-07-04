@@ -5,8 +5,13 @@ import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
-import '../../../facebook_ads/inter/interAd.dart';
+import '../../../facebook_ads/inter/inter_ad.dart';
+import '../../../facebook_ads/native/facebook_native_small.dart';
+import '../../../google_ads/inter/inter_ad.dart';
+import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
+import '../../../utils/debug.dart';
+import '../../../utils/font.dart';
 
 class BankingScreen extends StatelessWidget {
   const BankingScreen({Key? key}) : super(key: key);
@@ -17,28 +22,43 @@ class BankingScreen extends StatelessWidget {
       return Scaffold(
         backgroundColor: CColor.white,
         body: SafeArea(
-          child:logic.string == "Offline"
+          child: logic.string == "Offline"
               ? OfflineScreen()
               : Column(
-            children: [
-              _appBar(logic, context),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _firstViewHeader(),
-                      _widgetBlogNews(logic, context),
-                      _widgetLearnBanking(logic),
-                      _widgetFinanceLearn(logic),
-                      _widgetSavingAccount(logic, context),
-                      _widgetPersonalLoan(logic, context),
-                    ],
-                  ),
+                  children: [
+                    _appBar(logic, context),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _firstViewHeader(),
+                            _widgetBlogNews(logic, context),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 1),
+                              decoration: BoxDecoration(
+                                color: CColor.opacityBlack10,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              height: 200,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              child: (Debug.adType == Debug.adGoogleType &&
+                                      Debug.isShowAd &&
+                                      Debug.isNativeAd)
+                                  ? NativeInlinePageSmall(context: context)
+                                  : smallNativeAdFacebook(context),
+                            ),
+                            _widgetLearnBanking(logic),
+                            _widgetFinanceLearn(logic),
+                            _widgetSavingAccount(logic, context),
+                            _widgetPersonalLoan(logic, context),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
       );
     });
@@ -60,8 +80,8 @@ class BankingScreen extends StatelessWidget {
               Get.back();
             },
             child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: Sizes.height_2,
+              Icons.keyboard_arrow_left_rounded,
+              size: Sizes.height_3_5,
             ),
           ),
           Expanded(
@@ -73,6 +93,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   logic.categoryFinanceClass!.title.toString(),
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -82,8 +103,8 @@ class BankingScreen extends StatelessWidget {
             ),
           ),
           Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: Sizes.height_2,
+            Icons.keyboard_arrow_left_rounded,
+            size: Sizes.height_3_5,
             color: Colors.transparent,
           ),
         ],
@@ -115,6 +136,7 @@ class BankingScreen extends StatelessWidget {
                   Text(
                     "txtBankingFinance".tr,
                     style: TextStyle(
+                      fontFamily: Font.poppins,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
@@ -128,6 +150,7 @@ class BankingScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
+                        fontFamily: Font.poppins,
                         color: CColor.black,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
@@ -159,6 +182,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtBlogNews".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -168,10 +192,18 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                InterstitialAdClass.showInterstitialAdInterCount(context, () {
-                  Get.toNamed(AppRoutes.viewAll,
-                      arguments: ["txtBlogNews".tr, logic.blogData]);
-                });
+                if (Debug.adType == Debug.adGoogleType) {
+                  InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll,
+                        arguments: ["txtBlogNews".tr, logic.blogData]);
+                  });
+                } else {
+                  InterstitialFacebookAdClass
+                      .showInterstitialFacebookAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll,
+                        arguments: ["txtBlogNews".tr, logic.blogData]);
+                  });
+                }
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -181,6 +213,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -193,10 +226,18 @@ class BankingScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            InterstitialAdClass.showInterstitialAdInterCount(context, () {
-              Get.toNamed(AppRoutes.listOfTask,
-                  arguments: [logic.blogData, logic.blogTitle, 0]);
-            });
+            if (Debug.adType == Debug.adGoogleType) {
+              InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                Get.toNamed(AppRoutes.listOfTask,
+                    arguments: [logic.blogData, logic.blogTitle, 0]);
+              });
+            } else {
+              InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+                  context, () {
+                Get.toNamed(AppRoutes.listOfTask,
+                    arguments: [logic.blogData, logic.blogTitle, 0]);
+              });
+            }
           },
           child: Container(
             width: double.infinity,
@@ -221,7 +262,9 @@ class BankingScreen extends StatelessWidget {
                   child: Text(
                     logic.blogTitle,
                     overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: Font.poppins,
                       color: CColor.black,
                       fontWeight: FontWeight.w500,
                       fontSize: FontSize.size_10,
@@ -250,6 +293,7 @@ class BankingScreen extends StatelessWidget {
           child: Text(
             "txtLearnBanking".tr,
             style: TextStyle(
+              fontFamily: Font.poppins,
               color: CColor.black,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
@@ -281,13 +325,24 @@ class BankingScreen extends StatelessWidget {
       int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.learnBankingData,
-            logic.learnBankingData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.learnBankingData,
+              logic.learnBankingData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.learnBankingData,
+              logic.learnBankingData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         width: Sizes.width_40,
@@ -310,7 +365,9 @@ class BankingScreen extends StatelessWidget {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 logic.learnBankingData[0].detail![index].title.toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: Font.poppins,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
@@ -337,6 +394,7 @@ class BankingScreen extends StatelessWidget {
           child: Text(
             "txtFinanceGuide".tr,
             style: TextStyle(
+              fontFamily: Font.poppins,
               color: CColor.black,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
@@ -368,13 +426,24 @@ class BankingScreen extends StatelessWidget {
       int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.financeData,
-            logic.financeData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.financeData,
+              logic.financeData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.financeData,
+              logic.financeData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         width: Sizes.width_40,
@@ -397,7 +466,9 @@ class BankingScreen extends StatelessWidget {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 logic.financeData[0].detail![index].title.toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: Font.poppins,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
@@ -427,6 +498,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtSavingAccount".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -436,12 +508,22 @@ class BankingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                InterstitialAdClass.showInterstitialAdInterCount(context, () {
-                  Get.toNamed(AppRoutes.viewAll, arguments: [
-                    "txtSavingAccount".tr,
-                    logic.savingAccountData
-                  ]);
-                });
+                if (Debug.adType == Debug.adGoogleType) {
+                  InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll, arguments: [
+                      "txtSavingAccount".tr,
+                      logic.savingAccountData
+                    ]);
+                  });
+                } else {
+                  InterstitialFacebookAdClass
+                      .showInterstitialFacebookAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll, arguments: [
+                      "txtSavingAccount".tr,
+                      logic.savingAccountData
+                    ]);
+                  });
+                }
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -451,6 +533,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -482,13 +565,24 @@ class BankingScreen extends StatelessWidget {
       int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.savingAccountData,
-            logic.savingAccountData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.savingAccountData,
+              logic.savingAccountData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.savingAccountData,
+              logic.savingAccountData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -508,7 +602,9 @@ class BankingScreen extends StatelessWidget {
             ),
             Text(
               logic.savingAccountData[0].detail![index].title.toString(),
+              textAlign: TextAlign.center,
               style: TextStyle(
+                fontFamily: Font.poppins,
                 color: CColor.black,
                 fontSize: FontSize.size_12,
                 fontWeight: FontWeight.w500,
@@ -536,6 +632,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtPersonalLoan".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -558,6 +655,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -593,13 +691,24 @@ class BankingScreen extends StatelessWidget {
       int index, BankingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.loanGuideData,
-            logic.loanGuideData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.loanGuideData,
+              logic.loanGuideData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.loanGuideData,
+              logic.loanGuideData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         width: Sizes.width_40,
@@ -622,7 +731,9 @@ class BankingScreen extends StatelessWidget {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 logic.loanGuideData[0].detail![index].title.toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: Font.poppins,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,

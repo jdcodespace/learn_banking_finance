@@ -32,7 +32,7 @@ class _FacebookBannerNativeState extends State<FacebookBannerNative> {
         titleColor:  Colors.black,
         descriptionColor: Colors.black,
         buttonColor: CColor.black12,
-        buttonTitleColor: Colors.black,
+        buttonTitleColor: Colors.white,
         buttonBorderColor: Colors.black,
         isMediaCover: false,
         listener: (result, value) {

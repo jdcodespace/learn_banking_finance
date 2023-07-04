@@ -18,7 +18,7 @@ class _FacebookBannerState extends State<FacebookBanner> {
       placementId: Debug.facebookBanner,
       bannerSize: BannerSize.STANDARD,
       listener: (result, value) {
-        print("Banner Ad: $result -->  $value");
+        Debug.printLog("Banner Ad: $result -->  $value");
       },
     );
   }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/tips/controller/tips_controller.dart';
-
-import '../../../facebook_ads/inter/interAd.dart';
+import '../../../facebook_ads/inter/inter_ad.dart';
+import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
+import '../../../utils/debug.dart';
+import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
 
 class TipsScreen extends StatelessWidget {
@@ -19,25 +21,24 @@ class TipsScreen extends StatelessWidget {
         body: SafeArea(
           child: GetBuilder<TipsController>(
             builder: (logic) {
-              return
-                logic.string == "Offline"
-                    ? OfflineScreen()
-                    :Column(
-                children: [
-                  _appBar(logic, context),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _firstViewHeader(),
-                          _widgetTipsAll(logic),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
+              return logic.string == "Offline"
+                  ? OfflineScreen()
+                  : Column(
+                      children: [
+                        _appBar(logic, context),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _firstViewHeader(),
+                                _widgetTipsAll(logic),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
             },
           ),
         ),
@@ -61,8 +62,8 @@ class TipsScreen extends StatelessWidget {
               Get.back();
             },
             child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: Sizes.height_3,
+              Icons.keyboard_arrow_left_rounded,
+              size: Sizes.height_3_5,
             ),
           ),
           Expanded(
@@ -70,11 +71,17 @@ class TipsScreen extends StatelessWidget {
               "Tips",
               textAlign: TextAlign.center,
               style: TextStyle(
+                fontFamily: Font.poppins,
                 color: CColor.black,
                 fontWeight: FontWeight.w700,
                 fontSize: FontSize.size_14,
               ),
             ),
+          ),
+          Icon(
+            Icons.keyboard_arrow_left_rounded,
+            size: Sizes.height_3_5,
+            color: Colors.transparent,
           ),
         ],
       ),
@@ -105,6 +112,7 @@ class TipsScreen extends StatelessWidget {
                   Text(
                     "txtTips".tr,
                     style: TextStyle(
+                      fontFamily: Font.poppins,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
@@ -118,6 +126,7 @@ class TipsScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
+                        fontFamily: Font.poppins,
                         color: CColor.black,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
@@ -137,7 +146,7 @@ class TipsScreen extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: Sizes.width_3, vertical: Sizes.height_2),
-      child: ListView.builder(
+      child: ListView.separated(
         itemBuilder: (context, index) {
           return _listItemViewAll(index, logic, context);
         },
@@ -145,6 +154,9 @@ class TipsScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: logic.tipsData.length,
         scrollDirection: Axis.vertical,
+        separatorBuilder: (BuildContext context, int index) {
+          return _separatorListItemViewAll(context, index);
+        },
       ),
     );
   }
@@ -152,10 +164,18 @@ class TipsScreen extends StatelessWidget {
   _listItemViewAll(int index, TipsController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.detail,
-              arguments: [true, logic.tipsData, index]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.detail,
+                arguments: [true, logic.tipsData, index, null]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.detail,
+                arguments: [true, logic.tipsData, index, null]);
+          });
+        }
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -177,6 +197,7 @@ class TipsScreen extends StatelessWidget {
               child: Text(
                 logic.tipsData[index].title.toString(),
                 style: TextStyle(
+                  fontFamily: Font.poppins,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w500,
@@ -188,5 +209,30 @@ class TipsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _separatorListItemViewAll(BuildContext context, int index) {
+    if ((index + 1) % 3 == 0) {
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+        height: Get.height * 0.1,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: CColor.backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black)),
+        child: /*(Debug.adType == Debug.adGoogleType &&
+                Debug.isShowAd &&
+                Debug.isShowBanner)
+            ? NativeInlinePageBanner(context: context)
+            : const FacebookBannerNative(),*/
+            const Text(
+          "Banner Native",
+          textAlign: TextAlign.center,
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }

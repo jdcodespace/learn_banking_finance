@@ -6,9 +6,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../utils/color.dart';
 import '../../utils/sizer_utils.dart';
 
-// ignore: must_be_immutable
 class WebViewScreen extends StatelessWidget {
-  WebViewScreen({Key? key}) : super(key: key);
+  const WebViewScreen({Key? key}) : super(key: key);
 
 
   @override

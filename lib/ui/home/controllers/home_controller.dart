@@ -122,7 +122,9 @@ class HomeController extends GetxController {
     if (listData.screenName == "txtHomeTransfer".tr) {
       Get.back();
     }
-    if (listData.screenName == "txtBookMarkTransfer".tr) {}
+    if (listData.screenName == "txtBookMarkTransfer".tr) {
+      Get.toNamed(AppRoutes.bookMarks);
+    }
     if (listData.screenName == "txtRateAppTransfer".tr) {
       openPlayStore();
     }

@@ -4,7 +4,7 @@ import 'package:learn_banking_finance/utils/color.dart';
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   scaffoldBackgroundColor: CColor.white,
-  backgroundColor: CColor.white,
+  // backgroundColor: CColor.white,
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: CColor.white,
     unselectedItemColor: CColor.black,

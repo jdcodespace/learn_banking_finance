@@ -49,4 +49,7 @@ final Map<String, String> enUS = {
   'txtFeedBackTransfer': "FeedBack",
   'txtShareAppTransfer': "ShareApp",
 
+  'txtNoDataFound': "No Data Found",
+
+
 };

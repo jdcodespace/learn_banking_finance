@@ -3,23 +3,21 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/connectivitymanager/connectivitymanager.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
 import 'package:learn_banking_finance/google_ads/ad_helper.dart';
-import 'package:learn_banking_finance/google_ads/app_open.dart';
+import 'package:learn_banking_finance/google_ads/inter/inter_ad.dart';
 import 'package:learn_banking_finance/localization/locale_constant.dart';
 import 'package:learn_banking_finance/routes/app_pages.dart';
 import 'package:learn_banking_finance/routes/app_routes.dart';
-import 'package:learn_banking_finance/themes/app_theme.dart';
-import 'package:learn_banking_finance/ui/home/views/home_screen.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
 import 'package:learn_banking_finance/utils/utils.dart';
-import 'facebook_ads/inter/interAd.dart';
+import 'facebook_ads/inter/inter_ad.dart';
+import 'google_ads/app_open/app_lifecycle.dart';
 import 'localization/localizations_delegate.dart';
 import 'package:get/get.dart';
 
@@ -33,11 +31,20 @@ Future<void> main() async {
 
   await Future.delayed(const Duration(milliseconds: 3000));
 
-  InterstitialAdClass.showInterstitialAdForSplash(() {
-    runApp(
-      const MyApp(),
-    );
-  });
+  /*if (Debug.adType == Debug.adGoogleType) {
+    InterstitialAdClass.showInterstitialAdForSplash(() {
+      runApp(
+        const MyApp(),
+      );
+    });
+  } else {
+    InterstitialFacebookAdClass.showInterstitialFacebookAdForSplash(() {
+      runApp(
+        const MyApp(),
+      );
+    });
+  }*/
+  runApp(const MyApp());
 }
 
 /*Future<void> _configureLocalTimeZone() async {
@@ -47,7 +54,6 @@ Future<void> main() async {
 }*/
 
 Future<void> getFirebaseData() async {
-
   FirebaseDatabase.instance.reference().once().then((value) {
     var categoriesData = value.snapshot.value as Map;
     if (categoriesData["data"] != null) {
@@ -202,7 +208,6 @@ preLoadBannerNative() async {
 }
 
 preloadAllNativeAds() async {
-
   /*native normal*/
   Debug.preloadNativeNormal = NativeAd(
     adUnitId: AdHelper.nativeAdUnitId,
@@ -276,11 +281,12 @@ class _MyAppState extends State<MyApp> {
       Utils.preloadNormalNativeAds();
     }
 
-    AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
-    _appLifecycleReactor = AppLifecycleReactor(
-      appOpenAdManager: appOpenAdManager,
-    );
-    _appLifecycleReactor.listenToAppStateChanges();
+    if (Debug.isShowAd && Debug.isShowOpenAd) {
+      AppOpenAdManager appOpenAdManager = AppOpenAdManager()..appOpenAds();
+      _appLifecycleReactor =
+          AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
+      _appLifecycleReactor.listenToAppStateChanges();
+    }
     super.initState();
   }
 

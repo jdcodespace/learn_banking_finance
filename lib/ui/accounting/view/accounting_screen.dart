@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learn_banking_finance/facebook_ads/inter/interAd.dart';
 import 'package:learn_banking_finance/ui/accounting/controller/accounting_controller.dart';
-
+import '../../../facebook_ads/inter/inter_ad.dart';
+import '../../../facebook_ads/native/facebook_native_small.dart';
+import '../../../google_ads/inter/inter_ad.dart';
+import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
+import '../../../utils/debug.dart';
+import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
 
 class AccountingScreen extends StatelessWidget {
@@ -29,6 +33,21 @@ class AccountingScreen extends StatelessWidget {
                           children: [
                             _firstViewHeader(),
                             _widgetBlogNews(logic, context),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 1),
+                              decoration: BoxDecoration(
+                                color: CColor.opacityBlack10,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              height: 200,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              child: (Debug.adType == Debug.adGoogleType &&
+                                      Debug.isShowAd &&
+                                      Debug.isNativeAd)
+                                  ? NativeInlinePageSmall(context: context)
+                                  : smallNativeAdFacebook(context),
+                            ),
                             _widgetLearnBanking(logic),
                             _widgetFinanceLearn(logic),
                             _widgetSavingAccount(logic, context),
@@ -60,8 +79,8 @@ class AccountingScreen extends StatelessWidget {
               Get.back();
             },
             child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: Sizes.height_2,
+              Icons.keyboard_arrow_left_rounded,
+              size: Sizes.height_3_5,
             ),
           ),
           Expanded(
@@ -73,8 +92,9 @@ class AccountingScreen extends StatelessWidget {
                 child: Text(
                   logic.categoryFinanceClass!.title.toString(),
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     color: CColor.black,
-                    fontSize: FontSize.size_12,
+                    fontSize: FontSize.size_13,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -82,8 +102,8 @@ class AccountingScreen extends StatelessWidget {
             ),
           ),
           Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: Sizes.height_2,
+            Icons.keyboard_arrow_left_rounded,
+            size: Sizes.height_3_5,
             color: Colors.transparent,
           ),
         ],
@@ -116,6 +136,7 @@ class AccountingScreen extends StatelessWidget {
                     "txtLearnBankingFinance".tr,
                     style: TextStyle(
                       color: CColor.black,
+                      fontFamily: Font.poppins,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
                     ),
@@ -129,6 +150,7 @@ class AccountingScreen extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: CColor.black,
+                        fontFamily: Font.poppins,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
                       ),
@@ -160,6 +182,7 @@ class AccountingScreen extends StatelessWidget {
                   "txtBlogNews".tr,
                   style: TextStyle(
                     color: CColor.black,
+                    fontFamily: Font.poppins,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
                   ),
@@ -168,10 +191,18 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                InterstitialAdClass.showInterstitialAdInterCount(context, () {
-                  Get.toNamed(AppRoutes.viewAll,
-                      arguments: ["txtLearnBlogNews".tr, logic.blogData]);
-                });
+                if (Debug.adType == Debug.adGoogleType) {
+                  InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll,
+                        arguments: ["txtLearnBlogNews".tr, logic.blogData]);
+                  });
+                } else {
+                  InterstitialFacebookAdClass
+                      .showInterstitialFacebookAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll,
+                        arguments: ["txtLearnBlogNews".tr, logic.blogData]);
+                  });
+                }
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -183,6 +214,7 @@ class AccountingScreen extends StatelessWidget {
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: CColor.black,
+                    fontFamily: Font.poppins,
                     fontSize: FontSize.size_10,
                     fontWeight: FontWeight.w500,
                   ),
@@ -193,10 +225,18 @@ class AccountingScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            InterstitialAdClass.showInterstitialAdInterCount(context, () {
-              Get.toNamed(AppRoutes.listOfTask,
-                  arguments: [logic.blogData, logic.blogTitle, 0]);
-            });
+            if (Debug.adType == Debug.adGoogleType) {
+              InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                Get.toNamed(AppRoutes.listOfTask,
+                    arguments: [logic.blogData, logic.blogTitle, 0]);
+              });
+            } else {
+              InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+                  context, () {
+                Get.toNamed(AppRoutes.listOfTask,
+                    arguments: [logic.blogData, logic.blogTitle, 0]);
+              });
+            }
           },
           child: Container(
             width: double.infinity,
@@ -221,8 +261,10 @@ class AccountingScreen extends StatelessWidget {
                   child: Text(
                     logic.blogTitle,
                     overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: CColor.black,
+                      fontFamily: Font.poppins,
                       fontWeight: FontWeight.w500,
                       fontSize: FontSize.size_10,
                     ),
@@ -251,6 +293,7 @@ class AccountingScreen extends StatelessWidget {
             "txtLearnIntroduction".tr,
             style: TextStyle(
               color: CColor.black,
+              fontFamily: Font.poppins,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
             ),
@@ -281,13 +324,27 @@ class AccountingScreen extends StatelessWidget {
       int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.introductionData,
-            logic.introductionData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(
+            context,
+            () {
+              Get.toNamed(AppRoutes.listOfTask, arguments: [
+                logic.introductionData,
+                logic.introductionData[0].detail![index].title.toString(),
+                index
+              ]);
+            },
+          );
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.introductionData,
+              logic.introductionData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         width: Sizes.width_40,
@@ -311,8 +368,10 @@ class AccountingScreen extends StatelessWidget {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 logic.introductionData[0].detail![index].title.toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: CColor.black,
+                  fontFamily: Font.poppins,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
                 ),
@@ -338,6 +397,7 @@ class AccountingScreen extends StatelessWidget {
           child: Text(
             "txtLearnAccountingBasics".tr,
             style: TextStyle(
+              fontFamily: Font.poppins,
               color: CColor.black,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
@@ -369,13 +429,24 @@ class AccountingScreen extends StatelessWidget {
       int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.accountingData,
-            logic.accountingData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.accountingData,
+              logic.accountingData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.accountingData,
+              logic.accountingData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         width: Sizes.width_40,
@@ -399,8 +470,10 @@ class AccountingScreen extends StatelessWidget {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 logic.accountingData[0].detail![index].title.toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: CColor.black,
+                  fontFamily: Font.poppins,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
                 ),
@@ -430,6 +503,7 @@ class AccountingScreen extends StatelessWidget {
                   "txtLearnEvolution".tr,
                   style: TextStyle(
                     color: CColor.black,
+                    fontFamily: Font.poppins,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
                   ),
@@ -438,10 +512,22 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                InterstitialAdClass.showInterstitialAdInterCount(context, () {
-                  Get.toNamed(AppRoutes.viewAll,
-                      arguments: ["txtLearnEvolution".tr, logic.evolutionData]);
-                });
+                if (Debug.adType == Debug.adGoogleType) {
+                  InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll, arguments: [
+                      "txtLearnEvolution".tr,
+                      logic.evolutionData
+                    ]);
+                  });
+                } else {
+                  InterstitialFacebookAdClass
+                      .showInterstitialFacebookAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll, arguments: [
+                      "txtLearnEvolution".tr,
+                      logic.evolutionData
+                    ]);
+                  });
+                }
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -453,6 +539,7 @@ class AccountingScreen extends StatelessWidget {
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: CColor.black,
+                    fontFamily: Font.poppins,
                     fontSize: FontSize.size_10,
                     fontWeight: FontWeight.w500,
                   ),
@@ -482,13 +569,24 @@ class AccountingScreen extends StatelessWidget {
       int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.evolutionData,
-            logic.evolutionData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.evolutionData,
+              logic.evolutionData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.evolutionData,
+              logic.evolutionData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
@@ -508,8 +606,10 @@ class AccountingScreen extends StatelessWidget {
             ),
             Text(
               logic.evolutionData[0].detail![index].title.toString(),
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: CColor.black,
+                fontFamily: Font.poppins,
                 fontSize: FontSize.size_12,
                 fontWeight: FontWeight.w500,
               ),
@@ -536,6 +636,7 @@ class AccountingScreen extends StatelessWidget {
                 child: Text(
                   "txtLearnTopics".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -545,12 +646,22 @@ class AccountingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                InterstitialAdClass.showInterstitialAdInterCount(context, () {
-                  Get.toNamed(AppRoutes.viewAll, arguments: [
-                    "txtLearnTopics".tr,
-                    logic.advancedTopicData
-                  ]);
-                });
+                if (Debug.adType == Debug.adGoogleType) {
+                  InterstitialAdClass.showInterstitialAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll, arguments: [
+                      "txtLearnTopics".tr,
+                      logic.advancedTopicData
+                    ]);
+                  });
+                } else {
+                  InterstitialFacebookAdClass
+                      .showInterstitialFacebookAdInterCount(context, () {
+                    Get.toNamed(AppRoutes.viewAll, arguments: [
+                      "txtLearnTopics".tr,
+                      logic.advancedTopicData
+                    ]);
+                  });
+                }
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -560,6 +671,7 @@ class AccountingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
+                    fontFamily: Font.poppins,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -595,13 +707,24 @@ class AccountingScreen extends StatelessWidget {
       int index, AccountingController logic, BuildContext context) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.listOfTask, arguments: [
-            logic.advancedTopicData,
-            logic.advancedTopicData[0].detail![index].title.toString(),
-            index
-          ]);
-        });
+        if (Debug.adType == Debug.adGoogleType) {
+          InterstitialAdClass.showInterstitialAdInterCount(context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.advancedTopicData,
+              logic.advancedTopicData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        } else {
+          InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+              context, () {
+            Get.toNamed(AppRoutes.listOfTask, arguments: [
+              logic.advancedTopicData,
+              logic.advancedTopicData[0].detail![index].title.toString(),
+              index
+            ]);
+          });
+        }
       },
       child: Container(
         width: Sizes.width_40,
@@ -625,8 +748,10 @@ class AccountingScreen extends StatelessWidget {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 logic.advancedTopicData[0].detail![index].title.toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: CColor.black,
+                  fontFamily: Font.poppins,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
                 ),

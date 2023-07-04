@@ -9,18 +9,22 @@ import '../../home/views/home_screen.dart';
 
 class FaqController extends GetxController{
 
-  bool isVisible = false;
   dynamic argument = Get.arguments;
   List<FaqTips> faqData = [];
   String blogTitle = "";
   String learnTitle = "";
   CategoryFinanceClass? categoryFinanceClass;
  int selectedIndex = 0;
+
+
+
   dataVisible(int index){
     selectedIndex = index;
-    isVisible = !isVisible ;
+    faqData[index].isFaqShow = !faqData[index].isFaqShow;
     update();
   }
+
+
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';

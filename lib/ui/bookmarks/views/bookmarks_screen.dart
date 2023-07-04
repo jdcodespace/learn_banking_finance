@@ -4,9 +4,12 @@ import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/ui/bookmarks/controller/bookmarks_controller.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
-
-import '../../../facebook_ads/inter/interAd.dart';
+import '../../../datamodel/bank_data.dart';
+import '../../../facebook_ads/native/facebook_native_small.dart';
+import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
+import '../../../utils/debug.dart';
+import '../../../utils/font.dart';
 
 class BookMarkScreen extends StatelessWidget {
   const BookMarkScreen({super.key});
@@ -21,12 +24,61 @@ class BookMarkScreen extends StatelessWidget {
             builder: (logic) {
               return logic.string == "Offline"
                   ? OfflineScreen()
-                  :Column(
-                children: [
-                  _appBar(logic, context),
-                  _widgetViewAll(logic),
-                ],
-              );
+                  : Column(
+                      children: [
+                        _appBar(logic, context),
+                        (logic.listData.isNotEmpty)
+                            ? _widgetViewAll(logic)
+                            : Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height: Get.height * 0.07),
+                                      Image.asset(
+                                          "assets/images/course_not_found_icon.png"),
+                                      Expanded(
+                                        child: Text(
+                                          "txtNoDataFound".tr,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: Font.poppins,
+                                            color: CColor.black,
+                                            fontSize: FontSize.size_12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Container(
+                                          margin:
+                                               EdgeInsets.only(bottom:Get.height*0.005),
+                                          decoration: BoxDecoration(
+                                            color: CColor.opacityBlack10,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          height: 200,
+                                          width: double.infinity,
+                                          alignment: Alignment.center,
+                                          child: (Debug.adType ==
+                                                      Debug.adGoogleType &&
+                                                  Debug.isShowAd &&
+                                                  Debug.isNativeAd)
+                                              ? NativeInlinePageSmall(
+                                                  context: context)
+                                              : smallNativeAdFacebook(context),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                      ],
+                    );
             },
           ),
         ),
@@ -50,8 +102,8 @@ class BookMarkScreen extends StatelessWidget {
               Get.back();
             },
             child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: Sizes.height_3,
+              Icons.keyboard_arrow_left_rounded,
+              size: Sizes.height_3_5,
             ),
           ),
           Expanded(
@@ -59,11 +111,17 @@ class BookMarkScreen extends StatelessWidget {
               "Bookmarks",
               textAlign: TextAlign.center,
               style: TextStyle(
+                fontFamily: Font.poppins,
                 color: CColor.black,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
                 fontSize: FontSize.size_14,
               ),
             ),
+          ),
+          Icon(
+            Icons.keyboard_arrow_left_rounded,
+            size: Sizes.height_3_5,
+            color: Colors.transparent,
           ),
         ],
       ),
@@ -71,26 +129,35 @@ class BookMarkScreen extends StatelessWidget {
   }
 
   _widgetViewAll(BookMarkController logic) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: Sizes.width_3, vertical: Sizes.height_2),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return _listItemViewAll(index, context);
-        },
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        scrollDirection: Axis.vertical,
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: Sizes.width_3, vertical: Sizes.height_2),
+        child: ListView.separated(
+          itemBuilder: (context, index) {
+            return _listItemViewAll(
+                index, logic.listData[index], logic.listData, logic);
+          },
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: logic.listData.length,
+          scrollDirection: Axis.vertical,
+          separatorBuilder: (BuildContext context, int index) {
+            return _separatorListItemViewAll(context, index);
+          },
+        ),
       ),
     );
   }
 
-  _listItemViewAll(int index, BuildContext context) {
+  _listItemViewAll(int index, FaqTips listData, List<FaqTips> listDataData,
+      BookMarkController logic) {
     return InkWell(
       onTap: () {
-        InterstitialAdClass.showInterstitialAdInterCount(context, () {
-          Get.toNamed(AppRoutes.detail);
+        Get.toNamed(AppRoutes.detail,
+                arguments: [true, listDataData, index, null])!
+            .then((value) {
+          logic.getBookMarkData();
         });
       },
       child: Container(
@@ -111,8 +178,9 @@ class BookMarkScreen extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                "Saving account basic",
+                listData.title.toString(),
                 style: TextStyle(
+                  fontFamily: Font.poppins,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w500,
@@ -124,5 +192,30 @@ class BookMarkScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _separatorListItemViewAll(BuildContext context, int index) {
+    if ((index + 1) % 3 == 0) {
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
+        height: Get.height * 0.1,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: CColor.backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black)),
+        child: /*(Debug.adType == Debug.adGoogleType &&
+                Debug.isShowAd &&
+                Debug.isShowBanner)
+            ? NativeInlinePageBanner(context: context)
+            : const FacebookBannerNative(),*/
+            const Text(
+          "Banner Native",
+          textAlign: TextAlign.center,
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }
