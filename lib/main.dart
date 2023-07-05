@@ -37,19 +37,20 @@ Future<void> main() async {
         const MyApp(),
       );
     });
-  } else if(Debug.adType == Debug.adFacebookType && Debug.facebookInterstitial.isNotEmpty){
+  } else if (Debug.adType == Debug.adFacebookType &&
+      Debug.facebookInterstitial.isNotEmpty) {
     InterstitialFacebookAdClass.showInterstitialFacebookAdForSplash(() {
       runApp(
         const MyApp(),
       );
     });
-  }else{
-  runApp(const MyApp());
+  } else {
+    runApp(const MyApp());
   }
 }
 
 Future<void> getFirebaseData() async {
- await FirebaseDatabase.instance.reference().once().then((value) {
+  await FirebaseDatabase.instance.reference().once().then((value) {
     var categoriesData = value.snapshot.value as Map;
     if (categoriesData["data"] != null) {
       Constant.firebaseBankData = BankData.fromJson(categoriesData);
@@ -313,7 +314,10 @@ class _MyAppState extends State<MyApp> {
       // darkTheme: AppTheme.light,
       locale: Get.deviceLocale,
       getPages: AppPages.list,
-      initialRoute: (Preference.shared.getBool(Preference.isLogin) == true)?AppRoutes.home:AppRoutes.slider,
+      initialRoute: (Preference.shared.getBool(Preference.isLogin) == true)
+          ? AppRoutes.home
+          : AppRoutes.slider,
+      // initialRoute:AppRoutes.slider,
     );
   }
 }
