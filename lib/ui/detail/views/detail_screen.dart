@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
@@ -31,14 +32,17 @@ class DetailScreen extends StatelessWidget {
                         _appBar(logic, context),
                         _centerView(logic),
                         Visibility(
-                          visible:logic.isLoaded ,
+                          visible: logic.isLoaded,
                           child: Container(
                             child: (Debug.adType == Debug.adGoogleType &&
                                     Debug.isShowAd &&
                                     Debug.isNativeAd)
-                                ? NativeInlinePageBannerWithoutPreload(context: context,function:(isLoaded){
-                                  logic.onChangeNativeBannerAd(isLoaded);
-                            },)
+                                ? NativeInlinePageBannerWithoutPreload(
+                                    context: context,
+                                    function: (isLoaded) {
+                                      logic.onChangeNativeBannerAd(isLoaded);
+                                    },
+                                  )
                                 : const FacebookBannerNative(),
                           ),
                         )
@@ -171,7 +175,6 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
           Container(
-            height: Get.height * 0.25,
             decoration: BoxDecoration(
               // color: CColor.backgroundColor.withOpacity(0.5),
               borderRadius: BorderRadius.circular(16),
@@ -179,9 +182,24 @@ class DetailScreen extends StatelessWidget {
             child: (Debug.adType == Debug.adGoogleType &&
                     Debug.isShowAd &&
                     Debug.isNativeAd)
-                // ? NativeInlinePageSmall(context: context)
-                ? logic.bankData[0].detail![logic.mainIndex]
-                .dataList![index].nativeInlinePage
+                ? (logic.isTips)
+                    ? ((logic.tipsData[index].adNativeSmall != null)
+                        ? Container(
+                            height: Get.height * 0.21,
+                            child: AdWidget(
+                                ad: logic.tipsData[index].adNativeSmall!),
+                          )
+                        : Container())
+                    : ((logic.bankData[0].detail![logic.mainIndex]
+                                .dataList![index].adNativeSmall !=
+                            null)
+                        ? SizedBox(
+                            height: Get.height * 0.21,
+                            child: AdWidget(
+                                ad: logic.bankData[0].detail![logic.mainIndex]
+                                    .dataList![index].adNativeSmall!),
+                          )
+                        : Container())
                 : smallNativeAdFacebook(context),
           ),
           Padding(

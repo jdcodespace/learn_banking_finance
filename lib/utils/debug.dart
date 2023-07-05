@@ -21,6 +21,9 @@ class Debug {
   static NativeAd? preloadNativeBanner;
   static NativeAd? preloadNativeNormal;
   static NativeAd? preloadNativeSmall;
+  static NativeAd? preloadNativeSmallHome;
+  static NativeAd? preloadNativeSmallBanking;
+  static NativeAd? preloadNativeSmallAccount;
 
   static var keyNameIsShowAd = "isShowAd";
   static var keyNameInCatAd = "inCatAd";
@@ -61,7 +64,7 @@ class Debug {
 
   static var adGoogleType = "g";
   static var adFacebookType = "f";
-  static var adType = adFacebookType;
+  static var adType = adGoogleType;
 
 
   static var keyPrivacyPolicy = "privacy";

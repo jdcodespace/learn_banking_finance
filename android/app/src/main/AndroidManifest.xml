@@ -12,7 +12,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:fullBackupOnly="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="spotify_flutter_code"
+        android:label="Learn Banking Finance"
         android:usesCleartextTraffic="true">
 
 

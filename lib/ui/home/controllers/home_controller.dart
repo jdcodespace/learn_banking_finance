@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learn_banking_finance/utils/utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../routes/app_routes.dart';
@@ -43,6 +44,9 @@ class HomeController extends GetxController {
     });
     getDrawerListData();
     getCategoryListData();
+
+    // Utils.preLoadSmallNativeBanking();
+    // Utils.preLoadSmallNativeAccount();
     super.onInit();
   }
 
@@ -160,7 +164,11 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    Debug.preloadNativeSmall!.dispose();
+    if(Debug.preloadNativeSmallHome  != null) {
+      Debug.preloadNativeSmallHome!.dispose();
+      Debug.preloadNativeSmallHome = null;
+      // Utils.preLoadSmallNative();
+    }
     super.onClose();
   }
 }

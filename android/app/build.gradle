@@ -26,7 +26,15 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 34
+    signingConfigs {
+        release {
+            storeFile file('/Users/mac/Desktop/jksFiles/learn_bnking_finance_flutter.jks')
+            keyAlias 'learn_bnking_finance_flutter'
+            storePassword 'learn_bnking_finance_flutter'
+            keyPassword 'learn_bnking_finance_flutter'
+        }
+    }
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -48,7 +56,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled = true
@@ -58,7 +66,12 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+        }
+        debug {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
         }
     }
 }

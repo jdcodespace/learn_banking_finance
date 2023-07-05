@@ -4,6 +4,7 @@ import 'package:learn_banking_finance/utils/constant.dart';
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/utils.dart';
 import '../../home/views/home_screen.dart';
 
 class BankingController extends GetxController {
@@ -58,5 +59,14 @@ class BankingController extends GetxController {
     }
 
     super.onInit();
+  }
+  @override
+  void onClose() {
+    if(Debug.preloadNativeSmallBanking != null) {
+      Debug.preloadNativeSmallBanking!.dispose();
+      Debug.preloadNativeSmallBanking = null;
+      // Utils.preLoadSmallNativeBanking();
+    }
+    super.onClose();
   }
 }

@@ -3,6 +3,7 @@ import 'package:learn_banking_finance/ui/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
+import 'package:learn_banking_finance/utils/utils.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/inter/inter_ad.dart';
@@ -69,6 +70,7 @@ class HomeScreen extends StatelessWidget {
                             child: (Debug.adType == Debug.adGoogleType &&
                                     Debug.isShowAd &&
                                     Debug.isNativeAd)
+                                // ? Utils.getAdNativeSmallAd()
                                 ? NativeInlinePageSmall(context: context)
                                 : smallNativeAdFacebook(context),
                           ),

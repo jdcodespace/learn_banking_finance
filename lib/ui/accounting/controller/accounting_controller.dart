@@ -5,6 +5,7 @@ import '../../../datamodel/bank_data.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/utils.dart';
 import '../../home/views/home_screen.dart';
 
 class AccountingController extends GetxController {
@@ -70,4 +71,14 @@ class AccountingController extends GetxController {
 
     super.onInit();
   }
+  @override
+  void onClose() {
+    if(Debug.preloadNativeSmallAccount != null) {
+      Debug.preloadNativeSmallAccount!.dispose();
+      Debug.preloadNativeSmallAccount = null;
+      // Utils.preLoadSmallNativeAccount();
+    }
+    super.onClose();
+  }
+
 }

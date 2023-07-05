@@ -271,8 +271,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     if (Debug.isShowAd && Debug.isNativeAd) {
-      Utils.preLoadBannerNative();
-      Utils.preloadNormalNativeAds();
+      // Utils.preLoadBannerNative();
+      // Utils.preloadNormalNativeAds();
+      // Utils.preLoadSmallNativeHome();
     }
 
     if (Debug.isShowAd && Debug.isShowOpenAd) {

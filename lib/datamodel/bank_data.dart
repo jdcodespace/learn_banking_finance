@@ -1,3 +1,4 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/google_ads/native/native_small_page_list_data.dart';
 
 class BankData {
@@ -131,7 +132,9 @@ class DataList {
   String? isBookmark;
   String? title;
   bool isMark = false;
-  NativeInlinePageSmallListData? nativeInlinePage;
+  // NativeInlinePageSmallListData? nativeInlinePage;
+  NativeAd? adNativeSmall;
+
 
   DataList({this.desc, this.isBookmark, this.title});
 
@@ -156,6 +159,7 @@ class FaqTips {
   String? title;
   bool isMark = false;
   bool isFaqShow = false;
+  NativeAd? adNativeSmall;
 
   FaqTips({this.desc, this.image, this.title});
 

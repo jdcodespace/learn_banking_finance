@@ -88,4 +88,158 @@ class Utils{
     );
     Debug.preloadNativeBanner!.load();
   }
+
+  static preLoadSmallNative() async {
+    /*native Small*/
+    Debug.preloadNativeSmall = NativeAd(
+      adUnitId: AdHelper.nativeAdUnitId,
+      factoryId: 'listTileSmall',
+      request: const AdRequest(),
+      listener: NativeAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (Ad ad) {
+          Debug.printLog('Ad load success preloadNativeSmall.......');
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          // Dispose the ad here to free resources.
+          ad.dispose();
+          Debug.printLog(
+              'Ad load failed preloadNativeSmall (code=${error.code} message=${error.message})');
+        },
+        // Called when an ad opens an overlay that covers the screen.
+        onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+        // Called when an ad removes an overlay that covers the screen.
+        onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+        // Called when an impression occurs on the ad.
+        onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+        // Called when a click is recorded for a NativeAd.
+        onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+      ),
+    );
+    Debug.preloadNativeSmall!.load();
+  }
+
+  static preLoadSmallNativeHome() async {
+    /*native Small*/
+    Debug.preloadNativeSmallHome = NativeAd(
+      adUnitId: AdHelper.nativeAdUnitId,
+      factoryId: 'listTileSmall',
+      request: const AdRequest(),
+      listener: NativeAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (Ad ad) {
+          Debug.printLog('Ad load success preloadNativeSmall.......');
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          // Dispose the ad here to free resources.
+          ad.dispose();
+          Debug.printLog(
+              'Ad load failed preloadNativeSmall (code=${error.code} message=${error.message})');
+        },
+        // Called when an ad opens an overlay that covers the screen.
+        onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+        // Called when an ad removes an overlay that covers the screen.
+        onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+        // Called when an impression occurs on the ad.
+        onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+        // Called when a click is recorded for a NativeAd.
+        onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+      ),
+    );
+    Debug.preloadNativeSmallHome!.load();
+  }
+
+  static preLoadSmallNativeBanking() async {
+    /*native Small*/
+    Debug.preloadNativeSmallBanking = NativeAd(
+      adUnitId: AdHelper.nativeAdUnitId,
+      factoryId: 'listTileSmall',
+      request: const AdRequest(),
+      listener: NativeAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (Ad ad) {
+          Debug.printLog('Ad load success preloadNativeSmall.......');
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          // Dispose the ad here to free resources.
+          ad.dispose();
+          Debug.printLog(
+              'Ad load failed preloadNativeSmall (code=${error.code} message=${error.message})');
+        },
+        // Called when an ad opens an overlay that covers the screen.
+        onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+        // Called when an ad removes an overlay that covers the screen.
+        onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+        // Called when an impression occurs on the ad.
+        onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+        // Called when a click is recorded for a NativeAd.
+        onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+      ),
+    );
+    Debug.preloadNativeSmallBanking!.load();
+  }
+
+  static preLoadSmallNativeAccount() async {
+    /*native Small*/
+    Debug.preloadNativeSmallAccount = NativeAd(
+      adUnitId: AdHelper.nativeAdUnitId,
+      factoryId: 'listTileSmall',
+      request: const AdRequest(),
+      listener: NativeAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (Ad ad) {
+          Debug.printLog('Ad load success preloadNativeSmall.......');
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          // Dispose the ad here to free resources.
+          ad.dispose();
+          Debug.printLog(
+              'Ad load failed preloadNativeSmall (code=${error.code} message=${error.message})');
+        },
+        // Called when an ad opens an overlay that covers the screen.
+        onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+        // Called when an ad removes an overlay that covers the screen.
+        onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+        // Called when an impression occurs on the ad.
+        onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+        // Called when a click is recorded for a NativeAd.
+        onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+      ),
+    );
+    Debug.preloadNativeSmallAccount!.load();
+  }
+
+  static getAdNativeSmallAd(){
+    return NativeAd(
+      adUnitId: AdHelper.nativeAdUnitId,
+      factoryId: 'listTileSmall',
+      request: const AdRequest(),
+      listener: NativeAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (Ad ad) {
+          var add = ad as NativeAd;
+          Debug.printLog("**** getAdNativeSmallAd AD ***** ${add.responseInfo}");
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          // Dispose the ad here to free resources.
+          ad.dispose();
+          Debug.printLog(
+              ' getAdNativeSmallAd Ad load failed (code=${error.code} message=${error.message})');
+        },
+        // Called when an ad opens an overlay that covers the screen.
+        onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+        // Called when an ad removes an overlay that covers the screen.
+        onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+        // Called when an impression occurs on the ad.
+        onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+        // Called when a click is recorded for a NativeAd.
+        onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+      ),
+    ).load();
+  }
 }

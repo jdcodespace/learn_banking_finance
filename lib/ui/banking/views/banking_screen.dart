@@ -12,6 +12,7 @@ import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
+import '../../../utils/utils.dart';
 
 class BankingScreen extends StatelessWidget {
   const BankingScreen({Key? key}) : super(key: key);
@@ -46,6 +47,7 @@ class BankingScreen extends StatelessWidget {
                               child: (Debug.adType == Debug.adGoogleType &&
                                       Debug.isShowAd &&
                                       Debug.isNativeAd)
+                                  // ? Utils.getAdNativeSmallAd()
                                   ? NativeInlinePageSmall(context: context)
                                   : smallNativeAdFacebook(context),
                             ),
