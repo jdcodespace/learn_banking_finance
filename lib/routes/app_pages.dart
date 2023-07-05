@@ -21,6 +21,8 @@ import 'package:learn_banking_finance/ui/viewall/views/view_all_screen.dart';
 import 'package:learn_banking_finance/webview/bindings/webview_binding.dart';
 import 'package:learn_banking_finance/webview/views/webview_screen.dart';
 import 'package:sizer/sizer.dart';
+import '../ui/slider/bindings/slider_binding.dart';
+import '../ui/slider/view/slider_screen.dart';
 import '../ui/viewall/bindings/view_all_binding.dart';
 import '../utils/color.dart';
 import 'app_routes.dart';
@@ -45,7 +47,6 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.banking,
       page: () => Sizer(
@@ -64,7 +65,6 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.viewAll,
       page: () => Sizer(
@@ -83,7 +83,6 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.listOfTask,
       page: () => Sizer(
@@ -102,7 +101,6 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.detail,
       page: () => Sizer(
@@ -121,12 +119,11 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.tips,
       page: () => Sizer(
         builder: (context, orientation, deviceType) {
-          return  const AnnotatedRegion<SystemUiOverlayStyle>(
+          return const AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
               statusBarColor: CColor.transparent,
               statusBarIconBrightness: Brightness.dark,
@@ -140,12 +137,11 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.faq,
       page: () => Sizer(
         builder: (context, orientation, deviceType) {
-          return  const AnnotatedRegion<SystemUiOverlayStyle>(
+          return const AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
               statusBarColor: CColor.transparent,
               statusBarIconBrightness: Brightness.dark,
@@ -159,12 +155,11 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.bookMarks,
       page: () => Sizer(
         builder: (context, orientation, deviceType) {
-          return  const AnnotatedRegion<SystemUiOverlayStyle>(
+          return const AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
               statusBarColor: CColor.transparent,
               statusBarIconBrightness: Brightness.dark,
@@ -178,12 +173,11 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
     GetPage(
       name: AppRoutes.accounting,
       page: () => Sizer(
         builder: (context, orientation, deviceType) {
-          return  const AnnotatedRegion<SystemUiOverlayStyle>(
+          return const AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
               statusBarColor: CColor.transparent,
               statusBarIconBrightness: Brightness.dark,
@@ -197,13 +191,11 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
-
     GetPage(
       name: AppRoutes.webView,
       page: () => Sizer(
         builder: (context, orientation, deviceType) {
-          return   const AnnotatedRegion<SystemUiOverlayStyle>(
+          return const AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
               statusBarColor: CColor.transparent,
               statusBarIconBrightness: Brightness.dark,
@@ -217,6 +209,23 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
-
+    GetPage(
+      name: AppRoutes.slider,
+      page: () => Sizer(
+        builder: (context, orientation, deviceType) {
+          return const AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: CColor.transparent,
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarIconBrightness: Brightness.light,
+            ),
+            child: SliderScreen(),
+          );
+        },
+      ),
+      binding: SliderBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+    ),
   ];
 }

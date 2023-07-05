@@ -8,9 +8,8 @@ import '../../utils/debug.dart';
 import '../../utils/preference.dart';
 
 class InterstitialFacebookAdClass {
-
-  static void showInterstitialFacebookAdInterCount(BuildContext context,
-      Function callBack) {
+  static void showInterstitialFacebookAdInterCount(
+      BuildContext context, Function callBack) {
     if (Debug.isShowAd &&
         Debug.isShowInter &&
         Debug.totalAdInterCount <= Preference.currentAdCount) {
@@ -48,8 +47,8 @@ class InterstitialFacebookAdClass {
     }
   }
 
-  static void showInterstitialFacebookAdForceShow(BuildContext context,
-      Function callBack) {
+  static void showInterstitialFacebookAdForceShow(
+      BuildContext context, Function callBack) {
     try {
       showDialog(
           context: context,
@@ -84,7 +83,6 @@ class InterstitialFacebookAdClass {
       placementId: AdHelper.interstitialAdUnitIdFacebook,
       listener: (result, value) {
         if (result == InterstitialAdResult.LOADED) {
-          // Get.back();
           FacebookInterstitialAd.showInterstitialAd();
         }
 

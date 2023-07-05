@@ -37,18 +37,19 @@ Future<void> main() async {
         const MyApp(),
       );
     });
-  } else {
+  } else if(Debug.adType == Debug.adFacebookType && Debug.facebookInterstitial.isNotEmpty){
     InterstitialFacebookAdClass.showInterstitialFacebookAdForSplash(() {
       runApp(
         const MyApp(),
       );
     });
+  }else{
+  runApp(const MyApp());
   }
-  // runApp(const MyApp());
 }
 
 Future<void> getFirebaseData() async {
-  FirebaseDatabase.instance.reference().once().then((value) {
+ await FirebaseDatabase.instance.reference().once().then((value) {
     var categoriesData = value.snapshot.value as Map;
     if (categoriesData["data"] != null) {
       Constant.firebaseBankData = BankData.fromJson(categoriesData);
@@ -312,7 +313,7 @@ class _MyAppState extends State<MyApp> {
       // darkTheme: AppTheme.light,
       locale: Get.deviceLocale,
       getPages: AppPages.list,
-      initialRoute: AppRoutes.home,
+      initialRoute: (Preference.shared.getBool(Preference.isLogin) == true)?AppRoutes.home:AppRoutes.slider,
     );
   }
 }

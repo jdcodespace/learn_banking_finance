@@ -28,6 +28,7 @@ class Preference {
   static const String adImage = "AD_IMAGE";
   static const String adLogo = "AD_LOGO";
   static const String bookMarkDetailData = "bookMarkDetailData";
+  static const String isLogin = "IS_LOGIN";
 
   static int currentAdCount = 0;
   static int totalAttemptCount = 2;

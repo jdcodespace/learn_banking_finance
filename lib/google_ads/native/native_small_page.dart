@@ -69,7 +69,6 @@ class _NativeInlinePageSmallState extends State<NativeInlinePageSmall> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return _ad != null && Debug.isShowAd && Debug.isNativeAd || isAdLoaded
@@ -82,5 +81,4 @@ class _NativeInlinePageSmallState extends State<NativeInlinePageSmall> {
             height: 0,
           );
   }
-
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:learn_banking_finance/ui/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
@@ -18,66 +19,71 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (logic) {
-      return Scaffold(
-        key: logic.scaffoldKey,
-        backgroundColor: CColor.white,
-        drawer: _widgetDrawer(logic),
-        body: SafeArea(
-          child: GetBuilder<HomeController>(
-            builder: (logic) {
-              return logic.string == "Offline"
-                  ? OfflineScreen()
-                  : Column(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _appBar(logic, context),
-                                _firstViewHeader(),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    left: Sizes.width_5,
-                                    top: Sizes.height_2,
-                                  ),
-                                  child: Text(
-                                    "txtFinanceCategory".tr,
-                                    style: TextStyle(
-                                      fontFamily: Font.poppins,
-                                      color: CColor.black,
-                                      fontSize: FontSize.size_12,
-                                      fontWeight: FontWeight.w800,
+      return WillPopScope(
+        onWillPop: () async{
+          SystemNavigator.pop();
+          return true;
+        },
+        child: Scaffold(
+          key: logic.scaffoldKey,
+          backgroundColor: CColor.white,
+          drawer: _widgetDrawer(logic),
+          body: SafeArea(
+            child: GetBuilder<HomeController>(
+              builder: (logic) {
+                return logic.string == "Offline"
+                    ? OfflineScreen()
+                    : Column(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _appBar(logic, context),
+                                  _firstViewHeader(),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      left: Sizes.width_5,
+                                      top: Sizes.height_2,
+                                    ),
+                                    child: Text(
+                                      "txtFinanceCategory".tr,
+                                      style: TextStyle(
+                                        fontFamily: Font.poppins,
+                                        color: CColor.black,
+                                        fontSize: FontSize.size_12,
+                                        fontWeight: FontWeight.w800,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                _widgetCategoryFinance(),
-                              ],
+                                  _widgetCategoryFinance(),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: Get.height * 0.005),
-                            decoration: BoxDecoration(
-                              color: CColor.backgroundColor,
-                              borderRadius: BorderRadius.circular(10),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: Get.height * 0.005),
+                              decoration: BoxDecoration(
+                                color: CColor.backgroundColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              // height: 200,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              child: (Debug.adType == Debug.adGoogleType &&
+                                      Debug.isShowAd &&
+                                      Debug.isNativeAd)
+                                  ? NativeInlinePageSmall(context: context)
+                                  : smallNativeAdFacebook(context),
                             ),
-                            // height: 200,
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            child: (Debug.adType == Debug.adGoogleType &&
-                                    Debug.isShowAd &&
-                                    Debug.isNativeAd)
-                                // ? Utils.getAdNativeSmallAd()
-                                ? NativeInlinePageSmall(context: context)
-                                : smallNativeAdFacebook(context),
-                          ),
-                        )
-                      ],
-                    );
-            },
+                          )
+                        ],
+                      );
+              },
+            ),
           ),
         ),
       );

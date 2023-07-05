@@ -24,8 +24,9 @@ class Data {
   List<Accounting>? bank;
   List<FaqTips>? tips;
   List<FaqTips>? faq;
+  List<SliderData>? slider;
 
-  Data({this.accounting, this.bank});
+  Data({this.accounting, this.bank, this.slider, this.tips, this.faq});
 
   Data.fromJson(Map json) {
     if (json['accounting'] != null) {
@@ -50,6 +51,12 @@ class Data {
       faq = <FaqTips>[];
       json['faq'].forEach((v) {
         faq?.add(FaqTips.fromJson(v));
+      });
+    }
+    if (json['slider'] != null) {
+      slider = <SliderData>[];
+      json['slider'].forEach((v) {
+        slider?.add(SliderData.fromJson(v));
       });
     }
   }
@@ -174,6 +181,26 @@ class FaqTips {
     data['desc'] = desc;
     data['image'] = image;
     data['title'] = title;
+    return data;
+  }
+}
+
+class SliderData {
+  String? desc;
+  String? image;
+
+  SliderData({this.desc, this.image});
+
+  SliderData.fromJson(Map json) {
+    desc = json['description'];
+    image = json['img'];
+  }
+
+  Map toJson() {
+    final Map data = {};
+    data['description'] = desc;
+    data['img'] = image;
+
     return data;
   }
 }
