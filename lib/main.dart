@@ -16,7 +16,6 @@ import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
-import 'package:learn_banking_finance/utils/utils.dart';
 import 'google_ads/app_open/app_lifecycle.dart';
 import 'localization/localizations_delegate.dart';
 import 'package:get/get.dart';
