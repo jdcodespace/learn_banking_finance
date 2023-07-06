@@ -251,10 +251,15 @@ class BankingScreen extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: Image.asset(
+                  child: /*Image.asset(
                     "assets/images/ic_bank.png",
-                    height: Sizes.height_8,
-                    width: Sizes.height_8,
+                    height: Sizes.height_5,
+                    width: Sizes.height_5,
+                  ),*/
+                  Image.network(
+                    logic.blogUrl,
+                    height: Sizes.height_5,
+                    width: Sizes.height_5,
                   ),
                 ),
                 Container(
@@ -359,6 +364,11 @@ class BankingScreen extends StatelessWidget {
                 height: Sizes.height_8,
                 width: Sizes.height_8,
               ),
+             /* Image.network(
+                logic.learnBankingData[0].detail![index].image.toString(),
+                height: Sizes.height_8,
+                width: Sizes.height_8,
+              ),*/
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),
@@ -460,6 +470,11 @@ class BankingScreen extends StatelessWidget {
                 height: Sizes.height_8,
                 width: Sizes.height_8,
               ),
+              /* Image.network(
+                logic.financeData[0].detail![index].image.toString(),
+                height: Sizes.height_8,
+                width: Sizes.height_8,
+              ),*/
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),
@@ -599,6 +614,11 @@ class BankingScreen extends StatelessWidget {
                 height: Sizes.height_5,
                 width: Sizes.height_5,
               ),
+              /* Image.network(
+                logic.savingAccountData[0].detail![index].image.toString(),
+                height: Sizes.height_5,
+                width: Sizes.height_5,
+              ),*/
             ),
             Text(
               logic.savingAccountData[0].detail![index].title.toString(),
@@ -725,6 +745,11 @@ class BankingScreen extends StatelessWidget {
                 height: Sizes.height_8,
                 width: Sizes.height_8,
               ),
+              /* Image.network(
+                logic.loanGuideData[0].detail![index].image.toString(),
+                height: Sizes.height_8,
+                width: Sizes.height_8,
+              ),*/
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),

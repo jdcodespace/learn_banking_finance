@@ -107,7 +107,7 @@ class SliderScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontFamily: Font.poppins,
                                   color: CColor.black,
-                                  fontSize: FontSize.size_12,
+                                  fontSize: FontSize.size_13,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ))

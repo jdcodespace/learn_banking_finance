@@ -12,6 +12,7 @@ class BankingController extends GetxController {
   dynamic argument = Get.arguments;
   CategoryFinanceClass? categoryFinanceClass;
   String blogTitle = "";
+  String blogUrl = "";
   List<Accounting> blogData = [];
   List<Accounting> learnBankingData = [];
   List<Accounting> financeData = [];
@@ -57,6 +58,7 @@ class BankingController extends GetxController {
     loanGuideData = Constant.firebaseBankData.data!.bank!.where((element) =>element.title == "Personal Loan Guide").toList();
     for(var i = 0 ; i <  blogData[0].detail!.length ; ){
       blogTitle = blogData[0].detail![i].title.toString();
+      blogUrl = blogData[0].detail![i].image.toString();
       break;
     }
     nativeHomeAd();

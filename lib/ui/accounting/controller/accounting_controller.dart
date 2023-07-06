@@ -17,7 +17,7 @@ class AccountingController extends GetxController {
   List<Accounting> evolutionData = [];
   List<Accounting> advancedTopicData = [];
   String blogTitle = "";
-  String learnTitle = "";
+  String blogUrl = "";
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
@@ -77,6 +77,7 @@ class AccountingController extends GetxController {
         .toList();
     for (var i = 0; i < blogData[0].detail!.length; ) {
       blogTitle = blogData[0].detail![i].title.toString();
+      blogUrl = blogData[0].detail![i].image.toString();
       break;
     }
     nativeHomeAd();
