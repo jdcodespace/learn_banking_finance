@@ -4,11 +4,8 @@ import 'package:learn_banking_finance/ui/banking/controllers/banking_controller.
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
-
 import '../../../facebook_ads/inter/inter_ad.dart';
-import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/inter/inter_ad.dart';
-import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
@@ -35,22 +32,23 @@ class BankingScreen extends StatelessWidget {
                           children: [
                             _firstViewHeader(),
                             _widgetBlogNews(logic, context),
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 1),
-                              decoration: BoxDecoration(
-                                color: CColor.opacityBlack10,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              height: 200,
-                              width: double.infinity,
-                              alignment: Alignment.center,
-                              child: (Debug.adType == Debug.adGoogleType &&
-                                      Debug.isShowAd &&
-                                      Debug.isNativeAd)
-                                  // ? Utils.getAdNativeSmallAd()
-                                  ? NativeInlinePageSmall(context: context)
-                                  : smallNativeAdFacebook(context),
-                            ),
+                            // Container(
+                            //   margin: const EdgeInsets.only(bottom: 1),
+                            //   decoration: BoxDecoration(
+                            //     color: CColor.opacityBlack10,
+                            //     borderRadius: BorderRadius.circular(10),
+                            //   ),
+                            //   // height: 200,
+                            //   width: double.infinity,
+                            //   alignment: Alignment.center,
+                            //   child: /*(Debug.adType == Debug.adGoogleType &&
+                            //           Debug.isShowAd &&
+                            //           Debug.isNativeAd)
+                            //       // ? Utils.getAdNativeSmallAd()
+                            //       ? NativeInlinePageSmall(context: context)
+                            //       : smallNativeAdFacebook(context),*/
+                              Utils.smallNativeAd(logic.bankingAd, context)!,
+                            // ),
                             _widgetLearnBanking(logic),
                             _widgetFinanceLearn(logic),
                             _widgetSavingAccount(logic, context),

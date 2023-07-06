@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,6 +20,7 @@ class HomeController extends GetxController {
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
+  NativeAd? homeAd;
 
   @override
   void onInit() {
@@ -42,12 +44,51 @@ class HomeController extends GetxController {
       // 3.
       Debug.printLog("connection status-------------------->$string");
     });
+    // NativeAd(
+    //   adUnitId: AdHelper.nativeAdUnitId,
+    //   factoryId: 'listTileSmall',
+    //   request: const AdRequest(),
+    //   listener: NativeAdListener(
+    //     // Called when an ad is successfully received.
+    //     onAdLoaded: (Ad ad) {
+    //       var add = ad as NativeAd;
+    //       Debug.printLog("**** AD NativeInlinePageSmallListData ***** ${add.responseInfo}");
+    //       homeAd = add;
+    //       update();
+    //     },
+    //     // Called when an ad request failed.
+    //     onAdFailedToLoad: (Ad ad, LoadAdError error) {
+    //       // Dispose the ad here to free resources.
+    //       ad.dispose();
+    //       homeAd = null;
+    //       Debug.printLog(
+    //           ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error.code} message=${error.message})');
+    //     },
+    //     // Called when an ad opens an overlay that covers the screen.
+    //     onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+    //     // Called when an ad removes an overlay that covers the screen.
+    //     onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+    //     // Called when an impression occurs on the ad.
+    //     onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+    //     // Called when a click is recorded for a NativeAd.
+    //     onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+    //   ),
+    // ).load();
+
+
     getDrawerListData();
     getCategoryListData();
-
+    nativeHomeAd();
     // Utils.preLoadSmallNativeBanking();
     // Utils.preLoadSmallNativeAccount();
     super.onInit();
+  }
+
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      homeAd = value;
+      update();
+    });
   }
 
   getDrawerListData() {
@@ -164,11 +205,11 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    if(Debug.preloadNativeSmallHome  != null) {
-      Debug.preloadNativeSmallHome!.dispose();
-      Debug.preloadNativeSmallHome = null;
-      // Utils.preLoadSmallNative();
-    }
+    // if(Debug.preloadNativeSmallHome  != null) {
+    //   Debug.preloadNativeSmallHome!.dispose();
+    //   Debug.preloadNativeSmallHome = null;
+    //   // Utils.preLoadSmallNative();
+    // }
     super.onClose();
   }
 }

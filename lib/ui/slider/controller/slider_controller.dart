@@ -1,12 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
-
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/utils.dart';
 
 class SliderController extends GetxController{
   RxInt selectedIndex = 0.obs;
@@ -17,12 +17,22 @@ List<SliderData> sliderData = [];
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
+  NativeAd? sliderAd;
 
 
   changeIndex(value) {
     selectedIndex.value = value;
     update();
   }
+  // @override
+  // void onClose() {
+  //   if(Debug.preloadNativeSmallHome  != null) {
+  //     Debug.preloadNativeSmallHome!.dispose();
+  //     Debug.preloadNativeSmallHome = null;
+  //     Utils.preLoadSmallNative();
+  //   }
+  //   super.onClose();
+  // }
   @override
   void onInit() {
     networkConnectivity.initialise();
@@ -45,7 +55,15 @@ List<SliderData> sliderData = [];
       // 3.
       Debug.printLog("connection status-------------------->$string");
     });
+    nativeHomeAd();
     sliderData = Constant.firebaseBankData.data!.slider!;
     super.onInit();
+  }
+
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      sliderAd = value;
+      update();
+    });
   }
 }

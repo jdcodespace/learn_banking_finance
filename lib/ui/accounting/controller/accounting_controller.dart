@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/constant.dart';
@@ -21,6 +22,16 @@ class AccountingController extends GetxController {
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
   CategoryFinanceClass? categoryFinanceClass;
+  NativeAd? accountingAd;
+  // NativeAd? homeAd;
+
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      accountingAd = value;
+      update();
+    });
+  }
+
 
   @override
   void onInit() {
@@ -68,17 +79,18 @@ class AccountingController extends GetxController {
       blogTitle = blogData[0].detail![i].title.toString();
       break;
     }
+    nativeHomeAd();
 
     super.onInit();
   }
-  @override
-  void onClose() {
-    if(Debug.preloadNativeSmallAccount != null) {
-      Debug.preloadNativeSmallAccount!.dispose();
-      Debug.preloadNativeSmallAccount = null;
-      // Utils.preLoadSmallNativeAccount();
-    }
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   if(Debug.preloadNativeSmallAccount != null) {
+  //     Debug.preloadNativeSmallAccount!.dispose();
+  //     Debug.preloadNativeSmallAccount = null;
+  //     // Utils.preLoadSmallNativeAccount();
+  //   }
+  //   super.onClose();
+  // }
 
 }

@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/debug.dart';
@@ -19,6 +20,7 @@ class BankingController extends GetxController {
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
+  NativeAd? bankingAd;
 
   @override
   void onInit() {
@@ -57,8 +59,16 @@ class BankingController extends GetxController {
       blogTitle = blogData[0].detail![i].title.toString();
       break;
     }
-
+    nativeHomeAd();
     super.onInit();
+  }
+
+
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      bankingAd = value;
+      update();
+    });
   }
   @override
   void onClose() {

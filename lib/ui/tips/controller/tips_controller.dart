@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/utils.dart';
 import '../../home/views/home_screen.dart';
 
 class TipsController extends GetxController{
@@ -16,6 +18,7 @@ class TipsController extends GetxController{
   String string = '';
   CategoryFinanceClass? categoryFinanceClass;
   int selectedIndex = 0;
+  NativeAd? tipsAd;
 
 
   @override
@@ -40,6 +43,7 @@ class TipsController extends GetxController{
       // 3.
       Debug.printLog("connection status-------------------->$string");
     });
+    nativeHomeAd();
     if(argument != null){
 
       if(argument[0] != null){
@@ -48,5 +52,11 @@ class TipsController extends GetxController{
     }
     tipsData = Constant.firebaseBankData.data!.tips!.toList();
     super.onInit();
+  }
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      tipsAd = value;
+      update();
+    });
   }
 }

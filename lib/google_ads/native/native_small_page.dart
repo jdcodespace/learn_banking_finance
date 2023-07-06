@@ -21,10 +21,10 @@ class _NativeInlinePageSmallState extends State<NativeInlinePageSmall> {
   void initState() {
     Debug.printLog("*************** INIT STATE ***************");
     super.initState();
-    if (Debug.preloadNativeSmall != null) {
-      _ad = Debug.preloadNativeSmall;
-      Debug.printLog("*************** INIT small STATE ***************");
-    }else {
+    // if (Debug.preloadNativeSmall != null) {
+    //   _ad = Debug.preloadNativeSmall;
+    //   Debug.printLog("*************** INIT small STATE ***************");
+    // }else {
       _ad = NativeAd(
         adUnitId: AdHelper.nativeAdUnitId,
         factoryId: 'listTileSmall',
@@ -58,7 +58,7 @@ class _NativeInlinePageSmallState extends State<NativeInlinePageSmall> {
       );
 
       _ad!.load();
-    }
+    // }
   }
 
   @override

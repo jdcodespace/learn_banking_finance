@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
-import 'package:learn_banking_finance/main.dart';
 import '../../../google_ads/ad_helper.dart';
-import '../../../google_ads/native/native_small_page_list_data.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
 import '../../../utils/preference.dart';
-import '../../../utils/utils.dart';
 
 class DetailController extends GetxController {
   List<Accounting> bankData = [];

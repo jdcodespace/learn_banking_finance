@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/faq/controller/faq_controller.dart';
-import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/inter/inter_ad.dart';
-import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/color.dart';
-import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
+import '../../../utils/utils.dart';
 
 class FaqScreen extends StatelessWidget {
   const FaqScreen({super.key});
@@ -37,21 +35,22 @@ class FaqScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 1),
-                          decoration: BoxDecoration(
-                            color: CColor.opacityBlack10,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          height: 200,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          child: (Debug.adType == Debug.adGoogleType &&
-                              Debug.isShowAd &&
-                              Debug.isNativeAd)
-                              ? NativeInlinePageSmall(context: context)
-                              : smallNativeAdFacebook(context),
-                        ),
+                        // Container(
+                        //   margin: const EdgeInsets.only(bottom: 1),
+                        //   decoration: BoxDecoration(
+                        //     color: CColor.opacityBlack10,
+                        //     borderRadius: BorderRadius.circular(10),
+                        //   ),
+                        //   height: 200,
+                        //   width: double.infinity,
+                        //   alignment: Alignment.center,
+                        //   child: /*(Debug.adType == Debug.adGoogleType &&
+                        //       Debug.isShowAd &&
+                        //       Debug.isNativeAd)
+                        //       ? NativeInlinePageSmall(context: context)
+                        //       : smallNativeAdFacebook(context),*/
+                          Utils.smallNativeAd(logic.faqAd, context)!,
+                        // ),
                       ],
                     );
             },

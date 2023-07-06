@@ -1,9 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/utils.dart';
 
 class ListOfTaskController extends GetxController {
 
@@ -13,6 +15,7 @@ class ListOfTaskController extends GetxController {
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
+  NativeAd? listOfTaskAd;
 
   @override
   void onInit() {
@@ -44,9 +47,15 @@ class ListOfTaskController extends GetxController {
         mainIndex = Get.arguments[2];
       }
     }
+    nativeHomeAd();
     super.onInit();
   }
-
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      listOfTaskAd = value;
+      update();
+    });
+  }
 
 
 }

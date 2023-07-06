@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/utils.dart';
 import '../../home/views/home_screen.dart';
 
 class FaqController extends GetxController{
@@ -15,6 +17,7 @@ class FaqController extends GetxController{
   String learnTitle = "";
   CategoryFinanceClass? categoryFinanceClass;
  int selectedIndex = 0;
+  NativeAd? faqAd;
 
 
 
@@ -57,6 +60,13 @@ class FaqController extends GetxController{
       }
     }
     faqData = Constant.firebaseBankData.data!.faq!.toList();
+    nativeHomeAd();
     super.onInit();
+  }
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      faqAd = value;
+      update();
+    });
   }
 }

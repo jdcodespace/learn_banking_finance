@@ -1,5 +1,4 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:learn_banking_finance/google_ads/native/native_small_page_list_data.dart';
 
 class BankData {
   Data? data;

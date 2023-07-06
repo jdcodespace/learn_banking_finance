@@ -184,7 +184,7 @@ class DetailScreen extends StatelessWidget {
                     Debug.isNativeAd)
                 ? (logic.isTips)
                     ? ((logic.tipsData[index].adNativeSmall != null)
-                        ? Container(
+                        ? SizedBox(
                             height: Get.height * 0.21,
                             child: AdWidget(
                                 ad: logic.tipsData[index].adNativeSmall!),

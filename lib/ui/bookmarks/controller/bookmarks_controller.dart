@@ -2,17 +2,20 @@ import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
 import '../../../utils/preference.dart';
+import '../../../utils/utils.dart';
 
 class BookMarkController extends GetxController {
   Map source = {ConnectivityResult.none: false};
   final NetworkConnectivity networkConnectivity = NetworkConnectivity.instance;
   String string = '';
   List<FaqTips> listData = [];
+  NativeAd? bookMarkAd;
 
   @override
   void onInit() {
@@ -36,6 +39,7 @@ class BookMarkController extends GetxController {
       // 3.
       Debug.printLog("connection status-------------------->$string");
     });
+    nativeHomeAd();
     getBookMarkData();
     super.onInit();
   }
@@ -56,5 +60,11 @@ class BookMarkController extends GetxController {
       }
     }
     update();
+  }
+  nativeHomeAd() {
+    Utils.nativeAd((value) {
+      bookMarkAd = value;
+      update();
+    });
   }
 }

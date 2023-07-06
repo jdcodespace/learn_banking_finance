@@ -1,14 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:learn_banking_finance/ui/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 import 'package:learn_banking_finance/utils/utils.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
-import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/inter/inter_ad.dart';
-import '../../../google_ads/native/native_small_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
@@ -20,9 +18,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (logic) {
       return WillPopScope(
-        onWillPop: () async{
-          SystemNavigator.pop();
-          return true;
+        onWillPop: () async {
+          exit(0);
         },
         child: Scaffold(
           key: logic.scaffoldKey,
@@ -64,22 +61,19 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: Get.height * 0.005),
-                              decoration: BoxDecoration(
-                                color: CColor.backgroundColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              // height: 200,
-                              width: double.infinity,
-                              alignment: Alignment.center,
-                              child: (Debug.adType == Debug.adGoogleType &&
-                                      Debug.isShowAd &&
-                                      Debug.isNativeAd)
-                                  ? NativeInlinePageSmall(context: context)
-                                  : smallNativeAdFacebook(context),
-                            ),
-                          )
+                            // child: Container(
+                            //   margin:
+                            //       EdgeInsets.only(bottom: Get.height * 0.005),
+                            //   decoration: BoxDecoration(
+                            //     color: CColor.backgroundColor,
+                            //     borderRadius: BorderRadius.circular(10),
+                            //   ),
+                            //   // height: 200,
+                            //   width: double.infinity,
+                            //   alignment: Alignment.center,
+                            child: Utils.smallNativeAd(logic.homeAd, context),
+                          ),
+                          // )
                         ],
                       );
               },
@@ -213,7 +207,7 @@ class HomeScreen extends StatelessWidget {
       onTap: () {
         if (Debug.adType == Debug.adGoogleType) {
           InterstitialAdClass.showInterstitialAdInterCount(context, () {
-            Get.back();
+            // Get.back();
             if (categoryListData.screenName != "") {
               Get.toNamed(categoryListData.screenName.toString(),
                   arguments: [categoryListData]);
@@ -222,7 +216,7 @@ class HomeScreen extends StatelessWidget {
         } else {
           InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
               context, () {
-            Get.back();
+            // Get.back();
             if (categoryListData.screenName != "") {
               Get.toNamed(categoryListData.screenName.toString(),
                   arguments: [categoryListData]);
