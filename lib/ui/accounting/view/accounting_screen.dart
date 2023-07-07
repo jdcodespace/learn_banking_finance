@@ -138,7 +138,7 @@ class AccountingScreen extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            "assets/images/ic_bank.png",
+            "assets/images/ic_accounting.png",
             height: Sizes.height_9,
             width: Sizes.height_9,
           ),
@@ -266,16 +266,16 @@ class AccountingScreen extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: Image.asset(
+                  child: /*Image.asset(
                     "assets/images/ic_bank.png",
                     height: Sizes.height_8,
                     width: Sizes.height_8,
-                  ),
-                  /*Image.network(
+                  ),*/
+                  Image.network(
                   logic.blogUrl,
                   height: Sizes.height_9,
                   width: Sizes.height_9,
-                  ),*/
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.only(top: Sizes.height_2),
@@ -378,16 +378,16 @@ class AccountingScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_8,
                 width: Sizes.height_8,
-              ),
-              /*Image.network(
+              ),*/
+              Image.network(
                 logic.introductionData[0].detail![index].image.toString(),
                 height: Sizes.height_9,
                 width: Sizes.height_9,
-              ),*/
+              ),
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),
@@ -485,16 +485,16 @@ class AccountingScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_8,
                 width: Sizes.height_8,
-              ),
-              /*Image.network(
+              ),*/
+              Image.network(
                 logic.accountingData[0].detail![index].image.toString(),
                 height: Sizes.height_9,
                 width: Sizes.height_9,
-              ),*/
+              ),
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),
@@ -629,15 +629,15 @@ class AccountingScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_5,
                 width: Sizes.height_5,
-              ),/*Image.network(
+              ),*/Image.network(
                 logic.evolutionData[0].detail![index].image.toString(),
                 height: Sizes.height_5,
                 width: Sizes.height_5,
-              ),*/
+              ),
             ),
             Text(
               logic.evolutionData[0].detail![index].title.toString(),
@@ -772,16 +772,16 @@ class AccountingScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_8,
                 width: Sizes.height_8,
-              ),
-             /* Image.network(
+              ),*/
+              Image.network(
                 logic.advancedTopicData[0].detail![index].image.toString(),
                 height: Sizes.height_8,
                 width: Sizes.height_8,
-              ),*/
+              ),
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),

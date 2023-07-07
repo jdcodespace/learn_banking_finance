@@ -136,7 +136,7 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            "assets/images/ic_bank.png",
+            "assets/images/ic_finance.png",
             height: Sizes.height_9,
             width: Sizes.height_9,
           ),
@@ -236,7 +236,8 @@ class HomeScreen extends StatelessWidget {
           children: [
             Expanded(
               child: Image.asset(
-                "assets/images/ic_bank.png",
+                // "assets/images/ic_bank.png",
+                categoryListData.image.toString(),
                 height: Sizes.height_8,
                 width: Sizes.height_8,
               ),
@@ -275,7 +276,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Image.asset(
-                    "assets/images/ic_bank.png",
+                    "assets/images/ic_finance.png",
                     height: Sizes.height_8,
                     width: Sizes.height_8,
                   ),

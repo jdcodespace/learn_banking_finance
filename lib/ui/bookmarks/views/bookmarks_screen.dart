@@ -36,7 +36,7 @@ class BookMarkScreen extends StatelessWidget {
                                     children: [
                                       SizedBox(height: Get.height * 0.07),
                                       Image.asset(
-                                          "assets/images/course_not_found_icon.png"),
+                                          "assets/images/ic_course_not_found_icon.png"),
                                       Expanded(
                                         child: Text(
                                           "txtNoDataFound".tr,

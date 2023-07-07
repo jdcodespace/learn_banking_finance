@@ -41,7 +41,7 @@ class OfflineScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  "assets/icon/no_internet.svg",
+                  "assets/icon/ic_no_internet.svg",
                   // ignore: deprecated_member_use
                   color:/* Theme.of(context).secondaryHeaderColor == Colors.white
                       ? const Color(0xfff5f1f1)

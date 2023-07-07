@@ -150,14 +150,14 @@ class HomeController extends GetxController {
 
   void getCategoryListData() {
     categoryListData
-        .add(CategoryFinanceClass("", "txtCategoryBanking".tr, "/banking"));
+        .add(CategoryFinanceClass("assets/images/ic_bank.png", "txtCategoryBanking".tr, "/banking"));
     categoryListData.add(
-        CategoryFinanceClass("", "txtCategoryAccounting".tr, "/accounting"));
+        CategoryFinanceClass("assets/images/ic_accounting.png", "txtCategoryAccounting".tr, "/accounting"));
     categoryListData
-        .add(CategoryFinanceClass("", "txtCategoryBookmarks".tr, "/bookMarks"));
+        .add(CategoryFinanceClass("assets/images/ic_bookmark.png", "txtCategoryBookmarks".tr, "/bookMarks"));
     categoryListData
-        .add(CategoryFinanceClass("", "txtCategoryTips".tr, "/tips"));
-    categoryListData.add(CategoryFinanceClass("", "txtCategoryFAQ".tr, "/faq"));
+        .add(CategoryFinanceClass("assets/images/ic_tip.png", "txtCategoryTips".tr, "/tips"));
+    categoryListData.add(CategoryFinanceClass("assets/images/ic_faq.png", "txtCategoryFAQ".tr, "/faq"));
   }
 
   drawerTransfer(ItemMenuClass listData) {
@@ -165,7 +165,7 @@ class HomeController extends GetxController {
       Get.toNamed(AppRoutes.webView);
     }
     if (listData.screenName == "txtHomeTransfer".tr) {
-      Get.back();
+      Get.toNamed(AppRoutes.home);
     }
     if (listData.screenName == "txtBookMarkTransfer".tr) {
       Get.toNamed(AppRoutes.bookMarks);

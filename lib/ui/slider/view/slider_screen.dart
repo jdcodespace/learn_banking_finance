@@ -48,7 +48,7 @@ class SliderScreen extends StatelessWidget {
                                 // ),
                                 child: Image.network(
                                     logic.sliderData[index].image.toString(),
-                                fit: BoxFit.fill,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                               Padding(
@@ -96,10 +96,6 @@ class SliderScreen extends StatelessWidget {
                                       duration:
                                           const Duration(milliseconds: 250),
                                       curve: Curves.easeIn);
-                                  /*logic.pageController.animateToPage(
-                                logic.selectedIndex.value++,
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeIn);*/
                                 }
                               },
                               child: Text(

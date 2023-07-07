@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learn_banking_finance/ui/tips/controller/tips_controller.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
@@ -10,6 +9,7 @@ import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
 import '../../../utils/utils.dart';
+import '../controller/tips_controller.dart';
 
 class TipsScreen extends StatelessWidget {
   const TipsScreen({super.key});
@@ -38,18 +38,7 @@ class TipsScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   margin: const EdgeInsets.only(bottom: 1),
-                        //   decoration: BoxDecoration(
-                        //     color: CColor.opacityBlack10,
-                        //     borderRadius: BorderRadius.circular(10),
-                        //   ),
-                        //   height: 200,
-                        //   width: double.infinity,
-                        //   alignment: Alignment.center,
-                        //   child:
-                          Utils.smallNativeAd(logic.tipsAd, context)!,
-                        // ),
+                        Utils.smallNativeAd(logic.tipsAd, context)!,
                       ],
                     );
             },
@@ -112,7 +101,7 @@ class TipsScreen extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            "assets/images/ic_bank.png",
+            "assets/images/ic_tip.png",
             height: Sizes.height_9,
             width: Sizes.height_9,
           ),
@@ -200,11 +189,16 @@ class TipsScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_5,
                 width: Sizes.height_5,
-              ),
+              ),*/
+              Image.network(
+                logic.tipsData[index].image.toString(),
+                height: Sizes.height_5,
+                width: Sizes.height_5,
+              )
             ),
             Expanded(
               child: Text(

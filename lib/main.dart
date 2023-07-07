@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -260,6 +261,7 @@ preloadAllNativeAds() async {
 }
 
 class MyApp extends StatefulWidget {
+
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -297,11 +299,25 @@ class _MyAppState extends State<MyApp> {
             " didChangeDependencies GET LOCALE Revoked====>> ${Get.locale!.languageCode}");
       });
     });
+    final accountingImage = Image.network(
+        Constant.firebaseBankData.data!.accounting![0].detail![0].image.toString());
+    final bankingImage = Image.network(Constant.firebaseBankData.data!.bank![0].detail![0].image.toString());
+    final faqImage = Image.network(Constant.firebaseBankData.data!.faq![0].image.toString());
+    final tipImage = Image.network(Constant.firebaseBankData.data!.tips![0].image.toString());
+    final slider1Image = Image.network(Constant.firebaseBankData.data!.slider![0].image.toString());
+    final slider2Image = Image.network(Constant.firebaseBankData.data!.slider![1].image.toString());
+    precacheImage(accountingImage.image, context);
+    precacheImage(bankingImage.image, context);
+    precacheImage(faqImage.image, context);
+    precacheImage(tipImage.image, context);
+    precacheImage(slider1Image.image, context);
+    precacheImage(slider2Image.image, context);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Learn Banking Finance',

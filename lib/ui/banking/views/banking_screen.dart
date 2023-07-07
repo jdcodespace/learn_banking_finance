@@ -124,8 +124,8 @@ class BankingScreen extends StatelessWidget {
         children: [
           Image.asset(
             "assets/images/ic_bank.png",
-            height: Sizes.height_9,
-            width: Sizes.height_9,
+            height: Sizes.height_10,
+            width: Sizes.height_10,
           ),
           Expanded(
             child: Container(
@@ -251,15 +251,15 @@ class BankingScreen extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: /*Image.asset(
+                  child:/* Image.asset(
                     "assets/images/ic_bank.png",
-                    height: Sizes.height_5,
-                    width: Sizes.height_5,
+                    height: Sizes.height_9,
+                    width: Sizes.height_9,
                   ),*/
                   Image.network(
                     logic.blogUrl,
-                    height: Sizes.height_5,
-                    width: Sizes.height_5,
+                    height: Sizes.height_10,
+                    width: Sizes.height_10,
                   ),
                 ),
                 Container(
@@ -359,16 +359,16 @@ class BankingScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_8,
                 width: Sizes.height_8,
-              ),
-             /* Image.network(
-                logic.learnBankingData[0].detail![index].image.toString(),
-                height: Sizes.height_8,
-                width: Sizes.height_8,
               ),*/
+              Image.network(
+                logic.learnBankingData[0].detail![index].image.toString(),
+                height: Sizes.height_10,
+                width: Sizes.height_10,
+              ),
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),
@@ -465,16 +465,16 @@ class BankingScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_8,
                 width: Sizes.height_8,
-              ),
-              /* Image.network(
-                logic.financeData[0].detail![index].image.toString(),
-                height: Sizes.height_8,
-                width: Sizes.height_8,
               ),*/
+               Image.network(
+                logic.financeData[0].detail![index].image.toString(),
+                height: Sizes.height_10,
+                width: Sizes.height_10,
+              ),
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),
@@ -609,25 +609,27 @@ class BankingScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              child: Image.asset(
+              child: /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_5,
                 width: Sizes.height_5,
-              ),
-              /* Image.network(
-                logic.savingAccountData[0].detail![index].image.toString(),
-                height: Sizes.height_5,
-                width: Sizes.height_5,
               ),*/
+               Image.network(
+                logic.savingAccountData[0].detail![index].image.toString(),
+                height: Sizes.height_5_5,
+                width: Sizes.height_5_5,
+              ),
             ),
-            Text(
-              logic.savingAccountData[0].detail![index].title.toString(),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: Font.poppins,
-                color: CColor.black,
-                fontSize: FontSize.size_12,
-                fontWeight: FontWeight.w500,
+            Expanded(
+              child: Text(
+                logic.savingAccountData[0].detail![index].title.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: Font.poppins,
+                  color: CColor.black,
+                  fontSize: FontSize.size_12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             )
           ],
@@ -740,16 +742,16 @@ class BankingScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(
+              child:/* Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_8,
                 width: Sizes.height_8,
-              ),
-              /* Image.network(
-                logic.loanGuideData[0].detail![index].image.toString(),
-                height: Sizes.height_8,
-                width: Sizes.height_8,
               ),*/
+               Image.network(
+                logic.loanGuideData[0].detail![index].image.toString(),
+                height: Sizes.height_10,
+                width: Sizes.height_10,
+              ),
             ),
             Container(
               padding: EdgeInsets.only(top: Sizes.height_2),

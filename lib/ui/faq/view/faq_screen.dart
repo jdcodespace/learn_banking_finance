@@ -82,7 +82,7 @@ class FaqScreen extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              "FAQ's",
+              "txtCategoryFAQ".tr,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: Font.poppins,
@@ -113,7 +113,7 @@ class FaqScreen extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            "assets/images/ic_bank.png",
+            "assets/images/ic_faq.png",
             height: Sizes.height_9,
             width: Sizes.height_9,
           ),
@@ -193,8 +193,13 @@ class FaqScreen extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.all(12),
-                  child: Image.asset(
+                  child: /*Image.asset(
                     "assets/images/ic_bank.png",
+                    height: Sizes.height_5,
+                    width: Sizes.height_5,
+                  ),*/
+                  Image.network(
+                    logic.faqData[index].image.toString(),
                     height: Sizes.height_5,
                     width: Sizes.height_5,
                   ),
