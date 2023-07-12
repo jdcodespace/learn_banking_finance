@@ -31,21 +31,24 @@ class DetailScreen extends StatelessWidget {
                       children: [
                         _appBar(logic, context),
                         _centerView(logic),
-                        Visibility(
-                          visible: logic.isLoaded,
-                          child: Container(
-                            child: (Debug.adType == Debug.adGoogleType &&
-                                    Debug.isShowAd &&
-                                    Debug.isNativeAd)
-                                ? NativeInlinePageBannerWithoutPreload(
-                                    context: context,
-                                    function: (isLoaded) {
-                                      logic.onChangeNativeBannerAd(isLoaded);
-                                    },
-                                  )
-                                : const FacebookBannerNative(),
-                          ),
-                        )
+                        (Debug.isShowAd && Debug.isNativeAd)
+                            ? Visibility(
+                                visible: logic.isLoaded,
+                                child: Container(
+                                  child: (Debug.adType == Debug.adGoogleType &&
+                                          Debug.isShowAd &&
+                                          Debug.isNativeAd)
+                                      ? NativeInlinePageBannerWithoutPreload(
+                                          context: context,
+                                          function: (isLoaded) {
+                                            logic.onChangeNativeBannerAd(
+                                                isLoaded);
+                                          },
+                                        )
+                                      : const FacebookBannerNative(),
+                                ),
+                              )
+                            : Container()
                         // _nextPreviousButton(logic),
                       ],
                     );
@@ -174,6 +177,8 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
           ),
+          (Debug.isShowAd && Debug.isNativeAd)
+              ?
           Container(
             decoration: BoxDecoration(
               // color: CColor.backgroundColor.withOpacity(0.5),
@@ -201,9 +206,9 @@ class DetailScreen extends StatelessWidget {
                           )
                         : Container())
                 : smallNativeAdFacebook(context),
-          ),
+          ):Container(),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
+            padding: const EdgeInsets.all(15),
             child: Text(
               (logic.isTips)
                   ? logic.tipsData[index].desc.toString()
