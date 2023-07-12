@@ -32,38 +32,10 @@ class AccountingScreen extends StatelessWidget {
                           children: [
                             _firstViewHeader(),
                             _widgetBlogNews(logic, context),
-                            // Container(
-                            //   margin: const EdgeInsets.only(bottom: 1),
-                            //   decoration: BoxDecoration(
-                            //     color: CColor.opacityBlack10,
-                            //     borderRadius: BorderRadius.circular(10),
-                            //   ),
-                            //   height: 200,
-                            //   width: double.infinity,
-                            //   alignment: Alignment.center,
-                            //   /*child: (Debug.adType == Debug.adGoogleType &&
-                            //           Debug.isShowAd &&
-                            //           Debug.isNativeAd)
-                            //       ? NativeInlinePageSmall(context: context)*//*Utils.nativeAd(logic.accountingAd)*//*
-                            //       : smallNativeAdFacebook(context),*/
-                            //   child: /*(Debug.adType == Debug.adGoogleType &&
-                            //       Debug.isShowAd &&
-                            //       Debug.isNativeAd)
-                            //       ? (logic.homeAd != null)?Container(
-                            //     margin: EdgeInsets.only(
-                            //         bottom: Get.height * 0.005),
-                            //     decoration: BoxDecoration(
-                            //       color: CColor.backgroundColor,
-                            //       borderRadius: BorderRadius.circular(10),
-                            //     ),
-                            //     width: double.infinity,
-                            //     alignment: Alignment.center,
-                            //     height: 220.0,
-                            //     child: AdWidget(ad: logic.homeAd!),
-                            //   ):Container()
-                            //       : smallNativeAdFacebook(context)*/
-                              Utils.smallNativeAd(logic.accountingAd, context)!,
-                            // ),
+                            (Debug.isShowAd && Debug.isNativeAd)
+                                ? Utils.smallNativeAd(
+                                    logic.accountingAd, context)!
+                                : Container(),
                             _widgetLearnBanking(logic),
                             _widgetFinanceLearn(logic),
                             _widgetSavingAccount(logic, context),
@@ -271,10 +243,10 @@ class AccountingScreen extends StatelessWidget {
                     height: Sizes.height_8,
                     width: Sizes.height_8,
                   ),*/
-                  Image.network(
-                  logic.blogUrl,
-                  height: Sizes.height_9,
-                  width: Sizes.height_9,
+                      Image.network(
+                    logic.blogUrl,
+                    height: Sizes.height_9,
+                    width: Sizes.height_9,
                   ),
                 ),
                 Container(
@@ -383,7 +355,7 @@ class AccountingScreen extends StatelessWidget {
                 height: Sizes.height_8,
                 width: Sizes.height_8,
               ),*/
-              Image.network(
+                  Image.network(
                 logic.introductionData[0].detail![index].image.toString(),
                 height: Sizes.height_9,
                 width: Sizes.height_9,
@@ -490,7 +462,7 @@ class AccountingScreen extends StatelessWidget {
                 height: Sizes.height_8,
                 width: Sizes.height_8,
               ),*/
-              Image.network(
+                  Image.network(
                 logic.accountingData[0].detail![index].image.toString(),
                 height: Sizes.height_9,
                 width: Sizes.height_9,
@@ -633,7 +605,8 @@ class AccountingScreen extends StatelessWidget {
                 "assets/images/ic_bank.png",
                 height: Sizes.height_5,
                 width: Sizes.height_5,
-              ),*/Image.network(
+              ),*/
+                  Image.network(
                 logic.evolutionData[0].detail![index].image.toString(),
                 height: Sizes.height_5,
                 width: Sizes.height_5,
@@ -777,7 +750,7 @@ class AccountingScreen extends StatelessWidget {
                 height: Sizes.height_8,
                 width: Sizes.height_8,
               ),*/
-              Image.network(
+                  Image.network(
                 logic.advancedTopicData[0].detail![index].image.toString(),
                 height: Sizes.height_8,
                 width: Sizes.height_8,

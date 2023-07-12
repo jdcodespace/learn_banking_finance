@@ -47,7 +47,7 @@ class BankingScreen extends StatelessWidget {
                             //       // ? Utils.getAdNativeSmallAd()
                             //       ? NativeInlinePageSmall(context: context)
                             //       : smallNativeAdFacebook(context),*/
-                              Utils.smallNativeAd(logic.bankingAd, context)!,
+                            (Debug.isShowAd && Debug.isNativeAd)? Utils.smallNativeAd(logic.bankingAd, context)!:Container(),
                             // ),
                             _widgetLearnBanking(logic),
                             _widgetFinanceLearn(logic),

@@ -4,6 +4,7 @@ import 'package:learn_banking_finance/ui/faq/controller/faq_controller.dart';
 import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/color.dart';
+import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
 import '../../../utils/utils.dart';
@@ -49,7 +50,7 @@ class FaqScreen extends StatelessWidget {
                         //       Debug.isNativeAd)
                         //       ? NativeInlinePageSmall(context: context)
                         //       : smallNativeAdFacebook(context),*/
-                          Utils.smallNativeAd(logic.faqAd, context)!,
+                        (Debug.isShowAd && Debug.isNativeAd)? Utils.smallNativeAd(logic.faqAd, context)!:Container()
                         // ),
                       ],
                     );

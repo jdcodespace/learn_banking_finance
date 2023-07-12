@@ -39,7 +39,7 @@ class ViewAllScreen extends StatelessWidget {
                         //   width: double.infinity,
                         //   alignment: Alignment.center,
                         //   child:
-                              Utils.smallNativeAd(logic.viewAllAd, context)!,
+                        (Debug.isShowAd && Debug.isNativeAd)? Utils.smallNativeAd(logic.viewAllAd, context)!:Container()
                         // ),
                       ],
                     );

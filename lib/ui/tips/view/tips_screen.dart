@@ -38,7 +38,7 @@ class TipsScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Utils.smallNativeAd(logic.tipsAd, context)!,
+                        (Debug.isShowAd && Debug.isNativeAd)?Utils.smallNativeAd(logic.tipsAd, context)!:Container()
                       ],
                     );
             },

@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,9 +25,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await Preference().instance();
   await InternetConnectivity().instance();
-
   await getFirebaseData();
-
   await Future.delayed(const Duration(milliseconds: 3000));
 
   if (Debug.adType == Debug.adGoogleType) {

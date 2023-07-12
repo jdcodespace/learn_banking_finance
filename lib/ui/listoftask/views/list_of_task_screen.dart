@@ -45,7 +45,9 @@ class ListOfTaskScreen extends StatelessWidget {
                       height: 200,
                       width: double.infinity,
                       alignment: Alignment.center,
-                      child:*/ Utils.smallNativeAd(logic.listOfTaskAd, context)!,
+                      child:*/
+                    (Debug.isShowAd && Debug.isNativeAd)?
+                    Utils.smallNativeAd(logic.listOfTaskAd, context)!:Container()
                     // ),
                   ],
                 ),

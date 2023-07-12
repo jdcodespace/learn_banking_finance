@@ -5,6 +5,7 @@ import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/color.dart';
+import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
 import '../../../utils/utils.dart';
@@ -112,7 +113,9 @@ class SliderScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     Container(
-                      child: Utils.smallNativeAd(logic.sliderAd, context),
+                      child:
+                      (Debug.isShowAd && Debug.isNativeAd)?
+                      Utils.smallNativeAd(logic.sliderAd, context):Container()
                     ),
                   ],
                 ),
