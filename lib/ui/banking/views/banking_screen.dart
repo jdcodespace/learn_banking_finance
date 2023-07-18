@@ -93,7 +93,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   logic.categoryFinanceClass!.title.toString(),
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -136,7 +136,7 @@ class BankingScreen extends StatelessWidget {
                   Text(
                     "txtBankingFinance".tr,
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
@@ -150,7 +150,7 @@ class BankingScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontFamily: Font.poppins,
+                        fontFamily: Font.quattrocento,
                         color: CColor.black,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
@@ -182,7 +182,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtBlogNews".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -213,7 +213,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -258,8 +258,8 @@ class BankingScreen extends StatelessWidget {
                   ),*/
                   Image.network(
                     logic.blogUrl,
-                    height: Sizes.height_10,
-                    width: Sizes.height_10,
+                    height: Sizes.height_9,
+                    width: Sizes.height_8,
                   ),
                 ),
                 Container(
@@ -269,7 +269,7 @@ class BankingScreen extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.black,
                       fontWeight: FontWeight.w500,
                       fontSize: FontSize.size_10,
@@ -298,7 +298,7 @@ class BankingScreen extends StatelessWidget {
           child: Text(
             "txtLearnBanking".tr,
             style: TextStyle(
-              fontFamily: Font.poppins,
+              fontFamily: Font.quattrocento,
               color: CColor.black,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
@@ -366,8 +366,8 @@ class BankingScreen extends StatelessWidget {
               ),*/
               Image.network(
                 logic.learnBankingData[0].detail![index].image.toString(),
-                height: Sizes.height_10,
-                width: Sizes.height_10,
+                height: Sizes.height_9,
+                width: Sizes.height_8,
               ),
             ),
             Container(
@@ -377,7 +377,7 @@ class BankingScreen extends StatelessWidget {
                 logic.learnBankingData[0].detail![index].title.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
@@ -404,7 +404,7 @@ class BankingScreen extends StatelessWidget {
           child: Text(
             "txtFinanceGuide".tr,
             style: TextStyle(
-              fontFamily: Font.poppins,
+              fontFamily: Font.quattrocento,
               color: CColor.black,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
@@ -472,8 +472,8 @@ class BankingScreen extends StatelessWidget {
               ),*/
                Image.network(
                 logic.financeData[0].detail![index].image.toString(),
-                height: Sizes.height_10,
-                width: Sizes.height_10,
+                height: Sizes.height_9,
+                width: Sizes.height_8,
               ),
             ),
             Container(
@@ -483,7 +483,7 @@ class BankingScreen extends StatelessWidget {
                 logic.financeData[0].detail![index].title.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
@@ -513,7 +513,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtSavingAccount".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -548,7 +548,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -625,7 +625,7 @@ class BankingScreen extends StatelessWidget {
                 logic.savingAccountData[0].detail![index].title.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w500,
@@ -654,7 +654,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtPersonalLoan".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -677,7 +677,7 @@ class BankingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -749,8 +749,8 @@ class BankingScreen extends StatelessWidget {
               ),*/
                Image.network(
                 logic.loanGuideData[0].detail![index].image.toString(),
-                height: Sizes.height_10,
-                width: Sizes.height_10,
+                height: Sizes.height_9,
+                width: Sizes.height_8,
               ),
             ),
             Container(
@@ -760,7 +760,7 @@ class BankingScreen extends StatelessWidget {
                 logic.loanGuideData[0].detail![index].title.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,

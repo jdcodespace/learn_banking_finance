@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                                     child: Text(
                                       "txtFinanceCategory".tr,
                                       style: TextStyle(
-                                        fontFamily: Font.poppins,
+                                        fontFamily: Font.quattrocento,
                                         color: CColor.black,
                                         fontSize: FontSize.size_12,
                                         fontWeight: FontWeight.w800,
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                 "appName".tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w800,
@@ -148,7 +148,7 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   "txtFinance".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w900,
@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     "txtFinanceDesc".tr,
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.black,
                       fontSize: FontSize.size_10,
                       fontWeight: FontWeight.w400,
@@ -248,7 +248,7 @@ class HomeScreen extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 categoryListData.title.toString(),
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
@@ -287,7 +287,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     'appName'.tr,
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.black,
                       fontWeight: FontWeight.w700,
                       fontSize: FontSize.size_12,
@@ -339,7 +339,7 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 listData.title.toString(),
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,

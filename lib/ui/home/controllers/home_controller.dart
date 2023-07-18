@@ -182,7 +182,7 @@ class HomeController extends GetxController {
   }
 
   openPlayStore() {
-    const appId = 'com.example.spotify_flutter_code';
+    const appId = 'com.goofystudio.learn.bank.finance.guide';
     final url = Uri.parse(
       "https://play.google.com/store/apps/details?id=$appId",
     );
@@ -199,7 +199,7 @@ class HomeController extends GetxController {
   }
 
   shareLink() {
-    const appId = 'com.example.spotify_flutter_code';
+    const appId = 'com.goofystudio.learn.bank.finance.guide';
     Share.share("https://play.google.com/store/apps/details?id=$appId");
   }
 

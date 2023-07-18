@@ -80,7 +80,7 @@ class AccountingScreen extends StatelessWidget {
                 child: Text(
                   logic.categoryFinanceClass!.title.toString(),
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     color: CColor.black,
                     fontSize: FontSize.size_13,
                     fontWeight: FontWeight.w800,
@@ -124,7 +124,7 @@ class AccountingScreen extends StatelessWidget {
                     "txtLearnBankingFinance".tr,
                     style: TextStyle(
                       color: CColor.black,
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
                     ),
@@ -138,7 +138,7 @@ class AccountingScreen extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: CColor.black,
-                        fontFamily: Font.poppins,
+                        fontFamily: Font.quattrocento,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
                       ),
@@ -170,7 +170,7 @@ class AccountingScreen extends StatelessWidget {
                   "txtBlogNews".tr,
                   style: TextStyle(
                     color: CColor.black,
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
                   ),
@@ -202,7 +202,7 @@ class AccountingScreen extends StatelessWidget {
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: CColor.black,
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     fontSize: FontSize.size_10,
                     fontWeight: FontWeight.w500,
                   ),
@@ -257,7 +257,7 @@ class AccountingScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: CColor.black,
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       fontWeight: FontWeight.w500,
                       fontSize: FontSize.size_10,
                     ),
@@ -286,7 +286,7 @@ class AccountingScreen extends StatelessWidget {
             "txtLearnIntroduction".tr,
             style: TextStyle(
               color: CColor.black,
-              fontFamily: Font.poppins,
+              fontFamily: Font.quattrocento,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
             ),
@@ -369,7 +369,7 @@ class AccountingScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: CColor.black,
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
                 ),
@@ -395,7 +395,7 @@ class AccountingScreen extends StatelessWidget {
           child: Text(
             "txtLearnAccountingBasics".tr,
             style: TextStyle(
-              fontFamily: Font.poppins,
+              fontFamily: Font.quattrocento,
               color: CColor.black,
               fontSize: FontSize.size_12,
               fontWeight: FontWeight.w800,
@@ -476,7 +476,7 @@ class AccountingScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: CColor.black,
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
                 ),
@@ -506,7 +506,7 @@ class AccountingScreen extends StatelessWidget {
                   "txtLearnEvolution".tr,
                   style: TextStyle(
                     color: CColor.black,
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
                   ),
@@ -542,7 +542,7 @@ class AccountingScreen extends StatelessWidget {
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: CColor.black,
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     fontSize: FontSize.size_10,
                     fontWeight: FontWeight.w500,
                   ),
@@ -617,7 +617,7 @@ class AccountingScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: CColor.black,
-                fontFamily: Font.poppins,
+                fontFamily: Font.quattrocento,
                 fontSize: FontSize.size_12,
                 fontWeight: FontWeight.w500,
               ),
@@ -644,7 +644,7 @@ class AccountingScreen extends StatelessWidget {
                 child: Text(
                   "txtLearnTopics".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     color: CColor.black,
                     fontSize: FontSize.size_12,
                     fontWeight: FontWeight.w800,
@@ -679,7 +679,7 @@ class AccountingScreen extends StatelessWidget {
                 child: Text(
                   "txtViewAll".tr,
                   style: TextStyle(
-                    fontFamily: Font.poppins,
+                    fontFamily: Font.quattrocento,
                     decoration: TextDecoration.underline,
                     color: CColor.black,
                     fontSize: FontSize.size_10,
@@ -764,7 +764,7 @@ class AccountingScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: CColor.black,
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   fontWeight: FontWeight.w500,
                   fontSize: FontSize.size_10,
                 ),

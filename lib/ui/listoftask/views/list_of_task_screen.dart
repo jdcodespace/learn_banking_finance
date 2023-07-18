@@ -30,25 +30,14 @@ class ListOfTaskScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _header(),
+                            _header(logic),
                             _widgetViewAll(logic),
                           ],
                         ),
                       ),
                     ),
-                  /*  Container(
-                      margin: const EdgeInsets.only(bottom: 1),
-                      decoration: BoxDecoration(
-                        color: CColor.opacityBlack10,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      height: 200,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      child:*/
                     (Debug.isShowAd && Debug.isNativeAd)?
                     Utils.smallNativeAd(logic.listOfTaskAd, context)!:Container()
-                    // ),
                   ],
                 ),
         ),
@@ -85,7 +74,7 @@ class ListOfTaskScreen extends StatelessWidget {
                 logic.title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w800,
@@ -154,11 +143,18 @@ class ListOfTaskScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              child: Image.asset(
+              child:
+              Image.network(
+                logic.dataList[0].detail![0].image.toString(),
+                height: Sizes.height_7,
+                width: Sizes.height_6,
+
+              ),
+              /*Image.asset(
                 "assets/images/ic_bank.png",
                 height: Sizes.height_5,
                 width: Sizes.height_5,
-              ),
+              ),*/
             ),
             Expanded(
               child: Text(
@@ -166,7 +162,7 @@ class ListOfTaskScreen extends StatelessWidget {
                     .dataList[0].detail![logic.mainIndex].dataList![index].title
                     .toString(),
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w500,
@@ -204,7 +200,7 @@ class ListOfTaskScreen extends StatelessWidget {
   //   }
   // }
 
-  _header() {
+  _header(ListOfTaskController logic) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: Sizes.width_3),
       width: double.infinity,
@@ -213,11 +209,17 @@ class ListOfTaskScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: CColor.backgroundColor,
       ),
-      child: Image.asset(
-        "assets/images/ic_bank.png",
-        height: Sizes.height_8,
-        width: Sizes.height_8,
+      child:
+      Image.network(
+        logic.dataList[0].detail![0].image.toString(),
+        height: Sizes.height_7,
+        width: Sizes.height_7,
       ),
+      // Image.asset(
+      //   "assets/images/ic_bank.png",
+      //   height: Sizes.height_8,
+      //   width: Sizes.height_8,
+      // ),
     );
   }
 }

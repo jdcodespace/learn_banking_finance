@@ -73,7 +73,7 @@ class TipsScreen extends StatelessWidget {
               "Tips",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: Font.poppins,
+                fontFamily: Font.quattrocento,
                 color: CColor.black,
                 fontWeight: FontWeight.w700,
                 fontSize: FontSize.size_14,
@@ -114,7 +114,7 @@ class TipsScreen extends StatelessWidget {
                   Text(
                     "txtTips".tr,
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
@@ -128,7 +128,7 @@ class TipsScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontFamily: Font.poppins,
+                        fontFamily: Font.quattrocento,
                         color: CColor.black,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
@@ -204,7 +204,7 @@ class TipsScreen extends StatelessWidget {
               child: Text(
                 logic.tipsData[index].title.toString(),
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w500,

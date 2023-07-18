@@ -86,7 +86,7 @@ class FaqScreen extends StatelessWidget {
               "txtCategoryFAQ".tr,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: Font.poppins,
+                fontFamily: Font.quattrocento,
                 color: CColor.black,
                 fontWeight: FontWeight.w700,
                 fontSize: FontSize.size_14,
@@ -127,7 +127,7 @@ class FaqScreen extends StatelessWidget {
                   Text(
                     "txtFaq".tr,
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w900,
@@ -141,7 +141,7 @@ class FaqScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontFamily: Font.poppins,
+                        fontFamily: Font.quattrocento,
                         color: CColor.black,
                         fontSize: FontSize.size_10,
                         fontWeight: FontWeight.w400,
@@ -209,7 +209,7 @@ class FaqScreen extends StatelessWidget {
                   child: Text(
                     logic.faqData[index].title.toString(),
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.black,
                       fontSize: FontSize.size_12,
                       fontWeight: FontWeight.w500,
@@ -237,7 +237,7 @@ class FaqScreen extends StatelessWidget {
               child: Text(
                 logic.faqData[index].desc.toString(),
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w400,
                 ),

@@ -55,7 +55,7 @@ class OfflineScreen extends StatelessWidget {
                     "Can't load page",
                     style: TextStyle(
                       color: Colors.black,
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
@@ -67,7 +67,7 @@ class OfflineScreen extends StatelessWidget {
                     "No internet connection found.\nCheck your connection.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: Font.poppins,
+                      fontFamily: Font.quattrocento,
                       color: CColor.gray,
                       fontSize: 15,
                     ),
@@ -98,7 +98,7 @@ class OfflineScreen extends StatelessWidget {
                         "Try again",
                         style: TextStyle(
                           fontSize: 16,
-                          fontFamily: Font.poppins,
+                          fontFamily: Font.quattrocento,
                         ),
                       ),
                     ),

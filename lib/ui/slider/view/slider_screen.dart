@@ -57,7 +57,7 @@ class SliderScreen extends StatelessWidget {
                                 child: Text(
                                     logic.sliderData[index].desc.toString(),
                                 style: TextStyle(
-                                  fontFamily: Font.poppins,
+                                  fontFamily: Font.quattrocento,
                                   color: CColor.black,
                                   fontSize: FontSize.size_12,
                                   fontWeight: FontWeight.w500,
@@ -102,7 +102,7 @@ class SliderScreen extends StatelessWidget {
                               child: Text(
                                 "Next",
                                 style: TextStyle(
-                                  fontFamily: Font.poppins,
+                                  fontFamily: Font.quattrocento,
                                   color: CColor.black,
                                   fontSize: FontSize.size_13,
                                   fontWeight: FontWeight.w500,

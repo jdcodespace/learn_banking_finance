@@ -227,34 +227,6 @@ preloadAllNativeAds() async {
     ),
   );
   Debug.preloadNativeNormal!.load();
-
-  /*native small*/
-  //
-  // Debug.preloadNativeSmall = NativeAd(
-  //   adUnitId: AdHelper.nativeAdUnitId,
-  //   factoryId: 'listTileSmall',
-  //   request: const AdRequest(),
-  //   listener: NativeAdListener(
-  //     // Called when an ad is successfully received.
-  //     onAdLoaded: (Ad ad) {
-  //       Debug.printLog('Small Ad load success preload.......');
-  //     },
-  //     // Called when an ad request failed.
-  //     onAdFailedToLoad: (Ad ad, LoadAdError error) {
-  //       // Dispose the ad here to free resources.
-  //       ad.dispose();
-  //     },
-  //     // Called when an ad opens an overlay that covers the screen.
-  //     onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
-  //     // Called when an ad removes an overlay that covers the screen.
-  //     onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
-  //     // Called when an impression occurs on the ad.
-  //     onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
-  //     // Called when a click is recorded for a NativeAd.
-  //     onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
-  //   ),
-  // );
-  // Debug.preloadNativeSmall!.load();
 }
 
 class MyApp extends StatefulWidget {
@@ -270,12 +242,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    if (Debug.isShowAd && Debug.isNativeAd) {
-      // Utils.preLoadBannerNative();
-      // Utils.preloadNormalNativeAds();
-      // Utils.preLoadSmallNativeHome();
-    }
-
     if (Debug.isShowAd && Debug.isShowOpenAd) {
       AppOpenAdManager appOpenAdManager = AppOpenAdManager()..appOpenAds();
       _appLifecycleReactor =
@@ -321,9 +287,6 @@ class _MyAppState extends State<MyApp> {
       color: CColor.white,
       translations: AppLanguages(),
       fallbackLocale: const Locale(Constant.languageEn, Constant.countryCodeEn),
-      // themeMode: ThemeMode.light,
-      // theme: AppTheme.light,
-      // darkTheme: AppTheme.light,
       locale: Get.deviceLocale,
       getPages: AppPages.list,
       initialRoute: (Preference.shared.getBool(Preference.isLogin) == true)

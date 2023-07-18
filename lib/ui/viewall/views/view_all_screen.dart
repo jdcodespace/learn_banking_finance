@@ -79,7 +79,7 @@ class ViewAllScreen extends StatelessWidget {
                 logic.title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w800,
@@ -153,16 +153,22 @@ class ViewAllScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              child: Image.asset(
-                "assets/images/ic_bank.png",
-                height: Sizes.height_5,
-                width: Sizes.height_5,
+              child:
+              Image.network(
+                logic.bankData[0].detail![0].image.toString(),
+                height: Sizes.height_7,
+                width: Sizes.height_6,
               ),
+              // Image.asset(
+              //   "assets/images/ic_bank.png",
+              //   height: Sizes.height_5,
+              //   width: Sizes.height_5,
+              // ),
             ),
             Text(
               logic.bankData[0].detail![index].title.toString(),
               style: TextStyle(
-                fontFamily: Font.poppins,
+                fontFamily: Font.quattrocento,
                 color: CColor.black,
                 fontSize: FontSize.size_12,
                 fontWeight: FontWeight.w500,

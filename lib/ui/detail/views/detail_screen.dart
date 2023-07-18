@@ -171,7 +171,7 @@ class DetailScreen extends StatelessWidget {
                       .toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: Font.poppins,
+                fontFamily: Font.quattrocento,
                 fontSize: FontSize.size_20,
                 fontWeight: FontWeight.w600,
               ),
@@ -216,7 +216,7 @@ class DetailScreen extends StatelessWidget {
                       .desc
                       .toString(),
               style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.5),

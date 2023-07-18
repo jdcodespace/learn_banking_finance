@@ -43,7 +43,7 @@ class BookMarkScreen extends StatelessWidget {
                                           "txtNoDataFound".tr,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            fontFamily: Font.poppins,
+                                            fontFamily: Font.quattrocento,
                                             color: CColor.black,
                                             fontSize: FontSize.size_12,
                                             fontWeight: FontWeight.w600,
@@ -94,7 +94,7 @@ class BookMarkScreen extends StatelessWidget {
               "Bookmarks",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: Font.poppins,
+                fontFamily: Font.quattrocento,
                 color: CColor.black,
                 fontWeight: FontWeight.w600,
                 fontSize: FontSize.size_14,
@@ -163,7 +163,7 @@ class BookMarkScreen extends StatelessWidget {
               child: Text(
                 listData.title.toString(),
                 style: TextStyle(
-                  fontFamily: Font.poppins,
+                  fontFamily: Font.quattrocento,
                   color: CColor.black,
                   fontSize: FontSize.size_12,
                   fontWeight: FontWeight.w500,

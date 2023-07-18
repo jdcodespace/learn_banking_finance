@@ -102,6 +102,13 @@ flutter:
           weight: 300
         - asset: font/poppins-medium.ttf
           weight: 500
+    - family: Quattrocento
+      fonts:
+        - asset: font/quattrocento-sans-regular.ttf
+          weight: 400
+        - asset: font/quattrocento-sans-bold.ttf
+          weight: 700
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
