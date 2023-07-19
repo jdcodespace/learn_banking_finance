@@ -193,7 +193,7 @@ class HomeController extends GetxController {
   }
 
   feedbackEmail() async {
-    String email = Uri.encodeComponent("tilakdhameliya@gmail.com");
+    String email = Uri.encodeComponent("goofyappstudio@gmail.com");
     Uri mail = Uri.parse("mailto:$email");
     launchUrl(mail);
   }
@@ -205,11 +205,7 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    // if(Debug.preloadNativeSmallHome  != null) {
-    //   Debug.preloadNativeSmallHome!.dispose();
-    //   Debug.preloadNativeSmallHome = null;
-    //   // Utils.preLoadSmallNative();
-    // }
+
     super.onClose();
   }
 }

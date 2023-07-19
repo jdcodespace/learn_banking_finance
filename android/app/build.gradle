@@ -34,7 +34,7 @@ android {
             keyPassword 'learn_bnking_finance_flutter'
         }
     }
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -52,11 +52,11 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.spotify_flutter_code"
+        applicationId "com.goofystudio.learn.bank.finance.guide"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled = true
@@ -82,6 +82,7 @@ flutter {
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

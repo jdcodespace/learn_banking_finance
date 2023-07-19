@@ -5,5 +5,7 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="buttonColor">#2558f4</color>
+    <color name="adButtonTopColor">#12B7EB</color>
+    <color name="adButtonBlackColor">#1c1c1c</color>
 
 </resources>
