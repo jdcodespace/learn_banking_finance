@@ -160,6 +160,7 @@ class DetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             alignment: Alignment.center,
             height: Get.height * 0.21,
             color: CColor.backgroundColor,

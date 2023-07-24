@@ -66,48 +66,8 @@ class DetailController extends GetxController {
           tipsData[i].isMark = false;
         }
 
-        for (int i = 0; i < tipsData.length; i++) {
-          Debug.printLog("NativeInlinePageSmallListData loop.............");
-          NativeAd(
-            adUnitId: AdHelper.nativeAdUnitId,
-            factoryId: 'listTileSmall',
-            request: const AdRequest(),
-            listener: NativeAdListener(
-              // Called when an ad is successfully received.
-              onAdLoaded: (Ad ad) {
-                var add = ad as NativeAd;
-                Debug.printLog("**** AD NativeInlinePageSmallListData ***** ${add.responseInfo}");
-                tipsData[i].adNativeSmall = ad;
-              },
-              // Called when an ad request failed.
-              onAdFailedToLoad: (Ad ad, LoadAdError error) {
-                // Dispose the ad here to free resources.
-                ad.dispose();
-                tipsData[i].adNativeSmall = null;
-                Debug.printLog(
-                    ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error.code} message=${error.message})');
-              },
-              // Called when an ad opens an overlay that covers the screen.
-              onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
-              // Called when an ad removes an overlay that covers the screen.
-              onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
-              // Called when an impression occurs on the ad.
-              onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
-              // Called when a click is recorded for a NativeAd.
-              onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
-            ),
-          ).load();
-        }
-      } else {
-        if (Get.arguments[1] != null) {
-          bankData = Get.arguments[1];
-          for (int i = 0;
-              i < bankData[0].detail![mainIndex].dataList!.length;
-              i++) {
-            bankData[0].detail![mainIndex].dataList![i].isMark = false;
-          }
-
-          for (int i = 0; i < bankData[0].detail![mainIndex].dataList!.length; i++) {
+        if(Debug.isShowAd && Debug.isNativeAd) {
+          for (int i = 0; i < tipsData.length; i++) {
             Debug.printLog("NativeInlinePageSmallListData loop.............");
             NativeAd(
               adUnitId: AdHelper.nativeAdUnitId,
@@ -117,16 +77,19 @@ class DetailController extends GetxController {
                 // Called when an ad is successfully received.
                 onAdLoaded: (Ad ad) {
                   var add = ad as NativeAd;
-                  Debug.printLog("**** AD NativeInlinePageSmallListData ***** ${add.responseInfo}");
-                  bankData[0].detail![mainIndex].dataList![i].adNativeSmall = ad;
+                  Debug.printLog(
+                      "**** AD NativeInlinePageSmallListData ***** ${add
+                          .responseInfo}");
+                  tipsData[i].adNativeSmall = ad;
                 },
                 // Called when an ad request failed.
                 onAdFailedToLoad: (Ad ad, LoadAdError error) {
                   // Dispose the ad here to free resources.
                   ad.dispose();
-                  bankData[0].detail![mainIndex].dataList![i].adNativeSmall = null;
+                  tipsData[i].adNativeSmall = null;
                   Debug.printLog(
-                      ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error.code} message=${error.message})');
+                      ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error
+                          .code} message=${error.message})');
                 },
                 // Called when an ad opens an overlay that covers the screen.
                 onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
@@ -138,6 +101,55 @@ class DetailController extends GetxController {
                 onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
               ),
             ).load();
+          }
+        }
+      } else {
+        if (Get.arguments[1] != null) {
+          bankData = Get.arguments[1];
+          for (int i = 0;
+              i < bankData[0].detail![mainIndex].dataList!.length;
+              i++) {
+            bankData[0].detail![mainIndex].dataList![i].isMark = false;
+          }
+          if(Debug.isShowAd && Debug.isNativeAd) {
+            for (int i = 0; i <
+                bankData[0].detail![mainIndex].dataList!.length; i++) {
+              Debug.printLog("NativeInlinePageSmallListData loop.............");
+              NativeAd(
+                adUnitId: AdHelper.nativeAdUnitId,
+                factoryId: 'listTileSmall',
+                request: const AdRequest(),
+                listener: NativeAdListener(
+                  // Called when an ad is successfully received.
+                  onAdLoaded: (Ad ad) {
+                    var add = ad as NativeAd;
+                    Debug.printLog(
+                        "**** AD NativeInlinePageSmallListData ***** ${add
+                            .responseInfo}");
+                    bankData[0].detail![mainIndex].dataList![i].adNativeSmall =
+                        ad;
+                  },
+                  // Called when an ad request failed.
+                  onAdFailedToLoad: (Ad ad, LoadAdError error) {
+                    // Dispose the ad here to free resources.
+                    ad.dispose();
+                    bankData[0].detail![mainIndex].dataList![i].adNativeSmall =
+                    null;
+                    Debug.printLog(
+                        ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error
+                            .code} message=${error.message})');
+                  },
+                  // Called when an ad opens an overlay that covers the screen.
+                  onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
+                  // Called when an ad removes an overlay that covers the screen.
+                  onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
+                  // Called when an impression occurs on the ad.
+                  onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
+                  // Called when a click is recorded for a NativeAd.
+                  onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
+                ),
+              ).load();
+            }
           }
           update();
         }
@@ -165,6 +177,7 @@ class DetailController extends GetxController {
     }else {
       checkMarkData(pageIndexValue: subIndex);
     }*/
+    Debug.printLog("arguments detail....${jsonEncode(Get.arguments)}");
     super.onInit();
   }
 
@@ -310,7 +323,8 @@ class DetailController extends GetxController {
     if (bookmarkCheckDataList.isNotEmpty) {
       var pageViewIndex = pageController.page!.toInt();
 
-      var addedDataIndex = bankData[0].detail![mainIndex].dataList!.indexWhere(
+      // var addedDataIndex = bankData[0].detail![mainIndex].dataList!.indexWhere(
+      var addedDataIndex = bookmarkCheckDataList.indexWhere(
           (element) =>
               element.title ==
                   bankData[0]
@@ -358,10 +372,13 @@ class DetailController extends GetxController {
     // Debug.preloadNativeBanner!.dispose();
     // Debug.preloadNativeBanner = null;
     // Utils.preLoadBannerNative();
-    for (int i = 0; i < bankData[0].detail![mainIndex].dataList!.length; i++) {
-      if(bankData[0].detail![mainIndex].dataList![i].adNativeSmall != null) {
-        bankData[0].detail![mainIndex].dataList![i].adNativeSmall!.dispose();
-        bankData[0].detail![mainIndex].dataList![i].adNativeSmall = null;
+    if(Debug.isNativeAd && Debug.isShowAd) {
+      for (int i = 0; i <
+          bankData[0].detail![mainIndex].dataList!.length; i++) {
+        if (bankData[0].detail![mainIndex].dataList![i].adNativeSmall != null) {
+          bankData[0].detail![mainIndex].dataList![i].adNativeSmall!.dispose();
+          bankData[0].detail![mainIndex].dataList![i].adNativeSmall = null;
+        }
       }
     }
     super.onClose();

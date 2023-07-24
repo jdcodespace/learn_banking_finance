@@ -2,6 +2,7 @@ package com.example.spotify_flutter_code
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.WindowCompat
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -21,6 +22,7 @@ class MainActivity: FlutterActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             // Disable the Android splash screen fade out animation to avoid
             // a flicker before the similar frame is drawn in Flutter.
+            Log.e("TAG", "onCreate: splshs screen....." );
             splashScreen.setOnExitAnimationListener { splashScreenView -> splashScreenView.remove() }
         }
 

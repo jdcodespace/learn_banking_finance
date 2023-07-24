@@ -6,6 +6,8 @@ import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/debug.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 import '../../../datamodel/bank_data.dart';
+import '../../../facebook_ads/native/facebook_native_banner.dart';
+import '../../../google_ads/native/native_banner_page.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/font.dart';
 import '../../../utils/utils.dart';
@@ -178,7 +180,7 @@ class BookMarkScreen extends StatelessWidget {
   }
 
   _separatorListItemViewAll(BuildContext context, int index) {
-    if ((index + 1) % 3 == 0) {
+    if ((index + 1) % 3 == 0 && Debug.isShowAd && Debug.isNativeAd) {
       return Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.height_0_7),
         height: Get.height * 0.1,
@@ -187,15 +189,15 @@ class BookMarkScreen extends StatelessWidget {
             color: CColor.backgroundColor,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.black)),
-        child: /*(Debug.adType == Debug.adGoogleType &&
-                Debug.isShowAd &&
-                Debug.isShowBanner)
-            ? NativeInlinePageBanner(context: context)
-            : const FacebookBannerNative(),*/
-            const Text(
+        child: (Debug.isShowAd && Debug.isShowBanner)
+            ? ((Debug.adType == Debug.adGoogleType)
+                ? NativeInlinePageBanner(context: context)
+                : const FacebookBannerNative())
+            : Container(),
+        /*const Text(
           "Banner Native",
           textAlign: TextAlign.center,
-        ),
+        )*/
       );
     } else {
       return Container();

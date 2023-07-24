@@ -26,16 +26,16 @@ Future<void> main() async {
   await Preference().instance();
   await InternetConnectivity().instance();
   await getFirebaseData();
-  await Future.delayed(const Duration(milliseconds: 3000));
+  // await Future.delayed(const Duration(milliseconds: 3000));
 
-  if (Debug.adType == Debug.adGoogleType) {
+  if (Debug.adType == Debug.adGoogleType && Debug.isShowAd) {
     InterstitialAdClass.showInterstitialAdForSplash(() {
       runApp(
         const MyApp(),
       );
     });
   } else if (Debug.adType == Debug.adFacebookType &&
-      Debug.facebookInterstitial.isNotEmpty) {
+      Debug.facebookInterstitial.isNotEmpty && Debug.isShowAd) {
     InterstitialFacebookAdClass.showInterstitialFacebookAdForSplash(() {
       runApp(
         const MyApp(),
@@ -63,7 +63,8 @@ Future<void> getFirebaseData() async {
     data.forEach((key, value) {
       Debug.printLog("$key $value");
       if (key == Debug.keyNameIsShowAd) {
-        Debug.isShowAd = value;
+        // Debug.isShowAd = value;
+        Debug.isShowAd = false;
       }
 
       if (key == Debug.keyNameIsShowBanner) {
@@ -297,6 +298,7 @@ class _MyAppState extends State<MyApp> {
           ? AppRoutes.home
           : AppRoutes.slider,
       // initialRoute:AppRoutes.slider,
+      transitionDuration: const Duration(milliseconds: 50),
     );
   }
 }
