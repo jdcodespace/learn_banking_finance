@@ -26,7 +26,7 @@ Future<void> main() async {
   await Preference().instance();
   await InternetConnectivity().instance();
   await getFirebaseData();
-  // await Future.delayed(const Duration(milliseconds: 3000));
+  runApp(const MyApp());
 
   if (Debug.adType == Debug.adGoogleType && Debug.isShowAd) {
     InterstitialAdClass.showInterstitialAdForSplash(() {
