@@ -10,4 +10,5 @@ class AppRoutes {
   static const String tips = '/tips';
   static const String webView = '/webView';
   static const String slider = '/slider';
+  static const String splash = '/splash';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:learn_banking_finance/splash/view/splash_screen.dart';
 import 'package:learn_banking_finance/ui/accounting/bindings/accounting_binding.dart';
 import 'package:learn_banking_finance/ui/accounting/view/accounting_screen.dart';
 import 'package:learn_banking_finance/ui/banking/bindings/banking_binding.dart';
@@ -21,6 +22,7 @@ import 'package:learn_banking_finance/ui/viewall/views/view_all_screen.dart';
 import 'package:learn_banking_finance/webview/bindings/webview_binding.dart';
 import 'package:learn_banking_finance/webview/views/webview_screen.dart';
 import 'package:sizer/sizer.dart';
+import '../splash/binding/splash_binding.dart';
 import '../ui/slider/bindings/slider_binding.dart';
 import '../ui/slider/view/slider_screen.dart';
 import '../ui/viewall/bindings/view_all_binding.dart';
@@ -29,6 +31,24 @@ import 'app_routes.dart';
 
 class AppPages {
   static var list = [
+    GetPage(
+      name: AppRoutes.splash,
+      page: () => Sizer(
+        builder: (context, orientation, deviceType) {
+          return const AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: CColor.transparent,
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarIconBrightness: Brightness.light,
+            ),
+            child: SplashScreen(),
+          );
+        },
+      ),
+      binding: SplashBinding(),
+      transition: Transition.native,
+      // transitionDuration: const Duration(milliseconds: 500),
+    ),
     GetPage(
       name: AppRoutes.home,
       page: () => Sizer(

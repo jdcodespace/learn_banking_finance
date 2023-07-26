@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
+import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../google_ads/ad_helper.dart';
+import '../../../google_ads/inter/inter_ad.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
@@ -16,6 +18,7 @@ class DetailController extends GetxController {
   int mainIndex = 0;
   int subIndex = 0;
   bool isTips = false;
+  int intPosition = 0;
 
   PageController pageController =
       PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
@@ -26,7 +29,7 @@ class DetailController extends GetxController {
   String string = '';
   bool isLoaded = true;
 
-  onChangeNativeBannerAd(bool value){
+  onChangeNativeBannerAd(bool value) {
     isLoaded = value;
     update();
     Debug.printLog("onChangeNativeBannerAd.....$value  $isLoaded");
@@ -66,7 +69,7 @@ class DetailController extends GetxController {
           tipsData[i].isMark = false;
         }
 
-        if(Debug.isShowAd && Debug.isNativeAd) {
+        if (Debug.isShowAd && Debug.isNativeAd) {
           for (int i = 0; i < tipsData.length; i++) {
             Debug.printLog("NativeInlinePageSmallListData loop.............");
             NativeAd(
@@ -78,8 +81,7 @@ class DetailController extends GetxController {
                 onAdLoaded: (Ad ad) {
                   var add = ad as NativeAd;
                   Debug.printLog(
-                      "**** AD NativeInlinePageSmallListData ***** ${add
-                          .responseInfo}");
+                      "**** AD NativeInlinePageSmallListData ***** ${add.responseInfo}");
                   tipsData[i].adNativeSmall = ad;
                 },
                 // Called when an ad request failed.
@@ -88,8 +90,7 @@ class DetailController extends GetxController {
                   ad.dispose();
                   tipsData[i].adNativeSmall = null;
                   Debug.printLog(
-                      ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error
-                          .code} message=${error.message})');
+                      ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error.code} message=${error.message})');
                 },
                 // Called when an ad opens an overlay that covers the screen.
                 onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
@@ -111,9 +112,10 @@ class DetailController extends GetxController {
               i++) {
             bankData[0].detail![mainIndex].dataList![i].isMark = false;
           }
-          if(Debug.isShowAd && Debug.isNativeAd) {
-            for (int i = 0; i <
-                bankData[0].detail![mainIndex].dataList!.length; i++) {
+          if (Debug.isShowAd && Debug.isNativeAd) {
+            for (int i = 0;
+                i < bankData[0].detail![mainIndex].dataList!.length;
+                i++) {
               Debug.printLog("NativeInlinePageSmallListData loop.............");
               NativeAd(
                 adUnitId: AdHelper.nativeAdUnitId,
@@ -124,8 +126,7 @@ class DetailController extends GetxController {
                   onAdLoaded: (Ad ad) {
                     var add = ad as NativeAd;
                     Debug.printLog(
-                        "**** AD NativeInlinePageSmallListData ***** ${add
-                            .responseInfo}");
+                        "**** AD NativeInlinePageSmallListData ***** ${add.responseInfo}");
                     bankData[0].detail![mainIndex].dataList![i].adNativeSmall =
                         ad;
                   },
@@ -134,10 +135,9 @@ class DetailController extends GetxController {
                     // Dispose the ad here to free resources.
                     ad.dispose();
                     bankData[0].detail![mainIndex].dataList![i].adNativeSmall =
-                    null;
+                        null;
                     Debug.printLog(
-                        ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error
-                            .code} message=${error.message})');
+                        ' **** AD NativeInlinePageSmallListData *****  Ad load failed (code=${error.code} message=${error.message})');
                   },
                   // Called when an ad opens an overlay that covers the screen.
                   onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
@@ -293,6 +293,7 @@ class DetailController extends GetxController {
 
   void changedValuesForPage(int value) {
     checkMarkData(pageIndexValue: value);
+    intPosition = value ;
     update([Constant.idAppBar]);
   }
 
@@ -324,20 +325,19 @@ class DetailController extends GetxController {
       var pageViewIndex = pageController.page!.toInt();
 
       // var addedDataIndex = bankData[0].detail![mainIndex].dataList!.indexWhere(
-      var addedDataIndex = bookmarkCheckDataList.indexWhere(
-          (element) =>
-              element.title ==
-                  bankData[0]
-                      .detail![mainIndex]
-                      .dataList![pageViewIndex]
-                      .title
-                      .toString() &&
-              element.desc ==
-                  bankData[0]
-                      .detail![mainIndex]
-                      .dataList![pageViewIndex]
-                      .desc
-                      .toString());
+      var addedDataIndex = bookmarkCheckDataList.indexWhere((element) =>
+          element.title ==
+              bankData[0]
+                  .detail![mainIndex]
+                  .dataList![pageViewIndex]
+                  .title
+                  .toString() &&
+          element.desc ==
+              bankData[0]
+                  .detail![mainIndex]
+                  .dataList![pageViewIndex]
+                  .desc
+                  .toString());
 
       bankData[0].detail![mainIndex].dataList![pageViewIndex].isMark = false;
 
@@ -372,9 +372,10 @@ class DetailController extends GetxController {
     // Debug.preloadNativeBanner!.dispose();
     // Debug.preloadNativeBanner = null;
     // Utils.preLoadBannerNative();
-    if(Debug.isNativeAd && Debug.isShowAd) {
-      for (int i = 0; i <
-          bankData[0].detail![mainIndex].dataList!.length; i++) {
+    if (Debug.isNativeAd && Debug.isShowAd) {
+      for (int i = 0;
+          i < bankData[0].detail![mainIndex].dataList!.length;
+          i++) {
         if (bankData[0].detail![mainIndex].dataList![i].adNativeSmall != null) {
           bankData[0].detail![mainIndex].dataList![i].adNativeSmall!.dispose();
           bankData[0].detail![mainIndex].dataList![i].adNativeSmall = null;
@@ -384,18 +385,26 @@ class DetailController extends GetxController {
     super.onClose();
   }
 
-  void bookMarkTap() {
+  void bookMarkTap(BuildContext context) {
     var currentPage = pageController.page!.toInt();
     Debug.printLog("pageController.initialPage......${pageController.page}");
-    // if(isTips && tipsData[mainIndex].isMark){
+
     if (isTips && tipsData[currentPage].isMark) {
       removeTipsBookMark();
     } else if (!isTips &&
         bankData[0].detail![mainIndex].dataList![currentPage].isMark) {
-      // .dataList![subIndex].isMark){
       removeBankDataBookMark();
     } else {
-      addBookmarkData();
+      if (Debug.adType == Debug.adGoogleType) {
+        InterstitialAdClass.showInterstitialAdInterCount(context, () {
+          addBookmarkData();
+        });
+      } else {
+        InterstitialFacebookAdClass.showInterstitialFacebookAdInterCount(
+            context, () {
+          addBookmarkData();
+        });
+      }
     }
   }
 }

@@ -28,10 +28,10 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/mac/Desktop/jksFiles/learn_bnking_finance_flutter.jks')
-            keyAlias 'learn_bnking_finance_flutter'
-            storePassword 'learn_bnking_finance_flutter'
-            keyPassword 'learn_bnking_finance_flutter'
+            storeFile file('/Users/mac/tilak/demo_fvm/learn_banking_finance/learn_bnking_finance.jks')
+            keyAlias 'learn_bnking_finance'
+            storePassword 'learn_bnking_finance'
+            keyPassword 'learn_bnking_finance'
         }
     }
     compileSdkVersion 34
@@ -57,8 +57,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 6
+        versionName "1.0.1"
         multiDexEnabled = true
     }
 

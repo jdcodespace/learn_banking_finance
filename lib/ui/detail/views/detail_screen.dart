@@ -84,31 +84,19 @@ class DetailScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 _nextPreviousButton(logic),
-                // Expanded(
-                //   child: Text(
-                //     "Detail",
-                //     textAlign: TextAlign.center,
-                //     style: TextStyle(
-                // fontFamily: Font.poppins,
-                //       color: CColor.black,
-                //       fontWeight: FontWeight.w700,
-                //       fontSize: FontSize.size_14,
-                //     ),
-                //   ),
-                // ),
                 InkWell(
                   onTap: () {
-                    if (Debug.adType == Debug.adGoogleType) {
-                      InterstitialAdClass.showInterstitialAdInterCount(context,
-                          () {
-                        logic.bookMarkTap();
-                      });
-                    } else {
-                      InterstitialFacebookAdClass
-                          .showInterstitialFacebookAdInterCount(context, () {
-                        logic.bookMarkTap();
-                      });
-                    }
+                    // if (Debug.adType == Debug.adGoogleType) {
+                    //   InterstitialAdClass.showInterstitialAdInterCount(context,
+                    //       () {
+                    logic.bookMarkTap(context);
+                    //   });
+                    // } else {
+                    //   InterstitialFacebookAdClass
+                    //       .showInterstitialFacebookAdInterCount(context, () {
+                    //     logic.bookMarkTap();
+                    //   });
+                    // }
                   },
                   child: Icon(
                     (!logic.isTips)
@@ -179,35 +167,38 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
           (Debug.isShowAd && Debug.isNativeAd)
-              ?
-          Container(
-            decoration: BoxDecoration(
-              // color: CColor.backgroundColor.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: (Debug.adType == Debug.adGoogleType &&
-                    Debug.isShowAd &&
-                    Debug.isNativeAd)
-                ? (logic.isTips)
-                    ? ((logic.tipsData[index].adNativeSmall != null)
-                        ? SizedBox(
-                            height: Get.height * 0.21,
-                            child: AdWidget(
-                                ad: logic.tipsData[index].adNativeSmall!),
-                          )
-                        : Container())
-                    : ((logic.bankData[0].detail![logic.mainIndex]
-                                .dataList![index].adNativeSmall !=
-                            null)
-                        ? SizedBox(
-                            height: Get.height * 0.21,
-                            child: AdWidget(
-                                ad: logic.bankData[0].detail![logic.mainIndex]
-                                    .dataList![index].adNativeSmall!),
-                          )
-                        : Container())
-                : smallNativeAdFacebook(context),
-          ):Container(),
+              ? Container(
+                  decoration: BoxDecoration(
+                    // color: CColor.backgroundColor.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: (Debug.adType == Debug.adGoogleType &&
+                          Debug.isShowAd &&
+                          Debug.isNativeAd)
+                      ? (logic.isTips)
+                          ? ((logic.tipsData[index].adNativeSmall != null)
+                              ? SizedBox(
+                                  height: Get.height * 0.21,
+                                  child: AdWidget(
+                                      ad: logic.tipsData[index].adNativeSmall!),
+                                )
+                              : Container())
+                          : ((logic.bankData[0].detail![logic.mainIndex]
+                                      .dataList![index].adNativeSmall !=
+                                  null)
+                              ? SizedBox(
+                                  height: Get.height * 0.21,
+                                  child: AdWidget(
+                                      ad: logic
+                                          .bankData[0]
+                                          .detail![logic.mainIndex]
+                                          .dataList![index]
+                                          .adNativeSmall!),
+                                )
+                              : Container())
+                      : smallNativeAdFacebook(context),
+                )
+              : Container(),
           Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
@@ -233,34 +224,72 @@ class DetailScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: Sizes.width_7),
       child: Row(
         children: [
-          InkWell(
-            onTap: () {
-              logic.nextPrevPage(false);
-            },
-            // child: const CircleAvatar(
-            //   maxRadius: 25,
-            //   backgroundColor: CColor.backgroundColor,
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            // ),
-          ),
+          (logic.intPosition == 0)
+              ? Container(
+                  padding: EdgeInsets.all(8),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.transparent,
+                  ),
+                )
+              : InkWell(
+                  onTap: () {
+                    logic.nextPrevPage(false);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    // color: CColor.red,
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
           const SizedBox(width: 25),
-          // const Spacer(),
-          InkWell(
-            onTap: () {
-              logic.nextPrevPage(true);
-            },
-            // child: const CircleAvatar(
-            //   maxRadius: 25,
-            //   backgroundColor: CColor.backgroundColor,
-            child: const Icon(
-              Icons.arrow_forward,
-              color: Colors.black,
-            ),
-            // ),
-          ),
+          (logic.isTips)
+              ? (logic.intPosition != logic.tipsData.length - 1)
+                  ? InkWell(
+                      onTap: () {
+                        logic.nextPrevPage(true);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: const Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      padding: EdgeInsets.all(8),
+                      child: const Icon(
+                        Icons.arrow_forward,
+                        color: Colors.transparent,
+                      ),
+                    )
+              : (logic.intPosition !=
+                      logic.bankData[0].detail![logic.mainIndex].dataList!
+                              .length -
+                          1)
+                  ? InkWell(
+                      onTap: () {
+                        logic.nextPrevPage(true);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: const Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      padding: EdgeInsets.all(8),
+                      child: const Icon(
+                        Icons.arrow_forward,
+                        color: Colors.transparent,
+                      ),
+                    ),
         ],
       ),
     );

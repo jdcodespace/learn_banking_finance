@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
@@ -306,7 +307,7 @@ class Utils {
                   ),
                   width: double.infinity,
                   alignment: Alignment.center,
-                  height: 185,
+                  height: Get.height * 0.22,
                   child: AdWidget(ad: homeAd),
                 )
               : Container()

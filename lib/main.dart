@@ -24,7 +24,7 @@ Future<void> main() async {
   await Preference().instance();
   await InternetConnectivity().instance();
   await getFirebaseData();
-  runApp(const MyApp());
+  await Future.delayed(const Duration(seconds: 1));
 
   if (Debug.adType == Debug.adGoogleType && Debug.isShowAd) {
     InterstitialAdClass.showInterstitialAdForSplash(() {
@@ -102,6 +102,7 @@ Future<void> getFirebaseData() async {
       Debug.printLog("$key $value");
       if (key == Debug.keyNameAdType) {
         Debug.adType = value;
+        // Debug.adType = "g";
       }
       if (key == Debug.keyNameAdTypeGoogle) {
         if (value["banner"]["Banner_Google_Property_Type_Child"] != null) {
@@ -110,7 +111,7 @@ Future<void> getFirebaseData() async {
         }
 
         if (value["inter"]["Interstitial_Google_Property_Type_Child"] != null) {
-          Debug.googleInterstitial =
+          Debug.googleInterstitial = /*"ca-app-pub-3940256099942544/1033173712";*/
               value["inter"]["Interstitial_Google_Property_Type_Child"];
         }
 

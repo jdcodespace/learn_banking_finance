@@ -61,16 +61,6 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
-                            // child: Container(
-                            //   margin:
-                            //       EdgeInsets.only(bottom: Get.height * 0.005),
-                            //   decoration: BoxDecoration(
-                            //     color: CColor.backgroundColor,
-                            //     borderRadius: BorderRadius.circular(10),
-                            //   ),
-                            //   // height: 200,
-                            //   width: double.infinity,
-                            //   alignment: Alignment.center,
                             child:  (Debug.isShowAd && Debug.isNativeAd)?Utils.smallNativeAd(logic.homeAd, context):Container()
                           ),
                           // )

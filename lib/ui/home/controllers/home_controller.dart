@@ -203,9 +203,4 @@ class HomeController extends GetxController {
     Share.share("https://play.google.com/store/apps/details?id=$appId");
   }
 
-  @override
-  void onClose() {
-
-    super.onClose();
-  }
 }
