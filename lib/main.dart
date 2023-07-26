@@ -3,11 +3,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/connectivitymanager/connectivitymanager.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
 import 'package:learn_banking_finance/facebook_ads/inter/inter_ad.dart';
-import 'package:learn_banking_finance/google_ads/ad_helper.dart';
 import 'package:learn_banking_finance/google_ads/inter/inter_ad.dart';
 import 'package:learn_banking_finance/localization/locale_constant.dart';
 import 'package:learn_banking_finance/routes/app_pages.dart';
@@ -35,7 +33,8 @@ Future<void> main() async {
       );
     });
   } else if (Debug.adType == Debug.adFacebookType &&
-      Debug.facebookInterstitial.isNotEmpty && Debug.isShowAd) {
+      Debug.facebookInterstitial.isNotEmpty &&
+      Debug.isShowAd) {
     InterstitialFacebookAdClass.showInterstitialFacebookAdForSplash(() {
       runApp(
         const MyApp(),
@@ -63,8 +62,8 @@ Future<void> getFirebaseData() async {
     data.forEach((key, value) {
       Debug.printLog("$key $value");
       if (key == Debug.keyNameIsShowAd) {
-        // Debug.isShowAd = value;
-        Debug.isShowAd = false;
+        Debug.isShowAd = value;
+        // Debug.isShowAd = false;
       }
 
       if (key == Debug.keyNameIsShowBanner) {
@@ -126,16 +125,16 @@ Future<void> getFirebaseData() async {
       }
       if (key == Debug.keyNameAdTypeFaceBook) {
         if (value["inter"]["Interstitial_FB_Property_Type_Child"] != null) {
-          Debug.facebookInterstitial =
+          Debug.facebookInterstitial = /*"IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID";*/
               value["inter"]["Interstitial_FB_Property_Type_Child"];
         }
 
         if (value["native"]["Native_FB_Property_Type_Child"] != null) {
-          Debug.facebookNative =
+          Debug.facebookNative = /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
               value["native"]["Native_FB_Property_Type_Child"];
         }
         if (value["nativeSmall"]["Small_Native_Home_Screen"] != null) {
-          Debug.facebookNativeSmall =
+          Debug.facebookNativeSmall = /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
               value["nativeSmall"]["Small_Native_Home_Screen"];
         }
         if (value["native"]["Native_Banner"] != null) {
@@ -170,8 +169,7 @@ Future<void> getFirebaseData() async {
   });
 }
 
-preLoadBannerNative() async {
-  /*native banner*/
+/*preLoadBannerNative() async {
   Debug.preloadNativeBanner = NativeAd(
     adUnitId: AdHelper.nativeAdUnitId,
     factoryId: 'listTileBanner',
@@ -202,7 +200,6 @@ preLoadBannerNative() async {
 }
 
 preloadAllNativeAds() async {
-  /*native normal*/
   Debug.preloadNativeNormal = NativeAd(
     adUnitId: AdHelper.nativeAdUnitId,
     factoryId: 'listTile',
@@ -228,7 +225,7 @@ preloadAllNativeAds() async {
     ),
   );
   Debug.preloadNativeNormal!.load();
-}
+}*/
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
