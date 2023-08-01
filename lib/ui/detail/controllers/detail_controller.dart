@@ -293,7 +293,9 @@ class DetailController extends GetxController {
 
   void changedValuesForPage(int value) {
     checkMarkData(pageIndexValue: value);
+
     intPosition = value ;
+
     update([Constant.idAppBar]);
   }
 
@@ -367,23 +369,23 @@ class DetailController extends GetxController {
     update([Constant.idAppBar]);
   }
 
-  @override
-  void onClose() {
-    // Debug.preloadNativeBanner!.dispose();
-    // Debug.preloadNativeBanner = null;
-    // Utils.preLoadBannerNative();
-    if (Debug.isNativeAd && Debug.isShowAd) {
-      for (int i = 0;
-          i < bankData[0].detail![mainIndex].dataList!.length;
-          i++) {
-        if (bankData[0].detail![mainIndex].dataList![i].adNativeSmall != null) {
-          bankData[0].detail![mainIndex].dataList![i].adNativeSmall!.dispose();
-          bankData[0].detail![mainIndex].dataList![i].adNativeSmall = null;
-        }
-      }
-    }
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   // Debug.preloadNativeBanner!.dispose();
+  //   // Debug.preloadNativeBanner = null;
+  //   // Utils.preLoadBannerNative();
+  //   if (Debug.isNativeAd && Debug.isShowAd) {
+  //     for (int i = 0;
+  //         i < bankData[0].detail![mainIndex].dataList!.length;
+  //         i++) {
+  //       if (bankData[0].detail![mainIndex].dataList![i].adNativeSmall != null) {
+  //         bankData[0].detail![mainIndex].dataList![i].adNativeSmall!.dispose();
+  //         bankData[0].detail![mainIndex].dataList![i].adNativeSmall = null;
+  //       }
+  //     }
+  //   }
+  //   super.onClose();
+  // }
 
   void bookMarkTap(BuildContext context) {
     var currentPage = pageController.page!.toInt();

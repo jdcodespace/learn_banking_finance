@@ -30,13 +30,16 @@ class InterstitialFacebookAdClass {
         placementId: AdHelper.interstitialAdUnitIdFacebook,
         listener: (result, value) {
           if (result == InterstitialAdResult.LOADED) {
-            Get.back();
             FacebookInterstitialAd.showInterstitialAd();
           }
 
-          if (result == InterstitialAdResult.ERROR) {}
+          if (result == InterstitialAdResult.ERROR) {
+            Get.back();
+            callBack.call();
+          }
 
           if (result == InterstitialAdResult.DISMISSED) {
+            Get.back();
             callBack.call();
           }
         },
@@ -65,11 +68,12 @@ class InterstitialFacebookAdClass {
       placementId: AdHelper.interstitialAdUnitIdFacebook,
       listener: (result, value) {
         if (result == InterstitialAdResult.LOADED) {
-          Get.back();
           FacebookInterstitialAd.showInterstitialAd();
         }
 
-        if (result == InterstitialAdResult.ERROR) {}
+        if (result == InterstitialAdResult.ERROR) {
+          callBack.call();
+        }
 
         if (result == InterstitialAdResult.DISMISSED) {
           callBack.call();
@@ -86,7 +90,10 @@ class InterstitialFacebookAdClass {
           FacebookInterstitialAd.showInterstitialAd();
         }
 
-        if (result == InterstitialAdResult.ERROR) {}
+        if (result == InterstitialAdResult.ERROR) {
+          Debug.printLog("================> error $result");
+          callBack.call();
+        }
 
         if (result == InterstitialAdResult.DISMISSED) {
           callBack.call();

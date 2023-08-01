@@ -24,15 +24,6 @@ List<SliderData> sliderData = [];
     selectedIndex.value = value;
     update();
   }
-  // @override
-  // void onClose() {
-  //   if(Debug.preloadNativeSmallHome  != null) {
-  //     Debug.preloadNativeSmallHome!.dispose();
-  //     Debug.preloadNativeSmallHome = null;
-  //     Utils.preLoadSmallNative();
-  //   }
-  //   super.onClose();
-  // }
   @override
   void onInit() {
     networkConnectivity.initialise();

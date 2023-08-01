@@ -25,8 +25,11 @@ Future<void> main() async {
   await InternetConnectivity().instance();
   await getFirebaseData();
   await Future.delayed(const Duration(seconds: 1));
+  // AdSettings.addTestDevice("e100eec6-0942-4c87-bee9-a6d1b327fbbf");
 
-  if (Debug.adType == Debug.adGoogleType && Debug.isShowAd) {
+  if (Debug.adType == Debug.adGoogleType &&
+      Debug.googleInterstitial.isNotEmpty &&
+      Debug.isShowAd) {
     InterstitialAdClass.showInterstitialAdForSplash(() {
       runApp(
         const MyApp(),
@@ -95,7 +98,6 @@ Future<void> getFirebaseData() async {
       }
     });
   });
-
   FirebaseDatabase.instance.ref("customAds").onValue.listen((event) {
     final data = Map<String, dynamic>.from(event.snapshot.value as Map);
     data.forEach((key, value) {
@@ -111,7 +113,8 @@ Future<void> getFirebaseData() async {
         }
 
         if (value["inter"]["Interstitial_Google_Property_Type_Child"] != null) {
-          Debug.googleInterstitial = /*"ca-app-pub-3940256099942544/1033173712";*/
+          Debug.googleInterstitial =
+              /*"ca-app-pub-3940256099942544/1033173712";*/
               value["inter"]["Interstitial_Google_Property_Type_Child"];
         }
 
@@ -120,22 +123,25 @@ Future<void> getFirebaseData() async {
         }
 
         if (value["native"]["Native_Google_Property_Type_Child"] != null) {
-          Debug.googleNative =
+          Debug.googleNative = /* "ca-app-pub-3940256099942544/2247696110";*/
               value["native"]["Native_Google_Property_Type_Child"];
         }
       }
       if (key == Debug.keyNameAdTypeFaceBook) {
         if (value["inter"]["Interstitial_FB_Property_Type_Child"] != null) {
-          Debug.facebookInterstitial = /*"IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID";*/
+          Debug.facebookInterstitial =
+              /*"IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID";*/
               value["inter"]["Interstitial_FB_Property_Type_Child"];
         }
 
         if (value["native"]["Native_FB_Property_Type_Child"] != null) {
-          Debug.facebookNative = /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
+          Debug.facebookNative =
+              /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
               value["native"]["Native_FB_Property_Type_Child"];
         }
         if (value["nativeSmall"]["Small_Native_Home_Screen"] != null) {
-          Debug.facebookNativeSmall = /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
+          Debug.facebookNativeSmall =
+              /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
               value["nativeSmall"]["Small_Native_Home_Screen"];
         }
         if (value["native"]["Native_Banner"] != null) {
@@ -169,64 +175,6 @@ Future<void> getFirebaseData() async {
     });
   });
 }
-
-/*preLoadBannerNative() async {
-  Debug.preloadNativeBanner = NativeAd(
-    adUnitId: AdHelper.nativeAdUnitId,
-    factoryId: 'listTileBanner',
-    request: const AdRequest(),
-    listener: NativeAdListener(
-      // Called when an ad is successfully received.
-      onAdLoaded: (Ad ad) {
-        Debug.printLog('Ad load success preload.......');
-      },
-      // Called when an ad request failed.
-      onAdFailedToLoad: (Ad ad, LoadAdError error) {
-        // Dispose the ad here to free resources.
-        ad.dispose();
-        Debug.printLog(
-            'Ad load failed (code=${error.code} message=${error.message})');
-      },
-      // Called when an ad opens an overlay that covers the screen.
-      onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
-      // Called when an ad removes an overlay that covers the screen.
-      onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
-      // Called when an impression occurs on the ad.
-      onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
-      // Called when a click is recorded for a NativeAd.
-      onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
-    ),
-  );
-  Debug.preloadNativeBanner!.load();
-}
-
-preloadAllNativeAds() async {
-  Debug.preloadNativeNormal = NativeAd(
-    adUnitId: AdHelper.nativeAdUnitId,
-    factoryId: 'listTile',
-    request: const AdRequest(),
-    listener: NativeAdListener(
-      // Called when an ad is successfully received.
-      onAdLoaded: (Ad ad) {
-        Debug.printLog('Normal Ad load success preload.......');
-      },
-      // Called when an ad request failed.
-      onAdFailedToLoad: (Ad ad, LoadAdError error) {
-        // Dispose the ad here to free resources.
-        ad.dispose();
-      },
-      // Called when an ad opens an overlay that covers the screen.
-      onAdOpened: (Ad ad) => Debug.printLog('Ad opened.'),
-      // Called when an ad removes an overlay that covers the screen.
-      onAdClosed: (Ad ad) => Debug.printLog('Ad closed.'),
-      // Called when an impression occurs on the ad.
-      onAdImpression: (Ad ad) => Debug.printLog('Ad impression.'),
-      // Called when a click is recorded for a NativeAd.
-      onAdClicked: (Ad ad) => Debug.printLog('Ad clicked.'),
-    ),
-  );
-  Debug.preloadNativeNormal!.load();
-}*/
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

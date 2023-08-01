@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
-import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../facebook_ads/native/facebook_native_banner.dart';
 import '../../../facebook_ads/native/facebook_native_small.dart';
-import '../../../google_ads/inter/inter_ad.dart';
 import '../../../google_ads/native/native_banner_page_without_preload.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/constant.dart';
@@ -86,17 +84,7 @@ class DetailScreen extends StatelessWidget {
                 _nextPreviousButton(logic),
                 InkWell(
                   onTap: () {
-                    // if (Debug.adType == Debug.adGoogleType) {
-                    //   InterstitialAdClass.showInterstitialAdInterCount(context,
-                    //       () {
                     logic.bookMarkTap(context);
-                    //   });
-                    // } else {
-                    //   InterstitialFacebookAdClass
-                    //       .showInterstitialFacebookAdInterCount(context, () {
-                    //     logic.bookMarkTap();
-                    //   });
-                    // }
                   },
                   child: Icon(
                     (!logic.isTips)
@@ -224,9 +212,9 @@ class DetailScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: Sizes.width_7),
       child: Row(
         children: [
-          (logic.intPosition == 0)
+          (logic.intPosition == 0 && logic.subIndex == 0)
               ? Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: const Icon(
                     Icons.arrow_forward,
                     color: Colors.transparent,
@@ -237,7 +225,7 @@ class DetailScreen extends StatelessWidget {
                     logic.nextPrevPage(false);
                   },
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     // color: CColor.red,
                     child: const Icon(
                       Icons.arrow_back,
@@ -247,13 +235,14 @@ class DetailScreen extends StatelessWidget {
                 ),
           const SizedBox(width: 25),
           (logic.isTips)
-              ? (logic.intPosition != logic.tipsData.length - 1)
+              ? (logic.intPosition != logic.tipsData.length - 1 &&
+                      logic.subIndex != logic.tipsData.length - 1)
                   ? InkWell(
                       onTap: () {
                         logic.nextPrevPage(true);
                       },
                       child: Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: const Icon(
                           Icons.arrow_forward,
                           color: Colors.black,
@@ -261,22 +250,26 @@ class DetailScreen extends StatelessWidget {
                       ),
                     )
                   : Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: const Icon(
                         Icons.arrow_forward,
                         color: Colors.transparent,
                       ),
                     )
               : (logic.intPosition !=
-                      logic.bankData[0].detail![logic.mainIndex].dataList!
-                              .length -
-                          1)
+                          logic.bankData[0].detail![logic.mainIndex].dataList!
+                                  .length -
+                              1 &&
+                      logic.subIndex !=
+                          logic.bankData[0].detail![logic.mainIndex].dataList!
+                                  .length -
+                              1)
                   ? InkWell(
                       onTap: () {
                         logic.nextPrevPage(true);
                       },
                       child: Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: const Icon(
                           Icons.arrow_forward,
                           color: Colors.black,
@@ -284,7 +277,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                     )
                   : Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: const Icon(
                         Icons.arrow_forward,
                         color: Colors.transparent,
