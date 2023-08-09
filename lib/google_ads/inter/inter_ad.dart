@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../dialog/progressdialog.dart';
 import '../../google_ads/ad_helper.dart';
@@ -27,7 +28,7 @@ class InterstitialAdClass {
         request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (ad) {
-            Navigator.pop(context);
+            Get.back();
             ad.show();
             ad.fullScreenContentCallback = FullScreenContentCallback(
               onAdDismissedFullScreenContent: (ad) {
@@ -99,6 +100,7 @@ class InterstitialAdClass {
               },
             );
           },
+
           onAdFailedToLoad: (err) {
             callBack.call();
           },

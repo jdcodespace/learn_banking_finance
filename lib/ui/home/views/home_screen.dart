@@ -60,9 +60,10 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Align(
-                            alignment: Alignment.bottomCenter,
-                            child:  (Debug.isShowAd && Debug.isNativeAd)?Utils.smallNativeAd(logic.homeAd, context):Container()
-                          ),
+                              alignment: Alignment.bottomCenter,
+                              child: (Debug.isShowAd && Debug.isNativeAd)
+                                  ? Utils.smallNativeAd(logic.homeAd, context)
+                                  : Container()),
                           // )
                         ],
                       );
@@ -292,8 +293,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   _listOfDrawerMenu(HomeController logic) {
     return ListView.builder(
