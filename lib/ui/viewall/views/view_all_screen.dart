@@ -4,9 +4,11 @@ import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 
+import '../../../ad_mediation/ad_load.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/utils.dart';
@@ -29,17 +31,17 @@ class ViewAllScreen extends StatelessWidget {
                       children: [
                         _appBar(logic, context),
                         _widgetViewAll(logic),
-                        // Container(
-                        //   margin: const EdgeInsets.only(bottom: 1),
-                        //   decoration: BoxDecoration(
-                        //     color: CColor.opacityBlack10,
-                        //     borderRadius: BorderRadius.circular(10),
-                        //   ),
-                        //   height: 200,
-                        //   width: double.infinity,
-                        //   alignment: Alignment.center,
-                        //   child:
-                        (Debug.isShowAd && Debug.isNativeAd)? Utils.smallNativeAd(logic.viewAllAd, context)!:Container()
+                        (Debug.isShowAd && Debug.isNativeAd)
+                            ? Container(
+                          child: (Debug.adType == Debug.adFacebookType)
+                              ? (Constant.adGoogle)
+                              ? AdLoad.sliderSmallNativeAd(logic.viewAllAd)
+                              : AdLoad.smallFacebookAd(() {})
+                              : (Constant.isFacebookAd)
+                              ? AdLoad.smallFacebookAd(() {})
+                              : AdLoad.sliderSmallNativeAd(logic.viewAllAd),
+                        )
+                            : Container()
                         // ),
                       ],
                     );
@@ -153,8 +155,7 @@ class ViewAllScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              child:
-              Image.network(
+              child: Image.network(
                 logic.bankData[0].detail![0].image.toString(),
                 height: Sizes.height_7,
                 width: Sizes.height_6,

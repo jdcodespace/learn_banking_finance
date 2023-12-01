@@ -19,6 +19,7 @@ class DetailController extends GetxController {
   int subIndex = 0;
   bool isTips = false;
   int intPosition = 0;
+  NativeAd? detailAd;
 
   PageController pageController =
       PageController(initialPage: 0, keepPage: true, viewportFraction: 1);

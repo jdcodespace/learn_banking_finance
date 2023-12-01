@@ -28,7 +28,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/mac/tilak/demo_fvm/learn_banking_finance/learn_bnking_finance.jks')
+            storeFile file('/Users/mac/Jd/dobedo/flutter/learn_banking_finance/learn_bnking_finance.jks')
             keyAlias 'learn_bnking_finance'
             storePassword 'learn_bnking_finance'
             keyPassword 'learn_bnking_finance'

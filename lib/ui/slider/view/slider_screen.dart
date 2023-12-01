@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/routes/app_routes.dart';
 import 'package:learn_banking_finance/utils/preference.dart';
+import '../../../ad_mediation/ad_load.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../utils/color.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
@@ -128,7 +130,17 @@ class SliderScreen extends StatelessWidget {
                     ),
                     Container(
                         child: (Debug.isShowAd && Debug.isNativeAd)
-                            ? Utils.smallNativeAd(logic.sliderAd, context)
+                            ? Container(
+                                child: (Debug.adType == Debug.adFacebookType)
+                                    ? (Constant.adGoogle)
+                                        ? AdLoad.sliderSmallNativeAd(
+                                            logic.sliderAd)
+                                        : AdLoad.smallFacebookAd(() {})
+                                    : (Constant.isFacebookAd)
+                                        ? AdLoad.smallFacebookAd(() {})
+                                        : AdLoad.sliderSmallNativeAd(
+                                            logic.sliderAd),
+                              )
                             : Container()),
                   ],
                 ),

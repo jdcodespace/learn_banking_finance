@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
+import '../../../ad_mediation/ad_load.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../routes/app_routes.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/utils.dart';
@@ -37,7 +39,15 @@ class ListOfTaskScreen extends StatelessWidget {
                       ),
                     ),
                     (Debug.isShowAd && Debug.isNativeAd)?
-                    Utils.smallNativeAd(logic.listOfTaskAd, context)!:Container()
+                    Container(
+                      child: (Debug.adType == Debug.adFacebookType)
+                          ? (Constant.adGoogle)
+                          ? AdLoad.sliderSmallNativeAd(logic.listOfTaskAd)
+                          : AdLoad.smallFacebookAd(() {})
+                          : (Constant.isFacebookAd)
+                          ? AdLoad.smallFacebookAd(() {})
+                          : AdLoad.sliderSmallNativeAd(logic.listOfTaskAd),
+                    ):Container()
                   ],
                 ),
         ),

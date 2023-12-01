@@ -8,15 +8,13 @@ class Debug {
   static const sandboxVerifyReceiptUrl = false;
 
   static var isShowAd = true;
-  static var inCatAd = true;
-  static var outCatAd = true;
   static var isShowBanner = true;
   static var isShowRewarded = true;
   static var isShowOpenAd = true;
   static var isShowInter = true;
   static var isNativeAd = true;
-  static var isBoostAd = true;
-  static var isBuySellAd = true;
+  static var isBackAd = true;
+  static var isAdxEnable = true;
 
   static NativeAd? preloadNativeBanner;
   static NativeAd? preloadNativeNormal;
@@ -26,15 +24,16 @@ class Debug {
   static NativeAd? preloadNativeSmallAccount;
 
   static var keyNameIsShowAd = "isShowAd";
-  static var keyNameInCatAd = "inCatAd";
-  static var keyNameOutCatAd = "outCatAd";
   static var keyNameIsShowBanner = "isShowBanner";
   static var keyNameIsShowRewarded = "isShowRewarded";
-  static var keyNameIsShowOpenAd = "isShowOpenAd";
+  static var keyNameIsShowOpenAd = "isShowOpen";
   static var keyNameIsShowInter = "isShowInter";
-  static var keyNameIsNativeAd = "isNativeAd";
+  static var keyNameIsNativeAd = "isShowNative";
   static var keyNameIsBoostAd = "isBoostAd";
   static var keyNameIsBuySellAd = "isBuySellAd";
+  static var keyNameIsBackAd = "isBackAd";
+  static var keyNameIsAdxEnable = "adxEnable";
+  static var keyNameIsAdx = "ADX";
 
   static var fullAdCount = 20;
   static var totalAdInterCount = 0;
@@ -52,15 +51,19 @@ class Debug {
   static var googleOpenApp = "";
   static var googleNative = "";
 
+  static var googleAdxBanner = "";
+  static var googleAdxInterstitial = "";
+  static var googleAdxRewarded = "";
+  static var googleAdxOpenApp = "";
+  static var googleAdxNative = "";
+
   static var facebookBanner = "";
   static var facebookInterstitial = "";
   static var facebookRewarded = "";
   static var facebookOpenApp = "";
   static var facebookNative = "";
   static var facebookNativeSmall = "";
-      // "IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";
   static var facebookNativeBanner = "";
-      // "IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";
 
   static var adGoogleType = "g";
   static var adFacebookType = "f";
@@ -84,6 +87,9 @@ class Debug {
   static var keyNameFacebookSmallNative = "facebookSmallNative";
   static var keyNameCurrentAdCount = "currentAdCount";
   static var keyNameTotalAdInterCount = "totalAdInterCount";
+  static var keyNameTotalAdInterCountBack = "totalAdInterCountBack";
+  static var keyNameTotalAdInterCountQuiz = "totalAdInterCountQuiz";
+  static var keyNameTotalAdInterCountIdentify = "totalAdInterCountIdentify";
   static var keyNameTotalAttemptCount = "totalAttemptCount";
   static var keyNameTotalAttemptCountNative = "totalAttemptCountNative";
   static var keyNameTotalAttemptCountRewarded = "totalAttemptCountRewarded";

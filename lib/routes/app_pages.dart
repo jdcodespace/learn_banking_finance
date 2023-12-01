@@ -46,7 +46,7 @@ class AppPages {
         },
       ),
       binding: SplashBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -64,7 +64,7 @@ class AppPages {
         },
       ),
       binding: HomeBinding(),
-      transition: Transition.native,
+      //  transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -82,7 +82,7 @@ class AppPages {
         },
       ),
       binding: BankingBinding(),
-      transition: Transition.native,
+      //  transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -100,7 +100,7 @@ class AppPages {
         },
       ),
       binding: ViewAllBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -118,7 +118,7 @@ class AppPages {
         },
       ),
       binding: ListOfTaskBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -136,7 +136,7 @@ class AppPages {
         },
       ),
       binding: DetailBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -154,7 +154,7 @@ class AppPages {
         },
       ),
       binding: TipsBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -172,7 +172,7 @@ class AppPages {
         },
       ),
       binding: FaqBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -190,7 +190,7 @@ class AppPages {
         },
       ),
       binding: BookMarksBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -208,7 +208,7 @@ class AppPages {
         },
       ),
       binding: AccountingBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -226,7 +226,7 @@ class AppPages {
         },
       ),
       binding: WebViewBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
@@ -244,7 +244,7 @@ class AppPages {
         },
       ),
       binding: SliderBinding(),
-      transition: Transition.native,
+      // transition: Transition.native,
       // transitionDuration: const Duration(milliseconds: 500),
     ),
   ];

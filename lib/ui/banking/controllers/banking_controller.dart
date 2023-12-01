@@ -2,7 +2,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
+import '../../../ad_mediation/ad_load.dart';
+import '../../../ad_mediation/ad_mediation.dart';
 import '../../../datamodel/bank_data.dart';
+import '../../../google_ads/ad_helper.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
 import '../../../utils/utils.dart';
@@ -61,15 +64,25 @@ class BankingController extends GetxController {
       blogUrl = blogData[0].detail![i].image.toString();
       break;
     }
-    nativeHomeAd();
+    nativeSmallAd();
     super.onInit();
   }
 
 
-  nativeHomeAd() {
-    Utils.nativeAd((value) {
-      bankingAd = value;
-      update();
+
+  nativeSmallAd() async {
+    await AdMediation.smallNativeMediation((ad) {
+      bankingAd = ad;
+      if (ad == null) {
+        AdLoad.nativeSmallAd(AdHelper.nativeAdUnitIdAdx, (ad) {
+          bankingAd = ad;
+          if (ad == null) {
+            Constant.isFacebookAd = true;
+          }
+        }, () {});
+      }
+    }, (value) {
+      Constant.isFacebookAd = value;
     });
   }
   @override

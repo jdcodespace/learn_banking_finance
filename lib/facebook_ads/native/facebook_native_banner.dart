@@ -25,7 +25,7 @@ class _FacebookBannerNativeState extends State<FacebookBannerNative> {
       child: FacebookNativeAd(
         height: Get.height * 0.055,
         // bannerAdSize: NativeBannerAdSize.HEIGHT_50,
-        placementId: AdHelper.nativeAdUnitIdBannerFacebook,
+        placementId: AdHelper.bannerAdUnitIdFacebook,
         adType: NativeAdType.NATIVE_BANNER_AD,
         backgroundColor: CColor.backgroundColor,
 

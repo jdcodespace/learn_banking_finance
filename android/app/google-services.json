@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "579435084834",
-    "firebase_url": "https://learn-financial-banking-default-rtdb.firebaseio.com",
-    "project_id": "learn-financial-banking",
-    "storage_bucket": "learn-financial-banking.appspot.com"
+    "project_number": "20519693522",
+    "firebase_url": "https://learn-banking-finance-default-rtdb.firebaseio.com",
+    "project_id": "learn-banking-finance",
+    "storage_bucket": "learn-banking-finance.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:579435084834:android:f56fba24d3b59103305e7b",
+        "mobilesdk_app_id": "1:20519693522:android:b2ac1d005da2adf0b5910b",
         "android_client_info": {
           "package_name": "com.goofystudio.learn.bank.finance.guide"
         }
       },
       "oauth_client": [
         {
-          "client_id": "579435084834-gt3k6528jbh13b73mk6qek6itom435jj.apps.googleusercontent.com",
+          "client_id": "20519693522-ftqug1tls34emm0q4agt9qdong8aiqon.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAm_cuRIJeM4UE0K80Z0Llt9pUIAg-kXyc"
+          "current_key": "AIzaSyAUsJVsrLpQ_woYqkUqzXMhdkdrDROfB6o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "579435084834-gt3k6528jbh13b73mk6qek6itom435jj.apps.googleusercontent.com",
+              "client_id": "20519693522-ftqug1tls34emm0q4agt9qdong8aiqon.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

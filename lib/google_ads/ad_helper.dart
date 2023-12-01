@@ -1,9 +1,6 @@
-
-
 import '../utils/debug.dart';
 
-class AdHelper {
-
+class AdHelper{
   /*Google*/
   static String get bannerAdUnitId {
     if (Debug.isShowAd) {
@@ -45,7 +42,46 @@ class AdHelper {
     }
   }
 
+  /*GoogleAdx*/
+  static String get bannerAdUnitIdAdx {
+    if (Debug.isShowAd) {
+      return Debug.googleAdxBanner;
+    } else {
+      return "";
+    }
+  }
 
+  static String get nativeAdUnitIdAdx {
+    if (Debug.isShowAd) {
+      return Debug.googleAdxNative;
+    } else {
+      return "";
+    }
+  }
+
+  static String get interAdUnitIdAdx {
+    if (Debug.isShowAd) {
+      return Debug.googleAdxInterstitial;
+    } else {
+      return "";
+    }
+  }
+
+  static String get appOpenAdUnitIdAdx {
+    if (Debug.isShowAd) {
+      return Debug.googleAdxOpenApp;
+    } else {
+      return "";
+    }
+  }
+
+  static String get rewardedAdUnitIdAdx {
+    if (Debug.isShowAd) {
+      return Debug.googleAdxRewarded;
+    } else {
+      return "";
+    }
+  }
 
   /*Facebook*/
   static String get bannerAdUnitIdFacebook {
@@ -83,14 +119,6 @@ class AdHelper {
   static String get nativeAdUnitIdFacebook {
     if (Debug.isShowAd) {
       return Debug.facebookNative;
-    } else {
-      return "";
-    }
-  }
-
-  static String get nativeAdUnitIdBannerFacebook {
-    if (Debug.isShowAd) {
-      return Debug.facebookNativeBanner;
     } else {
       return "";
     }

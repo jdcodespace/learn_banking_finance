@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
+import '../../../ad_mediation/ad_load.dart';
 import '../../../facebook_ads/native/facebook_native_banner.dart';
 import '../../../facebook_ads/native/facebook_native_small.dart';
 import '../../../google_ads/native/native_banner_page_without_preload.dart';
@@ -47,7 +48,6 @@ class DetailScreen extends StatelessWidget {
                                 ),
                               )
                             : Container()
-                        // _nextPreviousButton(logic),
                       ],
                     );
             },

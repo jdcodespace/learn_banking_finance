@@ -86,4 +86,38 @@ class Utils {
           : smallNativeAdFacebook(context),
     );
   }
+
+
+  static showLoader(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: ()async{
+            return false;
+          },
+          child: Center(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.7),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.all(35),
+              height: 88,
+              width: 88,
+              child: const CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void hideLoader() {
+    Get.back();
+  }
 }

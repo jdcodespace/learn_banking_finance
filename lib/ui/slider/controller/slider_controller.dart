@@ -2,7 +2,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:learn_banking_finance/google_ads/ad_helper.dart';
 import 'package:learn_banking_finance/utils/constant.dart';
+import 'package:learn_banking_finance/utils/preference.dart';
+import '../../../ad_mediation/ad_load.dart';
+import '../../../ad_mediation/ad_mediation.dart';
 import '../../../datamodel/bank_data.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
@@ -46,15 +50,25 @@ List<SliderData> sliderData = [];
       // 3.
       Debug.printLog("connection status-------------------->$string");
     });
-    nativeHomeAd();
+    nativeSmallAd();
     sliderData = Constant.firebaseBankData.data!.slider!;
     super.onInit();
   }
 
-  nativeHomeAd() {
-    Utils.nativeAd((value) {
-      sliderAd = value;
-      update();
+  nativeSmallAd() async {
+    await AdMediation.smallNativeMediation((ad) {
+        sliderAd = ad;
+      if (ad == null) {
+        AdLoad.nativeSmallAd(AdHelper.nativeAdUnitIdAdx, (ad) {
+          sliderAd = ad;
+          if (ad == null) {
+            Constant.isFacebookAd = true;
+          }
+        }, () {});
+      }
+    }, (value) {
+      Constant.isFacebookAd = value;
     });
   }
+
 }

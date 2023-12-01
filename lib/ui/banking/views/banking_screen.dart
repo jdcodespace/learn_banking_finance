@@ -4,9 +4,11 @@ import 'package:learn_banking_finance/ui/banking/controllers/banking_controller.
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
+import '../../../ad_mediation/ad_load.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/utils.dart';
@@ -32,23 +34,15 @@ class BankingScreen extends StatelessWidget {
                           children: [
                             _firstViewHeader(),
                             _widgetBlogNews(logic, context),
-                            // Container(
-                            //   margin: const EdgeInsets.only(bottom: 1),
-                            //   decoration: BoxDecoration(
-                            //     color: CColor.opacityBlack10,
-                            //     borderRadius: BorderRadius.circular(10),
-                            //   ),
-                            //   // height: 200,
-                            //   width: double.infinity,
-                            //   alignment: Alignment.center,
-                            //   child: /*(Debug.adType == Debug.adGoogleType &&
-                            //           Debug.isShowAd &&
-                            //           Debug.isNativeAd)
-                            //       // ? Utils.getAdNativeSmallAd()
-                            //       ? NativeInlinePageSmall(context: context)
-                            //       : smallNativeAdFacebook(context),*/
-                            (Debug.isShowAd && Debug.isNativeAd)? Utils.smallNativeAd(logic.bankingAd, context)!:Container(),
-                            // ),
+                            (Debug.isShowAd && Debug.isNativeAd)? Container(
+                              child: (Debug.adType == Debug.adFacebookType)
+                                  ? (Constant.adGoogle)
+                                  ? AdLoad.sliderSmallNativeAd(logic.bankingAd)
+                                  : AdLoad.smallFacebookAd(() {})
+                                  : (Constant.isFacebookAd)
+                                  ? AdLoad.smallFacebookAd(() {})
+                                  : AdLoad.sliderSmallNativeAd(logic.bankingAd),
+                            ):Container(),
                             _widgetLearnBanking(logic),
                             _widgetFinanceLearn(logic),
                             _widgetSavingAccount(logic, context),

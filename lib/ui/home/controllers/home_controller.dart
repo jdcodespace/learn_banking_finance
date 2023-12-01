@@ -5,10 +5,15 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/utils/utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../ad_mediation/ad_load.dart';
+import '../../../ad_mediation/ad_mediation.dart';
+import '../../../google_ads/ad_helper.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
+import '../../../utils/preference.dart';
 import '../../../utils/sizer_utils.dart';
 import '../views/home_screen.dart';
 
@@ -78,16 +83,25 @@ class HomeController extends GetxController {
 
     getDrawerListData();
     getCategoryListData();
-    nativeHomeAd();
+    nativeSmallAd();
     // Utils.preLoadSmallNativeBanking();
     // Utils.preLoadSmallNativeAccount();
     super.onInit();
   }
 
-  nativeHomeAd() {
-    Utils.nativeAd((value) {
-      homeAd = value;
-      update();
+  nativeSmallAd() async {
+    await AdMediation.smallNativeMediation((ad) {
+      homeAd = ad;
+      if (ad == null) {
+        AdLoad.nativeSmallAd(AdHelper.nativeAdUnitIdAdx, (ad) {
+          homeAd = ad;
+          if (ad == null) {
+            Constant.isFacebookAd = true;
+          }
+        }, () {});
+      }
+    }, (value) {
+      Constant.isFacebookAd = value;
     });
   }
 

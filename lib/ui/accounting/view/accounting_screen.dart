@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learn_banking_finance/ui/accounting/controller/accounting_controller.dart';
 import 'package:learn_banking_finance/utils/utils.dart';
+import '../../../ad_mediation/ad_load.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/color.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 import '../../../utils/sizer_utils.dart';
@@ -33,8 +35,15 @@ class AccountingScreen extends StatelessWidget {
                             _firstViewHeader(),
                             _widgetBlogNews(logic, context),
                             (Debug.isShowAd && Debug.isNativeAd)
-                                ? Utils.smallNativeAd(
-                                    logic.accountingAd, context)!
+                                ? Container(
+                              child: (Debug.adType == Debug.adFacebookType)
+                                  ? (Constant.adGoogle)
+                                  ? AdLoad.sliderSmallNativeAd(logic.accountingAd)
+                                  : AdLoad.smallFacebookAd(() {})
+                                  : (Constant.isFacebookAd)
+                                  ? AdLoad.smallFacebookAd(() {})
+                                  : AdLoad.sliderSmallNativeAd(logic.accountingAd),
+                            )
                                 : Container(),
                             _widgetLearnBanking(logic),
                             _widgetFinanceLearn(logic),

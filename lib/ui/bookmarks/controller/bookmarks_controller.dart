@@ -4,7 +4,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../../../ad_mediation/ad_load.dart';
+import '../../../ad_mediation/ad_mediation.dart';
 import '../../../datamodel/bank_data.dart';
+import '../../../google_ads/ad_helper.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/network_connectivity.dart';
 import '../../../utils/preference.dart';
@@ -39,7 +43,7 @@ class BookMarkController extends GetxController {
       // 3.
       Debug.printLog("connection status-------------------->$string");
     });
-    nativeHomeAd();
+    nativeSmallAd();
     getBookMarkData();
     super.onInit();
   }
@@ -61,10 +65,20 @@ class BookMarkController extends GetxController {
     }
     update();
   }
-  nativeHomeAd() {
-    Utils.nativeAd((value) {
-      bookMarkAd = value;
-      update();
+
+  nativeSmallAd() async {
+    await AdMediation.smallNativeMediation((ad) {
+      bookMarkAd = ad;
+      if (ad == null) {
+        AdLoad.nativeSmallAd(AdHelper.nativeAdUnitIdAdx, (ad) {
+          bookMarkAd = ad;
+          if (ad == null) {
+            Constant.isFacebookAd = true;
+          }
+        }, () {});
+      }
+    }, (value) {
+      Constant.isFacebookAd = value;
     });
   }
 }

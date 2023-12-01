@@ -1,12 +1,10 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:learn_banking_finance/ad_mediation/ad_mediation.dart';
 import 'package:learn_banking_finance/connectivitymanager/connectivitymanager.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
-import 'package:learn_banking_finance/facebook_ads/inter/inter_ad.dart';
-import 'package:learn_banking_finance/google_ads/inter/inter_ad.dart';
 import 'package:learn_banking_finance/localization/locale_constant.dart';
 import 'package:learn_banking_finance/routes/app_pages.dart';
 import 'package:learn_banking_finance/routes/app_routes.dart';
@@ -25,25 +23,11 @@ Future<void> main() async {
   await InternetConnectivity().instance();
   await getFirebaseData();
   await Future.delayed(const Duration(seconds: 1));
-  // AdSettings.addTestDevice("e100eec6-0942-4c87-bee9-a6d1b327fbbf");
-
-  if (Debug.adType == Debug.adGoogleType &&
-      Debug.googleInterstitial.isNotEmpty &&
-      Debug.isShowAd) {
-    InterstitialAdClass.showInterstitialAdForSplash(() {
-      runApp(
-        const MyApp(),
-      );
+  if(Debug.isShowAd && Debug.isShowInter) {
+    AdMediation.splashInterMediation(() {
+      runApp(const MyApp());
     });
-  } else if (Debug.adType == Debug.adFacebookType &&
-      Debug.facebookInterstitial.isNotEmpty &&
-      Debug.isShowAd) {
-    InterstitialFacebookAdClass.showInterstitialFacebookAdForSplash(() {
-      runApp(
-        const MyApp(),
-      );
-    });
-  } else {
+  }else{
     runApp(const MyApp());
   }
 }
@@ -58,121 +42,56 @@ Future<void> getFirebaseData() async {
     }
   });
 
-  FirebaseDatabase.instance.ref("adsBool").onValue.listen((event) {
-    final data = Map<String, dynamic>.from(
-      event.snapshot.value as Map,
-    );
-    data.forEach((key, value) {
-      Debug.printLog("$key $value");
-      if (key == Debug.keyNameIsShowAd) {
-        Debug.isShowAd = value;
-        // Debug.isShowAd = false;
-      }
-
-      if (key == Debug.keyNameIsShowBanner) {
-        Debug.isShowBanner = value;
-      }
-
-      if (key == Debug.keyNameIsShowRewarded) {
-        Debug.isShowRewarded = value;
-      }
-
-      if (key == Debug.keyNameIsShowOpenAd) {
-        Debug.isShowOpenAd = value;
-      }
-
-      if (key == Debug.keyNameIsShowInter) {
-        Debug.isShowInter = value;
-      }
-
-      if (key == Debug.keyNameIsNativeAd) {
-        Debug.isNativeAd = value;
-      }
-
-      if (key == Debug.keyNameIsBoostAd) {
-        Debug.isBoostAd = value;
-      }
-
-      if (key == Debug.keyNameIsBuySellAd) {
-        Debug.isBuySellAd = value;
-      }
-    });
-  });
-  FirebaseDatabase.instance.ref("customAds").onValue.listen((event) {
-    final data = Map<String, dynamic>.from(event.snapshot.value as Map);
-    data.forEach((key, value) {
-      Debug.printLog("$key $value");
-      if (key == Debug.keyNameAdType) {
-        Debug.adType = value;
-        // Debug.adType = "g";
-      }
-      if (key == Debug.keyNameAdTypeGoogle) {
-        if (value["banner"]["Banner_Google_Property_Type_Child"] != null) {
-          Debug.googleBanner =
-              value["banner"]["Banner_Google_Property_Type_Child"];
-        }
-
-        if (value["inter"]["Interstitial_Google_Property_Type_Child"] != null) {
-          Debug.googleInterstitial =
-              /*"ca-app-pub-3940256099942544/1033173712";*/
-              value["inter"]["Interstitial_Google_Property_Type_Child"];
-        }
-
-        if (value["openApp"]["adAOKEY"] != null) {
-          Debug.googleOpenApp = value["openApp"]["adAOKEY"];
-        }
-
-        if (value["native"]["Native_Google_Property_Type_Child"] != null) {
-          Debug.googleNative = /* "ca-app-pub-3940256099942544/2247696110";*/
-              value["native"]["Native_Google_Property_Type_Child"];
-        }
-      }
-      if (key == Debug.keyNameAdTypeFaceBook) {
-        if (value["inter"]["Interstitial_FB_Property_Type_Child"] != null) {
-          Debug.facebookInterstitial =
-              /*"IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID";*/
-              value["inter"]["Interstitial_FB_Property_Type_Child"];
-        }
-
-        if (value["native"]["Native_FB_Property_Type_Child"] != null) {
-          Debug.facebookNative =
-              /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
-              value["native"]["Native_FB_Property_Type_Child"];
-        }
-        if (value["nativeSmall"]["Small_Native_Home_Screen"] != null) {
-          Debug.facebookNativeSmall =
-              /*"IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512";*/
-              value["nativeSmall"]["Small_Native_Home_Screen"];
-        }
-        if (value["native"]["Native_Banner"] != null) {
-          Debug.facebookNativeBanner = value["native"]["Native_Banner"];
-        }
-      }
-    });
+  await FirebaseDatabase.instance.ref("adsBool").once().then((value) {
+    Map dataAds = value.snapshot.value as Map;
+    Debug.isShowAd = dataAds[Debug.keyNameIsShowAd];
+    Debug.isShowBanner = dataAds[Debug.keyNameIsShowBanner];
+    Debug.isShowRewarded = dataAds[Debug.keyNameIsShowRewarded];
+    Debug.isShowOpenAd = dataAds[Debug.keyNameIsShowOpenAd];
+    Debug.isShowInter = dataAds[Debug.keyNameIsShowInter];
+    Debug.isNativeAd = dataAds[Debug.keyNameIsNativeAd];
   });
 
-  FirebaseDatabase.instance.ref("other").onValue.listen((event) {
-    final data = Map<String, dynamic>.from(event.snapshot.value as Map);
-    data.forEach((key, value) {
-      if (key == Debug.keyNameCurrentAdCount) {
-        Preference.currentAdCount = value;
-      }
-      if (key == Debug.keyNameTotalAdInterCount) {
-        Debug.totalAdInterCount = value;
-      }
-      if (key == Debug.keyNameTotalAttemptCount) {
-        Preference.totalAttemptCount = value;
-      }
-      if (key == Debug.keyNameTotalAttemptCountNative) {
-        Preference.totalAttemptCountNative = value;
-      }
-      if (key == Debug.keyNameTotalAttemptCountRewarded) {
-        Preference.totalAttemptCountRewarded = value;
-      }
-      if (key == Debug.keyPrivacyPolicy) {
-        Debug.privacyPolicy = value;
-      }
-    });
+  await FirebaseDatabase.instance.ref("customAds").once().then((value) {
+    Map dataAds = value.snapshot.value as Map;
+
+    Debug.adType = dataAds[Debug.keyNameAdType];
+    Debug.isAdxEnable = dataAds[Debug.keyNameIsAdxEnable];
+
+    /*Adx Data*/
+    Debug.googleAdxBanner =
+    dataAds[Debug.keyNameIsAdx]["banner"]["Banner_Google_Adx_Ad"];
+    Debug.googleAdxInterstitial =
+    dataAds[Debug.keyNameIsAdx]["inter"]["Interstitial_Google_Adx_Ad"];
+    Debug.googleAdxOpenApp =
+    dataAds[Debug.keyNameIsAdx]["openApp"]["ad_AppOpen_Adx_Ad"];
+    Debug.googleAdxNative =
+    dataAds[Debug.keyNameIsAdx]["native"]["Native_Google_Adx_Ad"];
+
+    /*Facebook Data*/
+    Debug.facebookInterstitial =
+    dataAds[Debug.keyNameAdTypeFaceBook]["inter"]["Interstitial_FB_Ad"];
+    Debug.facebookNative =
+    dataAds[Debug.keyNameAdTypeFaceBook]["native"]["Native_FB_Ad"];
+    Debug.facebookNativeSmall =
+    dataAds[Debug.keyNameAdTypeFaceBook]["nativeSmall"]["Small_Native_Ad"];
+
+    /*Google data*/
+    Debug.googleBanner =
+    dataAds[Debug.keyNameAdTypeGoogle]["banner"]["Banner_Google_Ad"];
+    Debug.googleInterstitial =
+    dataAds[Debug.keyNameAdTypeGoogle]["inter"]["Interstitial_Google_Ad"];
+    Debug.googleOpenApp =
+    dataAds[Debug.keyNameAdTypeGoogle]["openApp"]["ad_AppOpen_Ad"];
+    Debug.googleNative =
+    dataAds[Debug.keyNameAdTypeGoogle]["native"]["Native_Google_Ad"];
+  });
+
+  await FirebaseDatabase.instance.ref("other").once().then((value) {
+    Map dataAds = value.snapshot.value as Map;
+    Preference.currentAdCount = dataAds[Debug.keyNameCurrentAdCount];
+    Debug.totalAdInterCount = dataAds[Debug.keyNameTotalAdInterCount];
+    Debug.privacyPolicy = dataAds[Debug.keyPrivacyPolicy];
   });
 }
 
@@ -243,7 +162,6 @@ class _MyAppState extends State<MyApp> {
       initialRoute: (Preference.shared.getBool(Preference.isLogin) == true)
           ? AppRoutes.home
           : AppRoutes.slider,
-      // initialRoute:AppRoutes.slider,
       transitionDuration: const Duration(milliseconds: 50),
     );
   }

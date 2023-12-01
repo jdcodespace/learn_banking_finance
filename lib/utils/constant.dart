@@ -1,3 +1,4 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:learn_banking_finance/datamodel/bank_data.dart';
 
 import 'debug.dart';
@@ -86,6 +87,18 @@ class Constant {
   static const campaignFileTypeGiftQrLogo = "gift_qr_logo";
   static const campaignFileTypeLogo = "logo";
   static const idAppBar = "idAppBar";
+
+
+  static InterstitialAd? interGoogleAd;
+  static InterstitialAd? interGoogleAdxAd;
+
+  static bool adComplete = false;
+  static bool adGoogle = false;
+  static bool showHireMeButton = false;
+  static bool isAdGoogleLoader = false;
+  static bool isAdxAdLoader = false;
+  static bool isFacebookAd = false;
+  static bool isFacebookAdLoader = false;
 
 
   static BankData firebaseBankData = BankData();

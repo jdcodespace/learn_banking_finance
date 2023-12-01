@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 import 'package:learn_banking_finance/utils/color.dart';
 import 'package:learn_banking_finance/utils/sizer_utils.dart';
 import 'package:learn_banking_finance/utils/utils.dart';
+import '../../../ad_mediation/ad_load.dart';
 import '../../../facebook_ads/inter/inter_ad.dart';
 import '../../../google_ads/inter/inter_ad.dart';
 import '../../../offline/offline_screen.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/debug.dart';
 import '../../../utils/font.dart';
 
@@ -62,7 +64,15 @@ class HomeScreen extends StatelessWidget {
                           Align(
                               alignment: Alignment.bottomCenter,
                               child: (Debug.isShowAd && Debug.isNativeAd)
-                                  ? Utils.smallNativeAd(logic.homeAd, context)
+                                  ?Container(
+                                child: (Debug.adType == Debug.adFacebookType)
+                                    ? (Constant.adGoogle)
+                                    ? AdLoad.sliderSmallNativeAd(logic.homeAd)
+                                    : AdLoad.smallFacebookAd(() {})
+                                    : (Constant.isFacebookAd)
+                                    ? AdLoad.smallFacebookAd(() {})
+                                    : AdLoad.sliderSmallNativeAd(logic.homeAd),
+                              )
                                   : Container()),
                           // )
                         ],
